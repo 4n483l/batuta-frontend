@@ -8,6 +8,8 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './auth/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { RegisterComponent } from './auth/register/register.component';
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

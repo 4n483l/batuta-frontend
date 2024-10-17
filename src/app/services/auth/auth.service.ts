@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,6 +8,12 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
   private API_URL = 'http://127.0.0.1:8000/api'; // URL del backend Laravel
+
+  // El estado de si el usuario está logueado. emisor de eventos
+  private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
+
+  // Observable para suscribirse a los cambios en el estado de autenticación
+  isLoggedIn$ = this.loggedIn.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +25,7 @@ export class AuthService {
         // Almacenar el token JWT en localStorage
         if (response.token) {
           localStorage.setItem('jwtToken', response.token);
+          this.loggedIn.next(true); // Emitir el evento de que el usuario está logueado
         }
         return response;
       })
@@ -32,7 +39,7 @@ export class AuthService {
   }
 
   // Método para obtener los datos del usuario autenticado
-/*   getUser(): Observable<any> {
+  /*   getUser(): Observable<any> {
     const token = this.getToken();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -53,6 +60,7 @@ export class AuthService {
   // Método para cerrar sesión
   logout(): void {
     localStorage.removeItem('jwtToken');
+    this.loggedIn.next(false); // Emitir el evento de que el usuario no está logueado
   }
 
   // Método para hacer una llamada autenticada con JWT

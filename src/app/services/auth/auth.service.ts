@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private API_URL = 'http://127.0.0.1:8000'; // URL del backend Laravel
+  private API_URL = 'http://127.0.0.1:8000/api'; // URL del backend Laravel
 
   constructor(private http: HttpClient) {}
 
@@ -30,6 +30,15 @@ export class AuthService {
     const url = `${this.API_URL}/register`; // Ruta de registro en Laravel
     return this.http.post(url, { name, email, password });
   }
+
+  // Método para obtener los datos del usuario autenticado
+/*   getUser(): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get(`${this.API_URL}/user`, { headers });
+  } */
 
   // Método para obtener el token almacenado
   getToken(): string | null {

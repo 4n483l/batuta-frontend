@@ -33,9 +33,9 @@ export class AuthService {
   }
 
   // Método para el registro
-  register(name: string, email: string, password: string): Observable<any> {
+  register(name: string, email: string, password: string, confirmPassword: string): Observable<any> {
     const url = `${this.API_URL}/register`; // Ruta de registro en Laravel
-    return this.http.post(url, { name, email, password });
+    return this.http.post(url, { name, email, password, password_confirmation: confirmPassword });
   }
 
   // Método para obtener los datos del usuario autenticado

@@ -18,11 +18,6 @@ export class RegisterComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log({
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      });
       const { name, email, password, confirmPassword } = form.value;
       // Llamada al servicio de registro
       this.authService

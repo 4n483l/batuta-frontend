@@ -1,2 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+$color-primary: #6d85a8 !important;
+$color-secondary: #f8f9fa !important;
+$color-contrast: #e1e3a5 !important;
+$color-darkPrimary: #4b6584;
+$color-text: #333333;
 
+main {
+  margin-top: 50px;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  color: $color-text;
+  background-color: $color-secondary;
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $color-primary;
+  font-weight: bold !important;
+}
+
+/* Párrafos */
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: $color-text;
+}
+
+/* Enlaces */
+a {
+  color: $color-primary;
+  text-decoration: none; /* Sin subrayado */
+}
+
+a:hover {
+  color: $color-darkPrimary;
+  font-weight: bold;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: $color-primary;
+  border-color: $color-primary;
+  color: $color-contrast;
+}
+
+.btn-primary:hover {
+  font-weight: bold;
+  color: $color-contrast;
+}
+
+/* Color de acento */
+.acento {
+  color: #e76f51; /* Color para acentos */
+}
+
+/* Tarjetas */
+.card {
+  border: 1px solid #b8e6c9; /* Verde suave */
+}
+
+/* Secciones */
+/* #about {
+    background-color: #F3EFAF;
+    color: #6d85a8;
+} */

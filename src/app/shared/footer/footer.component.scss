@@ -1,22 +1,20 @@
-/* Estilo para el footer */
+$color-primary: #6d85a8 !important;
+$color-secondary: #f8f9fa !important;
+$color-contrast: #e1e3a5 !important;
+$color-darkPrimary: #4b6584;
+$color-text: #333333;
+
 footer {
-    background-color: #f8f9fa; /* Color de fondo */
-    color: #6d85a8; /* Color de texto por defecto */
+  background-color: $color-primary;
+  color: $color-secondary;
 }
 
-/* Estilo para los encabezados y párrafos dentro del footer */
 footer h5,
 footer p {
-    font-weight: normal; /* Peso de fuente normal por defecto */
+  color: #e1e3a5 !important;
 }
 
-/* Para mantener el color y estilo al pasar el mouse, solo aplicar el estilo normal */
-footer h5,
-footer p {
-    color: #6d85a8; /* Color de texto */
-}
-
-/* Si deseas el texto en negrita por defecto, simplemente establece el siguiente estilo */
 footer h5 {
-    font-weight: bold; /* Hacer que el encabezado sea en negrita */
+  color: $color-contrast;
+  font-weight: bold;
 }

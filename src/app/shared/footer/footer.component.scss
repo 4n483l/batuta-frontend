@@ -1,0 +1,22 @@
+/* Estilo para el footer */
+footer {
+    background-color: #f8f9fa; /* Color de fondo */
+    color: #6d85a8; /* Color de texto por defecto */
+}
+
+/* Estilo para los encabezados y párrafos dentro del footer */
+footer h5,
+footer p {
+    font-weight: normal; /* Peso de fuente normal por defecto */
+}
+
+/* Para mantener el color y estilo al pasar el mouse, solo aplicar el estilo normal */
+footer h5,
+footer p {
+    color: #6d85a8; /* Color de texto */
+}
+
+/* Si deseas el texto en negrita por defecto, simplemente establece el siguiente estilo */
+footer h5 {
+    font-weight: bold; /* Hacer que el encabezado sea en negrita */
+}

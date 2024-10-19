@@ -1,16 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 $color-primary: #6d85a8 !important;
 $color-secondary: #f8f9fa !important;
-$color-contrast: #e1e3a5 !important;
+$color-contrast: #d3d5a0 !important;
 $color-darkPrimary: #4b6584;
+$color-contrastLight: rgba(211, 213, 160, 0.2) !important;
 $color-text: #333333;
+$font-style: "Montserrat", sans-serif !important;
 
 main {
   margin-top: 50px;
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: $font-style;
   color: $color-text;
   background-color: $color-secondary;
 }
@@ -63,11 +65,12 @@ a:hover {
 
 /* Tarjetas */
 .card {
-  border: 1px solid #b8e6c9; /* Verde suave */
+  // border: 1px solid; /* Verde suave */
+  background-color: $color-contrastLight;
 }
 
 /* Secciones */
-/* #about {
-    background-color: #F3EFAF;
-    color: #6d85a8;
-} */
+#about {
+ // background-color: $color-contrastLight;
+  color: #6d85a8;
+}

@@ -30,9 +30,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/scss/bootstrap.min.scss",
-              "src/styles.scss"
-
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

@@ -1,0 +1,84 @@
+$color-primary: #6d85a8 !important;
+$color-secondary: #f8f9fa !important;
+$color-contrast: #d3d5a0 !important;
+$color-darkPrimary: #4b6584;
+$color-contrastLight: rgba(211, 213, 160, 0.2) !important;
+$color-text: #333333;
+$font-style: "Montserrat", sans-serif !important;
+
+
+.calendar-container {
+  max-width: 100%;
+  margin: 100px;
+  text-align: center;
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 10px;
+      color: $color-contrast; // Color de texto
+      background-color: $color-primary; // Fondo del botón
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: $color-darkPrimary; // Color de fondo al pasar el mouse
+        color: $color-contrast; // Color de texto al pasar el mouse
+      }
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: $color-primary; // Color del texto del mes
+    }
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); // Siete columnas para los días de la semana
+    gap: 10px;
+
+    .calendar-day {
+      font-weight: bold;
+      text-transform: uppercase;
+      color: $color-primary; // Color de los días de la semana
+    }
+
+    .calendar-cell {
+      padding: 10px;
+      border: 1px solid $color-contrastLight; // Borde ligero
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; // Alinera el contenido al principio
+
+      .day-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $color-darkPrimary; // Color del número del día
+      }
+
+      .event-list {
+        margin-top: 5px; // Espacio entre el número del día y los eventos
+
+        .event-item {
+          display: block;
+          background-color: $color-contrast; // Fondo de eventos
+          padding: 2px 5px; // Espaciado
+          border-radius: 3px; // Bordes redondeados
+          color: $color-text; // Color del texto de eventos
+          font-size: 0.9rem; // Tamaño de texto más pequeño
+        }
+      }
+    }
+  }
+}

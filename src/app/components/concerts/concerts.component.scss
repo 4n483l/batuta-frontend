@@ -6,50 +6,79 @@ $color-contrastLight: rgba(211, 213, 160, 0.2) !important;
 $color-text: #333333;
 $font-style: "Montserrat", sans-serif !important;
 
+main {
+  margin-top: 50px;
+}
+
+body {
+  font-family: $font-style;
+  color: $color-text;
+  background-color: $color-secondary;
+}
+
 .calendar-container {
-  max-width: 900px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  background-color: $color-secondary;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.cal-header {
   text-align: center;
-  font-size: 1.25rem;
-  color: $color-primary;
-  font-weight: bold;
-}
 
-.cal-cell {
-  padding: 10px;
-  border: 1px solid $color-contrastLight;
-  border-radius: 4px;
-  background-color: $color-secondary;
-}
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 
-.cal-cell-number {
-  font-size: 1rem;
-  color: $color-primary;
-  font-weight: bold;
-}
+    h2 {
+      color: $color-primary;
+      font-size: 1.5rem;
+    }
 
-.cal-cell-events {
-  margin-top: 5px;
-}
+    button {
+      padding: 10px 20px;
+      background-color: $color-primary;
+      border: none;
+      color: $color-contrast;
+      cursor: pointer;
+      transition: background-color 0.3s;
 
-.cal-event {
-  background-color: $color-primary;
-  color: $color-contrast;
-  padding: 2px 4px;
-  border-radius: 4px;
-  margin-bottom: 2px;
-  font-size: 0.875rem;
+      &:hover {
+        background-color: $color-darkPrimary;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+  }
+
+  .day-card {
+    background-color: $color-contrastLight;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: $color-primary;
+    }
+
+    p {
+      margin: 5px 0;
+      color: $color-text;
+      font-size: 0.9rem;
+    }
+
+    strong {
+      color: $color-primary;
+    }
+  }
 }

@@ -1,36 +1,26 @@
-<!-- <div class="calendar-container">
-  <div class="calendar-header">
-    <button (click)="viewDate = addDays(viewDate, -1)">Anterior</button>
-    <button (click)="viewDate = addDays(viewDate, 1)">Siguiente</button>
-  </div>
-  <mwl-calendar-month-view [viewDate]="viewDate" [events]="events">
-  </mwl-calendar-month-view>
-</div>
- -->
+<main>
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <button class="btn-primary" (click)="changeMonth(-1)">Anterior</button>
 
-<div class="calendar-container">
-  <div class="calendar-header">
-    <button class="btn-primary" (click)="viewDate = addDays(viewDate, -1)">Anterior</button>
-    <button class="btn-primary" (click)="viewDate = addDays(viewDate, 1)">Siguiente</button>
-  </div>
-  <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [headerTemplate]="headerTemplate"
-    [cellTemplate]="cellTemplate">
-  </mwl-calendar-month-view>
+      <h2>{{ currentYear }} - {{ currentMonthName}}</h2>
 
-  <ng-template #headerTemplate let-date="date">
-    <div class="cal-header">
-      {{ date | date: 'MMMM yyyy' }}
+      <button class="btn-primary" (click)="changeMonth(1)">Siguiente</button>
     </div>
-  </ng-template>
 
-  <ng-template #cellTemplate let-day="day">
-    <div class="cal-cell">
-      <div class="cal-cell-number">{{ day.date | date: 'd' }}</div>
-      <div class="cal-cell-events">
-        <div *ngFor="let event of day.events" class="cal-event">
-          {{ event.title }}
+    <div class="calendar-grid">
+      <!-- Rellenar los días hasta el primer día del mes -->
+      <div *ngFor="let _ of [].constructor(firstDayOfWeek)"></div>
+
+      <!-- Mostrar los días del mes -->
+      <div *ngFor="let day of daysInMonth" class="day-card card">
+        <h3>{{ day }}</h3>
+        <div *ngFor="let concert of getConcertsForDay(day)">
+          <p><strong>{{ concert.name }}</strong></p>
+          <p>{{ concert.place }}</p>
+          <p>{{ concert.hour }}</p>
         </div>
       </div>
     </div>
-  </ng-template>
-</div>
+  </div>
+</main>

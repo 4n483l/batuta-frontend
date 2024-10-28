@@ -18,18 +18,13 @@
         <h3 class="day">{{ day }}</h3>
 
         <div *ngFor="let event of getEventsForDay(day)">
-          <p><strong>{{ event.title || event.name }}</strong></p>
-          <p *ngIf="event.place">{{ event.place }}</p>
-          <p *ngIf="event.description">{{ event.description }}</p>
-          <p>{{ event.hour || event.time }}</p>
+          <p><strong>{{ event.title || event.name || event.subject}}</strong></p>
+          <p *ngIf="event.teacher">{{ event.teacher }}</p>
+          <p *ngIf="event.classroom">Clase: {{ event.classroom }}</p>
+          <p *ngIf="event.place"><strong>Lugar:</strong> {{ event.place }}</p>
+          <p *ngIf="event.hour"><strong>Hora: </strong>{{ event.hour }}h</p>
 
         </div>
-
-        <!--    <div *ngFor="let event of getConcertsForDay(day)">
-          <p><strong>{{ concert.title }}</strong></p>
-          <p>{{ concert.place }}</p>
-          <p>{{ concert.hour }}</p>
-        </div> -->
       </div>
     </div>
   </div>

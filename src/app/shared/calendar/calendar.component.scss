@@ -1,6 +1,6 @@
 @import 'src/styles.scss';
 
-$card-height: 150px;
+$card-height: 200px;
 
 .calendar-container {
   width: 100%;
@@ -60,9 +60,9 @@ $card-height: 150px;
     }
 
     p {
-      margin: 5px 0;
+      margin: 4px 0;
       color: $color-text;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     strong {

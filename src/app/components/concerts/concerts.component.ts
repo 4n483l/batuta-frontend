@@ -1,21 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface Concert {
-  id: number;
-  title: string;
-  place: string;
-  date: string; // formato: "YYYY-MM-DD"
-  hour: string;
-}
+import { Concert } from 'src/app/models/concert.model';
 
 @Component({
   selector: 'app-concerts',
   templateUrl: './concerts.component.html',
   styleUrls: ['./concerts.component.scss'],
 })
-
-
-
 export class ConcertsComponent implements OnInit {
   concerts: Concert[] = [
     {
@@ -42,12 +32,7 @@ export class ConcertsComponent implements OnInit {
     // Resto de los conciertos...
   ];
 
+  constructor() {}
 
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -29,13 +29,13 @@ export class RehearsalsComponent {
     {
       id: 3,
       place: 'Sala de ensayo C',
-      date: '2023-11-02',
+      date: '2023-12-02',
       hour: '11:30',
     },
     {
       id: 4,
       place: 'Auditorio Principal',
-      date: '2024-11-03',
+      date: '2024-10-03',
       hour: '09:00',
     },
     {

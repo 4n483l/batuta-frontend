@@ -2,9 +2,12 @@
   <div class="calendar-container">
     <div class="calendar-header">
       <button class="btn-primary" (click)="changeMonth(-1)">Anterior</button>
+
       <h2>{{ currentMonthName }} {{ currentYear }}</h2>
+
       <button class="btn-primary" (click)="changeMonth(1)">Siguiente</button>
     </div>
+
 
     <div class="calendar-grid">
       <!-- Rellenar los días hasta el primer día del mes -->
@@ -14,18 +17,19 @@
       <div *ngFor="let day of daysInMonth" class="day-card card">
         <h3 class="day">{{ day }}</h3>
 
-        <!-- Mostrar eventos del día de cualquier tipo -->
         <div *ngFor="let event of getEventsForDay(day)">
           <p><strong>{{ event.title || event.name }}</strong></p>
-
-          <!-- Mostrar lugar si está definido -->
           <p *ngIf="event.place">{{ event.place }}</p>
-          <!-- Mostrar materia si es un examen -->
-          <p *ngIf="event.subject">{{ event.subject }}</p>
-
-          <!-- Mostrar la hora o tiempo, según el evento -->
+          <p *ngIf="event.description">{{ event.description }}</p>
           <p>{{ event.hour || event.time }}</p>
+
         </div>
+
+        <!--    <div *ngFor="let event of getConcertsForDay(day)">
+          <p><strong>{{ concert.title }}</strong></p>
+          <p>{{ concert.place }}</p>
+          <p>{{ concert.hour }}</p>
+        </div> -->
       </div>
     </div>
   </div>

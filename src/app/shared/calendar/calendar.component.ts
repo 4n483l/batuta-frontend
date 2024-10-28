@@ -12,9 +12,12 @@ type EventType = Concert | Rehearsal/*  | Exam | Class */;
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-getEventsForDay(_t14: number): any {
-throw new Error('Method not implemented.');
-}
+  getEventsForDay(day: number): any[] {
+    const dateString = `${this.currentYear}-${String(
+      this.currentMonth + 1
+    ).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    return this.events.filter((event) => event.date === dateString);
+  }
   @Input() events: EventType[] = [];
   currentYear: number;
   currentMonth: number;

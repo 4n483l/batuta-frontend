@@ -45,11 +45,9 @@ export class ConcertsComponent implements OnInit {
 
 
   constructor() {
-
   }
 
   ngOnInit(): void {
-
   }
 
 }

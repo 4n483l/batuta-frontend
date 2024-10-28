@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ConcertsComponent } from './components/concerts/concerts.component';
+import { CalendarComponent } from './shared/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ConcertsComponent } from './components/concerts/concerts.component';
     RegisterComponent,
     DashboardComponent,
     ConcertsComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,8 @@ $color-darkPrimary: #4b6584;
 $color-contrastLight: rgba(211, 213, 160, 0.2) !important;
 $color-text: #333333;
 $font-style: "Montserrat", sans-serif !important;
+$card-height: 150px;
+
 
 main {
   margin-top: 50px;
@@ -15,7 +17,7 @@ body {
   font-family: $font-style;
   color: $color-text;
   background-color: $color-secondary;
-  
+
 }
 
 /* Títulos */

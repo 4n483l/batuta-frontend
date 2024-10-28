@@ -1,12 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Concert } from 'src/app/components/concerts/concerts.component';
+import { Rehearsal } from 'src/app/components/rehearsals/rehearsals.component';
+//import { Exam } from 'src/app/components/exams/exams.component';
+//import { Class } from 'src/app/components/classes/classes.component';
 
-interface Concert {
-  id: number;
-  name: string;
-  place: string;
-  date: string; // formato: "YYYY-MM-DD"
-  hour: string;
-}
+type EventType = Concert | Rehearsal/*  | Exam | Class */;
 
 @Component({
   selector: 'app-calendar',
@@ -14,7 +12,10 @@ interface Concert {
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  @Input() concerts: Concert[] = []; // Datos de conciertos pasados como entrada
+getEventsForDay(_t14: number): any {
+throw new Error('Method not implemented.');
+}
+  @Input() events: EventType[] = [];
   currentYear: number;
   currentMonth: number;
   daysInMonth: number[] = [];
@@ -44,12 +45,12 @@ export class CalendarComponent implements OnInit {
       (_, i) => i + 1
     );
   }
-
-  getConcertsForDay(day: number): Concert[] {
+  // Método que filtra eventos de un día dado
+  getConcertsForDay(day: number): EventType[] {
     const dateString = `${this.currentYear}-${String(
       this.currentMonth + 1
     ).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    return this.concerts.filter((concert) => concert.date === dateString);
+    return this.events.filter((event) => event.date === dateString);
   }
 
   changeMonth(offset: number) {

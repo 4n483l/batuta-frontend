@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
+import { Rehearsal } from 'src/app/models/rehearsal.model';
 
-export interface Rehearsal {
-  id: number;
-  place: string;
-  date: string; // formato: "YYYY-MM-DD"
-  hour: string;
-}
 
 @Component({
   selector: 'app-rehearsals',

@@ -1,14 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Concert} from 'src/app/models/concert.model';
+import { Concert } from 'src/app/models/concert.model';
+import { Rehearsal } from 'src/app/models/rehearsal.model';
+import { Exam } from 'src/app/models/exam.model';
+import { Course } from 'src/app/models/course.model';
 
-
-import { Rehearsal } from 'src/app/components/rehearsals/rehearsals.component';
-import { Exam } from 'src/app/components/exams/exams.component';
-//import { Course } from 'src/app/components/courses/courses.component';
-
-type EventType = Concert | Rehearsal | Exam /* | Course */;
-
-
+type EventType = Concert | Rehearsal | Exam  | Course ;
 
 @Component({
   selector: 'app-calendar',

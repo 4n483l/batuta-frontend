@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
+import { Exam } from 'src/app/models/exam.model';
 
-export interface Exam {
-  id: number;
-  subject: string;
-  teacher: string;
-  date: string; // formato: "YYYY-MM-DD"
-  hour: string;
-  classroom: string;
-}
 
 @Component({
   selector: 'app-exams',

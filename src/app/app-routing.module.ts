@@ -5,15 +5,18 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ConcertsComponent } from './components/concerts/concerts.component';
 import { RehearsalsComponent } from './components/rehearsals/rehearsals.component';
+import { ExamsComponent } from './components/exams/exams.component';
+import { CoursesComponent } from './components/courses/courses.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: 'register', component: RegisterComponent }, // Ruta explícita para el registro (opcional)
-  { path: 'login', component: LoginComponent }, // Ruta explícita para el login (opcional)
-  // Aquí puedes agregar más rutas según sea necesario, por ejemplo:
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'concerts', component: ConcertsComponent },
   { path: 'rehearsals', component: RehearsalsComponent },
+  { path: 'exams', component: ExamsComponent },
+  { path: 'courses', component: CoursesComponent },
   { path: '**', redirectTo: '' }, // Redirigir a la página de login si no se encuentra la ruta
 ];
 

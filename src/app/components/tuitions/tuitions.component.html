@@ -12,24 +12,57 @@
     </div>
 
     <div class="form-group">
-      <label for="birthDate">Fecha de Nacimiento</label>
-      <input type="date" class="form-control" id="birthDate">
-    </div>
-
-    <div class="form-group">
       <label for="address">Dirección</label>
       <input type="text" class="form-control" id="address" placeholder="Escribe tu dirección">
     </div>
 
+    <div class="form-group row">
+      <div class="col-md-3">
+        <label for="postal-code">Código postal</label>
+        <input type="text" class="form-control" id="postal-code" placeholder="C.P.">
+      </div>
+      <div class="col-md-9">
+        <label for="city">Localidad</label>
+        <input type="text" class="form-control" id="city" placeholder="Escribe tu localidad">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-5">
+        <label for="birthDate">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" id="birthDate">
+      </div>
+      <div class="col-md-7">
+        <label for="phone">Teléfono</label>
+        <input type="tel" class="form-control" id="phone" placeholder="Escribe tu teléfono">
+      </div>
+    </div>
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" class="form-control" id="email" placeholder="correo@example.com">
     </div>
 
-    <div class="form-group">
-      <label for="phone">Teléfono</label>
-      <input type="tel" class="form-control" id="phone" placeholder="Escribe tu teléfono">
-    </div>
+      <div class="form-group">
+        <label for="instrument">Instrumento</label>
+        <select class="form-select" id="instrument">
+          <option value="">Selecciona un instrumento</option>
+          <option value="Clarinete">Clarinete</option>
+          <option value="Flauta">Flauta</option>
+          <option value="Oboe">Oboe</option>
+          <option value="Saxo">Saxo</option>
+          <option value="Trompa">Trompa</option>
+          <option value="Trompeta">Trompeta</option>
+          <option value="Trombón">Trombón</option>
+          <option value="Fagot">Fagot</option>
+          <option value="Percusión">Percusión</option>
+          <option value="Tuba">Tuba</option>
+          <option value="Bombardino">Bombardino</option>
+          <option value="Piano">Piano</option>
+          <option value="Guitarra">Guitarra</option>
+          <option value="Violín">Violín</option>
+          <option value="Violoncello">Violoncello</option>
+        </select>
+      </div>
 
     <div class="form-group">
       <label>Asignaturas</label>
@@ -47,30 +80,10 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="instrument">Instrumento</label>
-      <select class="form-select"  id="instrument">
-        <option value="" >Selecciona un instrumento</option>
-        <option value="Clarinete">Clarinete</option>
-        <option value="Flauta">Flauta</option>
-        <option value="Oboe">Oboe</option>
-        <option value="Saxo">Saxo</option>
-        <option value="Trompa">Trompa</option>
-        <option value="Trompeta">Trompeta</option>
-        <option value="Trombón">Trombón</option>
-        <option value="Fagot">Fagot</option>
-        <option value="Percusión">Percusión</option>
-        <option value="Tuba">Tuba</option>
-        <option value="Bombardino">Bombardino</option>
-        <option value="Piano">Piano</option>
-        <option value="Guitarra">Guitarra</option>
-        <option value="Violín">Violín</option>
-        <option value="Violoncello">Violoncello</option>
-      </select>
 
-
+    <div class="form-group d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary w-25">Enviar</button>
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
 </div>

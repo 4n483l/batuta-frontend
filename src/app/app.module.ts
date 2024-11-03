@@ -16,6 +16,7 @@ import { CalendarComponent } from './shared/calendar/calendar.component';
 import { RehearsalsComponent } from './components/rehearsals/rehearsals.component';
 import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { TuitionsComponent } from './components/tuitions/tuitions.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CoursesComponent } from './components/courses/courses.component';
     RehearsalsComponent,
     ExamsComponent,
     CoursesComponent,
+    TuitionsComponent,
   ],
   imports: [
     BrowserModule,

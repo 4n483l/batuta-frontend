@@ -7,6 +7,7 @@ import { ConcertsComponent } from './components/concerts/concerts.component';
 import { RehearsalsComponent } from './components/rehearsals/rehearsals.component';
 import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { TuitionsComponent } from './components/tuitions/tuitions.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'rehearsals', component: RehearsalsComponent },
   { path: 'exams', component: ExamsComponent },
   { path: 'courses', component: CoursesComponent },
+  { path: 'tuitions', component: TuitionsComponent },
+
   { path: '**', redirectTo: '' }, // Redirigir a la página de login si no se encuentra la ruta
 ];
 

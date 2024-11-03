@@ -1,65 +1,75 @@
 @import "src/styles.scss";
 
 .container {
-  max-width: 400px;
-  //margin-top: 80px;
-  padding: 3rem;
+  max-width: 600px;
+  margin-top: 2rem;
+  padding: 2rem;
   background-color: $color-contrastLight;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 6rem auto;
 }
 
 h2 {
   color: $color-primary;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1rem;
+}
+.form-group {
+  margin-bottom: 1.5rem;
 }
 .form-group label {
   font-weight: bold;
   color: $color-darkPrimary;
 }
-.form-group label {
-  font-weight: bold;
-  color: $color-darkPrimary;
-}
+
 .form-control {
   font-family: $font-style;
   border: 1px solid $color-primary;
   border-radius: 4px;
   background-color: $color-secondary;
-  color: $color-text;
+  color: $color-darkPrimary;
   padding: 0.5rem;
   font-size: 1rem;
+
+
 }
 
 .form-control::placeholder {
-  color: lighten($color-text, 40%); /* Color más claro para el placeholder */
+  color: lighten($color-text, 40%);
   font-style: italic;
 }
 
-.form-control:focus {
-  border-color: $color-darkPrimary;
-  // box-shadow: 0 0 0 0.2rem rgba(#6d85a8, 0.25);
+.form-select {
+  font-family: $font-style;
+  border: 1px solid $color-primary;
+  border-radius: 4px;
+  background-color: $color-secondary;
+  color: $color-darkPrimary;
+  padding: 0.5rem;
+  font-size: 1rem;
+  &:not(:focus) {
+    color: lighten($color-text, 40%);
+  }
 }
-/* Mensajes de error */
+
+
+.form-check-label {
+  font-weight: normal !important;
+  color: $color-darkPrimary;
+}
+
 .text-danger {
   font-size: 0.875rem;
   font-style: italic;
-  color: #e76f51; /* Acento para los errores */
+  color: #e76f51;
 }
 
-/* Botón de envío */
 .btn-primary {
-  width: 100%;
   background-color: $color-primary;
   border-color: $color-primary;
   color: $color-contrast;
-    font-weight: bold;
-  padding: 0.5rem;
-  font-size: 1rem;
-  transition: background-color 0.3s, font-weight 0.3s;
+  font-weight: bold;
 }
 
 .btn-primary:hover,
@@ -68,17 +78,3 @@ h2 {
   font-weight: bold;
   color: $color-contrast;
 }
-/* Ajustes de espaciado */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.text-center {
-  text-align: center;
-}
-
-/* .text-muted {
-  color: lighten($color-text, 20%);
-  font-size: 0.875rem;
-}
- */

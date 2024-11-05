@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms'; // Importar NgForm para manejar el formulario
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -9,7 +9,15 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+  // Nuevas propiedades para los campos adicionales
   name: string = '';
+  surname: string = '';
+  dni: string = '';
+  phone: string = '';
+  address: string = '';
+  city: string = '';
+  postalCode: string = '';
+  birthdate: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
@@ -18,15 +26,39 @@ export class RegisterComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      const { name, email, password, confirmPassword } = form.value;
-      // Llamada al servicio de registro
+      const {
+        name,
+        surname,
+        dni,
+        phone,
+        address,
+        city,
+        postalCode,
+        birthdate,
+        email,
+        password,
+        confirmPassword,
+      } = form.value;
+
+      // Llamada al servicio de registro con todos los datos
       this.authService
-        .register(name, email, password, confirmPassword)
+        .register({
+          name,
+          surname,
+          dni,
+          phone,
+          address,
+          city,
+          postalCode,
+          birthdate,
+          email,
+          password,
+          confirmPassword,
+        })
         .subscribe(
           (response) => {
             alert('Registro exitoso');
             console.log('Respuesta del backend:', response);
-            // Redirige al usuario después del registro exitoso, si es necesario
             this.router.navigate(['/login']);
           },
           (error) => {

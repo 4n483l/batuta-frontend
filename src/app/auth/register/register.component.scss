@@ -1,13 +1,12 @@
 @import "src/styles.scss";
 
 .container {
-  max-width: 400px;
-  //margin-top: 80px;
+  max-width: 90%; /* Ajuste para ocupar casi toda la pantalla */
   padding: 3rem;
   background-color: $color-contrastLight;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 6rem auto;
+  margin: 3rem auto;
 }
 
 h2 {
@@ -16,14 +15,12 @@ h2 {
   text-align: center;
   margin-bottom: 1.8rem;
 }
+
 .form-group label {
   font-weight: bold;
   color: $color-darkPrimary;
 }
-.form-group label {
-  font-weight: bold;
-  color: $color-darkPrimary;
-}
+
 .form-control {
   font-family: $font-style;
   border: 1px solid $color-primary;
@@ -34,16 +31,28 @@ h2 {
   font-size: 1rem;
 }
 
-.form-control::placeholder {
-  color: lighten($color-text, 40%); /* Color más claro para el placeholder */
-  font-style: italic;
+.form-row {
+  display: flex;
+  gap: 1rem; /* Espacio entre los elementos de la fila */
 }
 
-.form-control:focus {
-  border-color: $color-darkPrimary;
-  // box-shadow: 0 0 0 0.2rem rgba(#6d85a8, 0.25);
+.third-width {
+  flex: 1 1 33.33%; /* 1/3 del ancho */
 }
-/* Mensajes de error */
+
+.two-thirds-width {
+  flex: 2 1 66.67%; /* 2/3 del ancho */
+}
+
+.half-width {
+  flex: 1 1 50%; /* 50% del ancho */
+}
+
+/* Ajustes de espaciado */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
 .text-danger {
   font-size: 0.875rem;
   font-style: italic;
@@ -56,7 +65,7 @@ h2 {
   background-color: $color-primary;
   border-color: $color-primary;
   color: $color-contrast;
-    font-weight: bold;
+  font-weight: bold;
   padding: 0.5rem;
   font-size: 1rem;
   transition: background-color 0.3s, font-weight 0.3s;
@@ -68,7 +77,18 @@ h2 {
   font-weight: bold;
   color: $color-contrast;
 }
-/* Ajustes de espaciado */
+
+/* Estilo del contenedor del formulario */
+.container {
+  max-width: 90%; /* Permitir que el contenedor ocupe casi toda la pantalla */
+  padding: 3rem;
+  background-color: $color-contrastLight;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 3rem auto; /* Ajustar el margen superior */
+}
+
+/* Espaciado para los campos de formulario */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -76,9 +96,3 @@ h2 {
 .text-center {
   text-align: center;
 }
-
-/* .text-muted {
-  color: lighten($color-text, 20%);
-  font-size: 0.875rem;
-}
- */

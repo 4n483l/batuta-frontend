@@ -1,92 +1,139 @@
-<div class="container-fluid">
-  <div class="container flex-column">
-    <h2 class="text-center">Formulario de Matrícula</h2>
-    <form>
-      <div class="form-group">
-        <label for="firstName">Nombre</label>
-        <input type="text" class="form-control" id="firstName" placeholder="Escribe tu nombre">
-      </div>
+<div class="container">
+  <h2 class="text-center">Formulario de Matrícula</h2>
 
-      <div class="form-group">
-        <label for="lastName">Apellidos</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Escribe tus apellidos">
-      </div>
+  <!-- Formulario de matrícula vinculado con ngForm -->
+  <form (ngSubmit)="onSubmit(matriculationForm)" #matriculationForm="ngForm" novalidate>
 
-      <div class="form-group">
-        <label for="address">Dirección</label>
-        <input type="text" class="form-control" id="address" placeholder="Escribe tu dirección">
+    <!-- Nombre -->
+   <div class="form-row">
+    <div class="form-group third-width">
+      <label for="name">Nombre</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" #nameInput="ngModel" required
+        placeholder="Escribe tu nombre" />
+      <div *ngIf="nameInput.invalid && nameInput.touched" class="text-danger">
+        <div *ngIf="nameInput.errors?.['required']">El nombre es obligatorio.</div>
       </div>
+    </div>
 
-      <div class="form-group row">
-        <div class="col-md-3">
-          <label for="postal-code">Código postal</label>
-          <input type="text" class="form-control" id="postal-code" placeholder="C.P.">
-        </div>
-        <div class="col-md-9">
-          <label for="city">Localidad</label>
-          <input type="text" class="form-control" id="city" placeholder="Escribe tu localidad">
-        </div>
+    <!-- Apellidos -->
+    <div class="form-group two-thirds-width">
+      <label for="lastName">Apellidos</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName" #lastNameInput="ngModel"
+        required placeholder="Escribe tus apellidos" />
+      <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger">
+        <div *ngIf="lastNameInput.errors?.['required']">Los apellidos son obligatorios.</div>
       </div>
+    </div>
+   </div>
 
-      <div class="form-group row">
-        <div class="col-md-5">
-          <label for="birthDate">Fecha de Nacimiento</label>
-          <input type="date" class="form-control" id="birthDate">
-        </div>
-        <div class="col-md-7">
-          <label for="phone">Teléfono</label>
-          <input type="tel" class="form-control" id="phone" placeholder="Escribe tu teléfono">
-        </div>
+    <!-- DNI, Fecha de Nacimiento y Teléfono -->
+    <div class="form-row">
+      <div class="form-group third-width">
+        <label for="dni">DNI / NIE:</label>
+        <input type="text" id="dni" name="dni" class="form-control" [(ngModel)]="dni" #dniInput="ngModel" required
+          placeholder="Introduce tu DNI" />
+    <!--     <div *ngIf="dniInput.invalid && dniInput.touched" class="text-danger">
+          <div *ngIf="dniInput.errors?.['required']">El DNI es obligatorio.</div>
+        </div> -->
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="correo@example.com">
-      </div>
-
-      <div class="form-group">
-        <label for="instrument">Instrumento</label>
-        <select class="form-select" id="instrument">
-          <option value="">Selecciona un instrumento</option>
-          <option value="Clarinete">Clarinete</option>
-          <option value="Flauta">Flauta</option>
-          <option value="Oboe">Oboe</option>
-          <option value="Saxo">Saxo</option>
-          <option value="Trompa">Trompa</option>
-          <option value="Trompeta">Trompeta</option>
-          <option value="Trombón">Trombón</option>
-          <option value="Fagot">Fagot</option>
-          <option value="Percusión">Percusión</option>
-          <option value="Tuba">Tuba</option>
-          <option value="Bombardino">Bombardino</option>
-          <option value="Piano">Piano</option>
-          <option value="Guitarra">Guitarra</option>
-          <option value="Violín">Violín</option>
-          <option value="Violoncello">Violoncello</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Asignaturas</label>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input border-success" id="musicalLanguage">
-          <label class="form-check-label" for="musicalLanguage">Lenguaje musical</label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input border-success" id="musicalGarden">
-          <label class="form-check-label" for="musicalGarden">Jardín musical</label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input border-success" id="choir">
-          <label class="form-check-label" for="choir">Coro</label>
+      <div class="form-group third-width">
+        <label for="birthdate">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" id="birthdate" name="birthdate" [(ngModel)]="birthDate"
+          #birthdateInput="ngModel" required />
+        <div *ngIf="birthdateInput.invalid && birthdateInput.touched" class="text-danger">
+          <div *ngIf="birthdateInput.errors?.['required']">La fecha de nacimiento es obligatoria.</div>
         </div>
       </div>
-
-
-      <div class="form-group d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary w-25">Enviar</button>
+      <div class="form-group third-width">
+        <label for="phone">Teléfono</label>
+        <input type="tel" class="form-control" id="phone" name="phone" [(ngModel)]="phone" #phoneInput="ngModel" required
+          placeholder="Escribe tu teléfono" />
+        <div *ngIf="phoneInput.invalid && phoneInput.touched" class="text-danger">
+          <div *ngIf="phoneInput.errors?.['required']">El teléfono es obligatorio.</div>
+        </div>
       </div>
+    </div>
 
-    </form>
-  </div>
+    <!-- Dirección -->
+    <div class="form-group">
+      <label for="address">Dirección</label>
+      <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address" #addressInput="ngModel"
+        required placeholder="Escribe tu dirección" />
+      <div *ngIf="addressInput.invalid && addressInput.touched" class="text-danger">
+        <div *ngIf="addressInput.errors?.['required']">La dirección es obligatoria.</div>
+      </div>
+    </div>
 
+    <!-- Localidad y Código Postal -->
+    <div class="form-row">
+      <div class="form-group third-width">
+        <label for="postalCode">Código Postal</label>
+        <input type="text" class="form-control" id="postalCode" name="postalCode" [(ngModel)]="postalCode"
+          #postalCodeInput="ngModel" required placeholder="C.P." />
+        <div *ngIf="postalCodeInput.invalid && postalCodeInput.touched" class="text-danger">
+          <div *ngIf="postalCodeInput.errors?.['required']">El código postal es obligatorio.</div>
+        </div>
+      </div>
+      <div class="form-group two-thirds-width">
+        <label for="city">Localidad</label>
+        <input type="text" class="form-control" id="city" name="city" [(ngModel)]="city" #cityInput="ngModel" required
+          placeholder="Escribe tu localidad" />
+        <div *ngIf="cityInput.invalid && cityInput.touched" class="text-danger">
+          <div *ngIf="cityInput.errors?.['required']">La localidad es obligatoria.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correo Electrónico -->
+    <div class="form-group">
+      <label for="email">Correo Electrónico</label>
+      <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" #emailInput="ngModel"
+        required placeholder="correo@example.com" />
+      <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+        <div *ngIf="emailInput.errors?.['required']">El correo electrónico es obligatorio.</div>
+        <div *ngIf="emailInput.errors?.['email']">El correo electrónico no es válido.</div>
+      </div>
+    </div>
+
+    <!-- Instrumento -->
+    <div class="form-group">
+      <label for="instrument">Instrumento</label>
+      <select class="form-control form-select" id="instrument" name="subjects[instrument]" [(ngModel)]="subjects.instrument" #instrumentInput="ngModel"
+        required>
+        <option value="">Selecciona un instrumento</option>
+      <option *ngFor="let instrument of instruments" [value]="instrument">
+        {{ instrument }}
+      </option>
+      </select>
+      <div *ngIf="instrumentInput.invalid && instrumentInput.touched" class="text-danger">
+        <div *ngIf="instrumentInput.errors?.['required']">El instrumento es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Asignaturas -->
+    <div class="form-group">
+      <label>Asignaturas</label>
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="musicalLanguage" name="subjects[musicalLanguage]"
+          [(ngModel)]="subjects.musicalLanguage" />
+        <label class="form-check-label" for="musicalLanguage">Lenguaje musical</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="musicalGarden" name="subjects[musicalGarden]"
+          [(ngModel)]="subjects.musicalGarden" />
+        <label class="form-check-label" for="musicalGarden">Jardín musical</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="choir" name="subjects[choir]" [(ngModel)]="subjects.choir" />
+        <label class="form-check-label" for="choir">Coro</label>
+      </div>
+      <!-- Agregar más asignaturas aquí según sea necesario -->
+    </div>
+
+    <!-- Botón de envío -->
+    <button type="submit" class="btn btn-primary" [disabled]="matriculationForm.invalid">
+      Matricularme
+    </button>
+  </form>
 </div>

@@ -1,15 +1,18 @@
 
 export interface Tuition {
-  firstName: string;
+  name: string;
   lastName: string;
-  birthDate: string;
-  address: string;
-  email: string;
+  dni: string;
   phone: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  birthDate: string;
+  email: string;
   subjects: {
     musicalLanguage: boolean;
     musicalGarden: boolean;
     choir: boolean;
-    instrument: string;  // Tipo de instrumento seleccionado
+    instrument: string; // Tipo de instrumento seleccionado
   };
 }

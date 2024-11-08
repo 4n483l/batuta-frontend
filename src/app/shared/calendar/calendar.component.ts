@@ -4,7 +4,7 @@ import { Rehearsal } from 'src/app/models/rehearsal.model';
 import { Exam } from 'src/app/models/exam.model';
 import { Course } from 'src/app/models/course.model';
 
-type EventType = Concert | Rehearsal | Exam  | Course ;
+type EventType = Concert | Rehearsal | Exam | Course;
 
 @Component({
   selector: 'app-calendar',
@@ -12,12 +12,6 @@ type EventType = Concert | Rehearsal | Exam  | Course ;
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  getEventsForDay(day: number): any[] {
-    const dateString = `${this.currentYear}-${String(
-      this.currentMonth + 1
-    ).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    return this.events.filter((event) => event.date === dateString);
-  }
   @Input() events: EventType[] = [];
   currentYear: number;
   currentMonth: number;
@@ -49,7 +43,7 @@ export class CalendarComponent implements OnInit {
     );
   }
   // Método que filtra eventos de un día dado
-  getConcertsForDay(day: number): EventType[] {
+  getEventsForDay(day: number): any[] {
     const dateString = `${this.currentYear}-${String(
       this.currentMonth + 1
     ).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -58,7 +52,7 @@ export class CalendarComponent implements OnInit {
 
   changeMonth(offset: number) {
     this.currentMonth += offset;
-    this.updateMonthName();
+
     if (this.currentMonth < 0) {
       this.currentMonth = 11;
       this.currentYear--;
@@ -66,6 +60,8 @@ export class CalendarComponent implements OnInit {
       this.currentMonth = 0;
       this.currentYear++;
     }
+
+    this.updateMonthName();
     this.generateCalendar();
   }
 

@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Concert } from 'src/app/models/concert.model';
 import { Rehearsal } from 'src/app/models/rehearsal.model';
 import { Exam } from 'src/app/models/exam.model';
@@ -19,6 +13,7 @@ type EventType = Concert | Rehearsal | Exam | Course;
 })
 export class CalendarComponent implements OnInit {
   @Input() events: EventType[] = [];
+  @Input() title: string = '';
 
   currentYear: number;
   currentMonth: number;

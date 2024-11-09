@@ -4,11 +4,17 @@
 .navbar {
   //background-color: white;
   background-color: $color-primary;
+ padding: 0 15px;
+ // margin: 0 10px;
 }
 
 /* Estilo enlaces */
 .navbar-nav .nav-link {
   color: $color-contrast;
+  color: $color-contrast;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+
 }
 
 /* hover */
@@ -22,6 +28,8 @@
   color: $color-contrast;
   padding: 0.5rem 1rem;
   border-radius: 5px;
+
+
 }
 
 /* Estilo para el logotipo */

@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+
 $color-primary: #6d85a8 !important;
 $color-secondary: #f8f9fa !important;
 $color-contrast: #d3d5a0 !important;
@@ -17,7 +17,7 @@ body {
   font-family: $font-style;
   color: $color-text;
   background-color: $color-secondary;
-
+  padding: 0 10px;
 }
 
 /* Títulos */
@@ -29,6 +29,7 @@ h5,
 h6 {
   color: $color-primary;
   font-weight: bold !important;
+  margin: 0.5em 0;
 }
 
 /* Párrafos */
@@ -41,7 +42,7 @@ p {
 /* Enlaces */
 a {
   color: $color-primary;
-  text-decoration: none; /* Sin subrayado */
+  text-decoration: none;
 }
 
 a:hover {
@@ -50,26 +51,35 @@ a:hover {
 }
 
 /* Botones */
+
 .btn-primary {
   background-color: $color-primary;
-  border-color: $color-primary;
   color: $color-contrast;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
+background-color: $color-darkPrimary;
   font-weight: bold;
   color: $color-contrast;
 }
 
 /* Color de acento */
 .acento {
-  color: #e76f51; /* Color para acentos */
+  color: #e76f51;
 }
 
 /* Tarjetas */
 .card {
   // border: 1px solid; /* Verde suave */
   background-color: $color-contrastLight;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Secciones */
@@ -77,3 +87,81 @@ a:hover {
  // background-color: $color-contrastLight;
   color: #6d85a8;
 }
+
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+h1, h2{
+    font-size: 2.6rem;
+}
+
+   h3, h4, h5, h6 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .card {
+    padding: 12px;
+  }
+   h1, h2{
+    font-size: 2.8rem;
+   }
+
+ h3, h4, h5, h6 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.85rem;
+  }
+
+  main {
+    margin-top: 30px;
+  }
+
+  .btn-primary {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .card {
+    padding: 10px;
+  }
+ h1, h2{
+    font-size: 2.4rem;
+   }
+ }
+
+ h3, h4, h5, h6 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+  }
+

@@ -11,16 +11,7 @@ import { EventService } from 'src/app/services/eventos/event.service';
 export class ConcertsComponent implements OnInit {
   concerts: Concert[] = [];
 
-  // constructor(private concertService: ConcertService) {}
   constructor(private eventService: EventService) {}
-
-/*   ngOnInit(): void {
-    this.eventService.getConcerts().subscribe((data: Concert[]) => {
-      // this.concerts = data;
-      this.concerts = Array.isArray(data) ? data : [data];
-      console.log('Componente concerts:', this.concerts);
-    });
-  } */
 
   ngOnInit(): void {
     this.eventService.getConcerts().subscribe((data: any) => {

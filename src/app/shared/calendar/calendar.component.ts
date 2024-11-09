@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Concert } from 'src/app/models/concert.model';
 import { Rehearsal } from 'src/app/models/rehearsal.model';
 import { Exam } from 'src/app/models/exam.model';
@@ -12,19 +18,7 @@ type EventType = Concert | Rehearsal | Exam | Course;
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  @Input() set events(value: EventType[]) {
-    this._events = value;
-    console.log('Events in CalendarComponent dentro de Input:', this._events);
-  }
-  private _events: EventType[] = [];
-  get events(): EventType[] {
-    return this._events;
-  }
-
-/*   @Input() set events(value: EventType[]) {
-    this.events = value;
-    console.log('Events in CalendarComponent dentro de Input:', this.events);
-  } */
+  @Input() events: EventType[] = [];
 
   currentYear: number;
   currentMonth: number;
@@ -40,19 +34,11 @@ export class CalendarComponent implements OnInit {
       today.toLocaleString('es-ES', { month: 'long' })
     );
   }
-
   ngOnInit(): void {
     this.generateCalendar();
     console.log('Eventos en metodo ngOnInit:', this.events);
   }
-/*
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['events']) {
-      console.log('Events updated en metodo ngOnChanges:', this.events);
-      this.generateCalendar();
-    }
-  }
- */
+
   generateCalendar() {
     const firstDay = new Date(this.currentYear, this.currentMonth, 1);
     this.firstDayOfWeek = firstDay.getDay(); // Primer día del mes (0 = domingo, 6 = sábado)
@@ -69,9 +55,6 @@ export class CalendarComponent implements OnInit {
       this.currentMonth + 1
     ).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-    /*  return Array.isArray(this.events)
-   ? this.events.filter((event) => event.date === dateString)
-   : []; */
     return this.events.filter((event) => event.date === dateString);
   }
 

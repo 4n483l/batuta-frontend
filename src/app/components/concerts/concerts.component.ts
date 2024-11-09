@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Concert } from 'src/app/models/concert.model';
-import { ConcertService } from 'src/app/services/concerts/concert.service';
 import { EventService } from 'src/app/services/eventos/event.service';
 
 @Component({
@@ -15,8 +14,7 @@ export class ConcertsComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventService.getConcerts().subscribe((data: any) => {
-      // this.concerts = data;
-      this.concerts = Array.isArray(data.Conciertos) ? data.Conciertos : [];
+      this.concerts = Array.isArray(data.Concerts) ? data.Concerts : [];
       console.log('Componente concerts:', this.concerts);
     });
   }

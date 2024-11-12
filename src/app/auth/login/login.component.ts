@@ -22,8 +22,7 @@ export class LoginComponent {
 
       this.authService.login(email, password).subscribe(
         (response) => {
-          alert('Inicio de sesión exitoso');
-          this.router.navigate(['/dashboard']); // Redirige a otra página después del login exitoso
+          this.router.navigate(['/dashboard']); 
         },
         (error) => {
           alert('Error en el inicio de sesión');

@@ -6,7 +6,10 @@ h1 {
   margin-bottom: 20px;
   text-align: center;  /* Centra el título */
 }
-
+.btn-month {
+  padding: 5px 10px; // Tamaño reducido
+  font-size: 0.8rem; // Fuente más pequeña
+}
 .calendar-container {
   width: 100%;
   max-width: 1200px;
@@ -62,7 +65,7 @@ h1 {
 }
 
 /* Estilos responsivos */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .calendar-container {
     .calendar-header {
       gap: 10px;
@@ -140,3 +143,4 @@ h1 {
     }
   }
 }
+ */

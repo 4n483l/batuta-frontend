@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Tuition } from '../../models/tuition.model';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { TuitionService } from 'src/app/services/tuitions/tuition.service';
 
 @Component({
   selector: 'app-tuitions',
   templateUrl: './tuitions.component.html',
   styleUrls: ['./tuitions.component.scss'],
 })
-export class TuitionsComponent {
+export class TuitionsComponent implements OnInit {
   instruments: string[] = [
     'Clarinete',
     'Flauta',
@@ -42,9 +43,24 @@ export class TuitionsComponent {
     choir: false,
     instrument: '',
   };
-  // Inicialización de subjects en el constructor
-  constructor(private router: Router) {}
-  // Método onSubmit para manejar el formulario
+
+  constructor(private router: Router, private tuitionService: TuitionService) {}
+
+  // el get de back para cuando inicialice la pantalla
+  ngOnInit(): void {
+    this.tuitionService.getTuitions().subscribe((data: any) => {
+      // la variable usuario es la que está en controlle dentro de json
+      this.phone = data.usuario.phone;
+      this.address = data.usuario.address;
+      this.city = data.usuario.city;
+      this.postalCode = data.usuario.postl_code;
+      this.email = data.usuario.email;
+
+      console.log('Componente tuitions:', data.usuario);
+    });
+  }
+
+  // Método onSubmit para manejar el formulario en post
   onSubmit(form: NgForm) {
     if (form.valid) {
       const {
@@ -86,22 +102,4 @@ export class TuitionsComponent {
       alert('Por favor, completa correctamente el formulario.');
     }
   }
-
-/*   tuitionExample: Tuition = {
-    name: 'Juan',
-    lastName: 'Pérez',
-    dni: '12345666g',
-    phone: '123456789',
-    address: 'Calle Falsa 123',
-    city: 'memainvento',
-    postalCode: '55555',
-    birthDate: '2005-05-21',
-    email: 'juan.perez@example.com',
-    subjects: {
-      musicalLanguage: true,
-      musicalGarden: false,
-      choir: true,
-      instrument: 'Piano',
-    },
-  }; */
 }

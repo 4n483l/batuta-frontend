@@ -2,11 +2,11 @@
   <h1>{{ title }}</h1>
   <div class="calendar-container">
     <div class="calendar-header">
-      <button class="btn-primary" (click)="changeMonth(-1)">Anterior</button>
+      <button class="btn-primary btn-month" (click)="changeMonth(-1)">Mes anterior</button>
 
       <h2>{{ currentMonthName }} {{ currentYear }}</h2>
 
-      <button class="btn-primary" (click)="changeMonth(1)">Siguiente</button>
+      <button class="btn-primary btn-month" (click)="changeMonth(1)">mes siguiente</button>
     </div>
 
 

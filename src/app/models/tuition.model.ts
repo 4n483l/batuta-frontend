@@ -1,15 +1,14 @@
-
 export interface Tuition {
-  name: string;
-  lastName: string;
-  dni: string;
+  name?: string;
+  lastName?: string;
+  dni?: string;
   phone: string;
   address: string;
   city: string;
   postalCode: string;
-  birthDate: string;
+  birthDate?: string;
   email: string;
-  subjects: {
+  subjects?: {
     musicalLanguage: boolean;
     musicalGarden: boolean;
     choir: boolean;

@@ -28,6 +28,8 @@ export class TuitionsComponent implements OnInit {
     'Violoncello',
   ];
 
+  isLoading: boolean = true; // Nueva propiedad para controlar el estado de carga
+
   name: string = '';
   lastName: string = '';
   dni: string = '';
@@ -57,6 +59,7 @@ export class TuitionsComponent implements OnInit {
       this.email = data.usuario.email;
 
       console.log('Componente tuitions:', data.usuario);
+      this.isLoading = false;
     });
   }
 
@@ -93,11 +96,11 @@ export class TuitionsComponent implements OnInit {
       // Aquí simplemente mostramos los datos en la consola (simulando el proceso de registro)
       console.log('Datos de matrícula:', tuitionData);
 
-      // Simulación de respuesta exitosa
-      alert('Matrícula registrada exitosamente');
-
-      // Redirigir a una página de éxito o donde lo necesites
-      this.router.navigate(['/success']);
+      this.tuitionService.postTuition(tuitionData).subscribe((data: any) => {
+        console.log('Matrícula realizada:', data);
+        this.router.navigate(['/dashboard']);
+        alert('Matrícula realizada con éxito.');
+      });
     } else {
       alert('Por favor, completa correctamente el formulario.');
     }

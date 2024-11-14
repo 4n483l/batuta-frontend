@@ -3,6 +3,7 @@ import { Tuition } from '../../models/tuition.model';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { TuitionService } from 'src/app/services/tuitions/tuition.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tuitions',
@@ -27,8 +28,9 @@ export class TuitionsComponent implements OnInit {
     'Violín',
     'Violoncello',
   ];
+  instrument: string = '';
 
-  isLoading: boolean = true; // Nueva propiedad para controlar el estado de carga
+  isLoading: boolean = true;
 
   name: string = '';
   lastName: string = '';
@@ -36,15 +38,17 @@ export class TuitionsComponent implements OnInit {
   phone: string = '';
   address: string = '';
   city: string = '';
-  postalCode: string = '';
+  postal_code: string = '';
   birthDate: string = '';
   email: string = '';
-  subjects = {
-    musicalLanguage: false,
-    musicalGarden: false,
-    choir: false,
-    instrument: '',
-  };
+  subjects: { id: number; nombre: string }[] = [
+    { id: 1, nombre: 'Lenguaje musical' },
+    { id: 2, nombre: 'Jardín musical' },
+    { id: 3, nombre: 'Coro' },
+    { id: 4, nombre: 'Instrumento' },
+  ];
+
+  subjectsSelected: { [key: number]: boolean } = {};
 
   constructor(private router: Router, private tuitionService: TuitionService) {}
 
@@ -55,12 +59,25 @@ export class TuitionsComponent implements OnInit {
       this.phone = data.usuario.phone;
       this.address = data.usuario.address;
       this.city = data.usuario.city;
-      this.postalCode = data.usuario.postl_code;
+      this.postal_code = data.usuario.postal_code;
       this.email = data.usuario.email;
 
       console.log('Componente tuitions:', data.usuario);
       this.isLoading = false;
     });
+
+    this.subjects.forEach((subject) => {
+      if (subject.nombre !== 'Instrumento') {
+        this.subjectsSelected[subject.id] = false; // Cada asignatura empieza no seleccionada
+        console.log(
+          'subject SElected dentro if:',
+          this.subjectsSelected[subject.id]
+        );
+      }
+      console.log('subject SElected fuera if:', subject);
+    });
+
+    console.log(this.subjectsSelected);
   }
 
   // Método onSubmit para manejar el formulario en post
@@ -73,7 +90,7 @@ export class TuitionsComponent implements OnInit {
         phone,
         address,
         city,
-        postalCode,
+        postal_code,
         birthDate,
         email,
         subjects,
@@ -82,13 +99,13 @@ export class TuitionsComponent implements OnInit {
       // Simulación de los datos enviados al backend
       const tuitionData = {
         name,
-        lastName,
+        lastname: lastName,
         dni,
         phone,
         address,
         city,
-        postalCode,
-        birthDate,
+        postal_code,
+        birth_date: birthDate,
         email,
         subjects,
       };
@@ -104,5 +121,11 @@ export class TuitionsComponent implements OnInit {
     } else {
       alert('Por favor, completa correctamente el formulario.');
     }
+  }
+
+  onClickCheckbox(id : number) {
+    console.log('id dentro de onClickCheckbox:', id);
+    this.subjectsSelected[id] = !this.subjectsSelected[id];
+    console.log('onClickCheckbox:', this.subjectsSelected);
   }
 }

@@ -1,19 +1,17 @@
 @import "src/styles.scss";
 
+/* Estilo del contenedor del formulario */
 .container {
-  max-width: 90%; /* Ajuste para ocupar casi toda la pantalla */
+  max-width: 90%; /* Permitir que el contenedor ocupe casi toda la pantalla */
   padding: 3rem;
   background-color: $color-contrastLight;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 3rem auto;
+  margin: 3rem auto; /* Ajustar el margen superior */
 }
-
-h2 {
-  color: $color-primary;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1.8rem;
+/* Ajustes de espaciado */
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
@@ -48,51 +46,30 @@ h2 {
   flex: 1 1 50%; /* 50% del ancho */
 }
 
-/* Ajustes de espaciado */
-.form-group {
-  margin-bottom: 1.5rem;
-}
 
-.text-danger {
-  font-size: 0.875rem;
-  font-style: italic;
-  color: #e76f51; /* Acento para los errores */
-}
 
 /* Botón de envío */
 .btn-primary {
+  font-size: 1.5rem;
+}
+
+
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  background-color: $color-primary;
-  border-color: $color-primary;
-  color: $color-contrast;
-  font-weight: bold;
-  padding: 0.5rem;
-  font-size: 1rem;
-  transition: background-color 0.3s, font-weight 0.3s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: $color-darkPrimary;
-  font-weight: bold;
-  color: $color-contrast;
-}
-
-/* Estilo del contenedor del formulario */
-.container {
-  max-width: 90%; /* Permitir que el contenedor ocupe casi toda la pantalla */
-  padding: 3rem;
-  background-color: $color-contrastLight;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 3rem auto; /* Ajustar el margen superior */
-}
-
-/* Espaciado para los campos de formulario */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.text-center {
-  text-align: center;
+.loading-container img {
+  width: 400px;
+  margin-bottom: 10px;
 }

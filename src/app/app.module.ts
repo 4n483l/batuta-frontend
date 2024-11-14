@@ -17,6 +17,8 @@ import { RehearsalsComponent } from './components/rehearsals/rehearsals.componen
 import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
+import { NoteEditorComponent } from './components/note-editor/note-editor.component';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { TuitionsComponent } from './components/tuitions/tuitions.component';
     ExamsComponent,
     CoursesComponent,
     TuitionsComponent,
+    NoteEditorComponent,
+
   ],
   imports: [
     BrowserModule,

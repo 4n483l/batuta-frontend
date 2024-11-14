@@ -5,7 +5,7 @@ export interface Tuition {
   phone: string;
   address: string;
   city: string;
-  postalCode: string;
+  postal_code: string;
   birthDate?: string;
   email: string;
   subjects?: {

@@ -66,18 +66,14 @@ export class TuitionsComponent implements OnInit {
       this.isLoading = false;
     });
 
+    // Inicializamos el estado de las asignaturas seleccionadas
     this.subjects.forEach((subject) => {
       if (subject.nombre !== 'Instrumento') {
-        this.subjectsSelected[subject.id] = false; // Cada asignatura empieza no seleccionada
-        console.log(
-          'subject SElected dentro if:',
-          this.subjectsSelected[subject.id]
-        );
+        this.subjectsSelected[subject.id] = false;
       }
-      console.log('subject SElected fuera if:', subject);
     });
 
-    console.log(this.subjectsSelected);
+    console.log('cambios estado:', this.subjectsSelected);
   }
 
   // Método onSubmit para manejar el formulario en post
@@ -123,6 +119,7 @@ export class TuitionsComponent implements OnInit {
     }
   }
 
+  // Método para manejar los cambios en el select de asignaturas
   onClickCheckbox(id : number) {
     console.log('id dentro de onClickCheckbox:', id);
     this.subjectsSelected[id] = !this.subjectsSelected[id];

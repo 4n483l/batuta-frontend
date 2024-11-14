@@ -1,6 +1,5 @@
-
 $color-primary: #6d85a8 !important;
-$color-secondary: #f8f9fa !important;
+$color-secondary: rgb(248, 249, 250) !important;
 $color-contrast: #d3d5a0 !important;
 $color-darkPrimary: #4b6584;
 $color-contrastLight: rgba(211, 213, 160, 0.2) !important;
@@ -8,9 +7,8 @@ $color-text: #333333;
 $font-style: "Montserrat", sans-serif !important;
 $card-height: 150px;
 
-
-main {
-  margin-top: 50px;
+main{
+  margin-top: 40px;
 }
 
 body {
@@ -29,17 +27,34 @@ h5,
 h6 {
   color: $color-primary;
   font-weight: bold !important;
+  text-align: center;
   margin: 0.5em 0;
 }
 
-/* Párrafos */
+input {
+  color: $color-text;
+  background-color: $color-secondary;
+  border: 1px solid $color-primary;
+}
+textarea {
+  border: 1px solid $color-primary;
+  background-color: $color-secondary;
+  color: $color-text;
+  min-height: 150px;
+}
+
+input:focus,
+textarea:focus {
+  border-color: $color-darkPrimary;
+  outline: none;
+}
+
 p {
   font-size: 1rem;
   line-height: 1.5;
   color: $color-text;
 }
 
-/* Enlaces */
 a {
   color: $color-primary;
   text-decoration: none;
@@ -50,20 +65,22 @@ a:hover {
   font-weight: bold;
 }
 
-/* Botones */
-
 .btn-primary {
   background-color: $color-primary;
   color: $color-contrast;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  //transition: background-color 0.3s;
+  transition: background-color 0.3s, font-weight 0.3s;
+  margin-top: 10px;
 }
 
-.btn-primary:hover {
-background-color: $color-darkPrimary;
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: $color-darkPrimary;
   font-weight: bold;
   color: $color-contrast;
 }
@@ -72,7 +89,11 @@ background-color: $color-darkPrimary;
 .acento {
   color: #e76f51;
 }
-
+.text-danger {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: #e76f51; /* Acento para los errores */
+}
 /* Tarjetas */
 .card {
   // border: 1px solid; /* Verde suave */
@@ -84,84 +105,21 @@ background-color: $color-darkPrimary;
 
 /* Secciones */
 #about {
- // background-color: $color-contrastLight;
+  // background-color: $color-contrastLight;
   color: #6d85a8;
 }
 
-
-/* Estilos responsivos */
-@media (max-width: 1024px) {
-  body {
-    font-size: 0.95rem;
-  }
-
-  .btn-primary {
-    padding: 8px 15px;
-    font-size: 0.9rem;
-  }
-
-  .card {
-    padding: 15px;
-  }
-
-h1, h2{
-    font-size: 2.6rem;
+.form-check-input {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: $color-secondary;
+  border: 1px solid $color-primary;  
+  border-radius: 4px;
 }
 
-   h3, h4, h5, h6 {
-    font-size: 1.3rem;
-  }
+.form-check-input:checked {
+  background-color: $color-primary;
+  border-color: $color-darkPrimary;
 }
-
-@media (max-width: 768px) {
-  body {
-    font-size: 0.9rem;
-  }
-
-  .btn-primary {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-
-  .card {
-    padding: 12px;
-  }
-   h1, h2{
-    font-size: 2.8rem;
-   }
-
- h3, h4, h5, h6 {
-    font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    font-size: 0.85rem;
-  }
-
-  main {
-    margin-top: 30px;
-  }
-
-  .btn-primary {
-    padding: 5px 10px;
-    font-size: 0.8rem;
-  }
-
-  .card {
-    padding: 10px;
-  }
- h1, h2{
-    font-size: 2.4rem;
-   }
- }
-
- h3, h4, h5, h6 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    font-size: 0.85rem;
-  }
-

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Tuition } from '../../models/tuition.model';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { TuitionService } from 'src/app/services/tuitions/tuition.service';
-import { FormsModule } from '@angular/forms';
+import { Tuition } from 'src/app/models/tuition.model';
+
 
 @Component({
   selector: 'app-tuitions',
@@ -39,7 +39,7 @@ export class TuitionsComponent implements OnInit {
   address: string = '';
   city: string = '';
   postal_code: string = '';
-  birthDate: string = '';
+  birth_date: string = '';
   email: string = '';
   subjects: { id: number; nombre: string }[] = [
     { id: 1, nombre: 'Lenguaje musical' },
@@ -79,34 +79,16 @@ export class TuitionsComponent implements OnInit {
   // Método onSubmit para manejar el formulario en post
   onSubmit(form: NgForm) {
     if (form.valid) {
-      const {
-        name,
-        lastName,
-        dni,
-        phone,
-        address,
-        city,
-        postal_code,
-        birthDate,
-        email,
-        subjects,
-      } = form.value;
+      const selectedSubjects = Object.keys(this.subjectsSelected)
+        .filter((key) => this.subjectsSelected[+key]) // Filtra las seleccionadas
+        .map((key) => +key); // Convierte los IDs a números
 
-      // Simulación de los datos enviados al backend
-      const tuitionData = {
-        name,
-        lastname: lastName,
-        dni,
-        phone,
-        address,
-        city,
-        postal_code,
-        birth_date: birthDate,
-        email,
-        subjects,
+      const tuitionData : Tuition = {
+        // operador de propagacion. Copia todos los valores de form.value
+        ...form.value,
+        subjects: selectedSubjects,
       };
 
-      // Aquí simplemente mostramos los datos en la consola (simulando el proceso de registro)
       console.log('Datos de matrícula:', tuitionData);
 
       this.tuitionService.postTuition(tuitionData).subscribe((data: any) => {
@@ -120,8 +102,7 @@ export class TuitionsComponent implements OnInit {
   }
 
   // Método para manejar los cambios en el select de asignaturas
-  onClickCheckbox(id : number) {
-    console.log('id dentro de onClickCheckbox:', id);
+  onClickCheckbox(id: number) {
     this.subjectsSelected[id] = !this.subjectsSelected[id];
     console.log('onClickCheckbox:', this.subjectsSelected);
   }

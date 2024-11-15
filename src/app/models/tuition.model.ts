@@ -8,10 +8,5 @@ export interface Tuition {
   postal_code: string;
   birthDate?: string;
   email: string;
-  subjects?: {
-    musicalLanguage: boolean;
-    musicalGarden: boolean;
-    choir: boolean;
-    instrument: string; // Tipo de instrumento seleccionado
-  };
+  subjects: number[];
 }

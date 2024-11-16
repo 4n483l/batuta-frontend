@@ -18,6 +18,7 @@ import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
+import { MatriculaComponent } from './components/matricula/matricula.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { NoteEditorComponent } from './components/note-editor/note-editor.compon
     CoursesComponent,
     TuitionsComponent,
     NoteEditorComponent,
+    MatriculaComponent,
 
   ],
   imports: [

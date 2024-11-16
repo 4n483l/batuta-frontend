@@ -1,0 +1,19 @@
+<div class="note-editor-container container mt-5">
+  <h3 class="text-center text-primary">Editor de Apuntes</h3>
+  <form (submit)="createNote()" class="mb-4">
+    <div class="mb-3">
+      <input [(ngModel)]="note.title" name="title" class="form-control" placeholder="Title" required />
+    </div>
+    <div class="mb-3">
+      <input [(ngModel)]="note.topic" name="topic" class="form-control" placeholder="Topic" required />
+    </div>
+    <div class="mb-3">
+      <textarea [(ngModel)]="note.content" name="content" class="form-control" placeholder="Content"
+        required></textarea>
+    </div>
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary w-50">Crear Apunte</button>
+      <button (click)="saveAsPdf()" class="btn btn-primary">Guardar como PDF</button>
+    </div>
+  </form>
+</div>

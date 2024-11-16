@@ -8,6 +8,8 @@ import { RehearsalsComponent } from './components/rehearsals/rehearsals.componen
 import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
+import { NoteEditorComponent } from './components/note-editor/note-editor.component';
+import { MatriculaComponent } from './components/matricula/matricula.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'exams', component: ExamsComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'tuitions', component: TuitionsComponent },
+  { path: 'edit-notes', component: NoteEditorComponent },
+  { path: 'matricula', component: MatriculaComponent },
 
   { path: '**', redirectTo: '' }, // Redirigir a la página de login si no se encuentra la ruta
 ];

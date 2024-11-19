@@ -10,3 +10,16 @@ export interface Tuition {
   email: string;
   subjects: number[];
 }
+
+export interface Instrument {
+  id: number;
+  name: string;
+  
+}
+
+export interface Subject {
+  id: number;
+  name: string;
+  level: string;
+
+}

@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Tuition } from 'src/app/models/tuition.model';
 import { AuthService } from '../auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TuitionService {
-  private tuitionsUrl = 'http://localhost:8000/api/tuitions';
+export class SubjectService {
+  private subjectsUrl = 'http://localhost:8000/api/subjects';
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -22,17 +21,15 @@ export class TuitionService {
     });
   }
 
-  getTuitions(): Observable<Tuition[]> {
-    return this.http.get<Tuition[]>(this.tuitionsUrl, {
+  getSubjects(): Observable<any> {
+    return this.http.get<any>(this.subjectsUrl, {
       headers: this.headers,
     });
   }
 
-  postTuition(tuition: Tuition): Observable<Tuition> {
-    return this.http.post<Tuition>(this.tuitionsUrl, tuition, {
+  getInstruments(): Observable<any> {
+    return this.http.get<any>(this.subjectsUrl+'/instruments', {
       headers: this.headers,
     });
   }
-
-  
 }

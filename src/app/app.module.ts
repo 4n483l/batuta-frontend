@@ -6,6 +6,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { FormsModule } from '@angular/forms';
+
 import { RegisterComponent } from './auth/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -18,7 +19,7 @@ import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
-import { MatriculaComponent } from './components/matricula/matricula.component';
+
 
 
 @NgModule({
@@ -36,8 +37,6 @@ import { MatriculaComponent } from './components/matricula/matricula.component';
     CoursesComponent,
     TuitionsComponent,
     NoteEditorComponent,
-    MatriculaComponent,
-
   ],
   imports: [
     BrowserModule,

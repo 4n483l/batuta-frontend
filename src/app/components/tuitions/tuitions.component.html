@@ -1,5 +1,5 @@
 <div *ngIf="isLoading" class="loading-container text-center">
-  <img src="assets/loading.gif" alt="Cargando..." />
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
   <p>Cargando datos...</p>
 </div>
 
@@ -100,8 +100,8 @@
       </div>
     </div>
 
-    <!-- Instrumento -->
-    <div class="form-group">
+
+    <!--     <div class="form-group">
       <label for="instrument">Instrumento</label>
       <select class="form-control form-select" id="instrument" name="instrument" [(ngModel)]="instrument"
         #instrumentInput="ngModel" required>
@@ -113,30 +113,35 @@
       <div *ngIf="instrumentInput.invalid && instrumentInput.touched" class="text-danger">
         <div *ngIf="instrumentInput.errors?.['required']">El instrumento es obligatorio.</div>
       </div>
+    </div> -->
+
+  <!-- Instrumento select-->
+  <div class="form-group">
+    <label for="instrument">Instrumento</label>
+    <select class="form-control form-select" id="instrument" name="instrument" [(ngModel)]="selectedInstrumentId"
+      #instrumentInput="ngModel" required (change)="onInstrumentChange(selectedInstrumentId)">
+      <option value="null" disabled >Selecciona un instrumento</option>
+      <option *ngFor="let instrument of instruments" [value]="instrument.id">
+        {{ instrument.name }}
+      </option>
+    </select>
+    <div *ngIf="instrumentInput.invalid && instrumentInput.touched" class="text-danger">
+      <div *ngIf="instrumentInput.errors?.['required']">El instrumento es obligatorio.</div>
     </div>
+  </div>
 
     <!-- Asignaturas -->
-<div class="form-group">
-  <label>Asignaturas</label>
-  <div *ngFor="let subject of subjects" class="form-check">
-    <ng-container *ngIf="subject.nombre !== 'Instrumento'">
-      <input type="checkbox" class="form-check-input" [id]="subject.id" [name]="subject.nombre"
-        [checked]="subjectsSelected[subject.id]"
-        (click)="onClickCheckbox(subject.id)" />
-      <label class="form-check-label" [for]="subject.id">{{ subject.nombre }}</label>
-    </ng-container>
-  </div>
-</div>
-       <!--    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="musicalGarden" name="subjects[musicalGarden]"
-          [(ngModel)]="subjects.musicalGarden" />
-        <label class="form-check-label" for="musicalGarden">Jardín musical</label>
+    <div class="form-group">
+      <label>Asignaturas</label>
+      <div *ngFor="let subject of subjects" class="form-check">
+        <!-- Mostrar checkbox para asignaturas, excepto Instrumento -->
+        <ng-container *ngIf="subject.name !== 'Instrumento'">
+          <input type="checkbox" class="form-check-input" [id]="subject.id" [name]="subject.name"
+            [checked]="checkedSubjects[subject.id]" (click)="onClickCheckbox(subject.id)" />
+          <label class="form-check-label" [for]="subject.id">{{ subject.name }}</label>
+        </ng-container>
       </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="choir" name="subjects[choir]" [(ngModel)]="subjects.choir" />
-        <label class="form-check-label" for="choir">Coro</label>
-      </div> -->
-    <!-- Agregar más asignaturas aquí según sea necesario -->
+    </div>
 
 
     <!-- Botón de envío -->

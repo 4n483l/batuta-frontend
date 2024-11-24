@@ -1,9 +1,12 @@
 $color-primary: #6d85a8 !important;
 $color-secondary: rgb(248, 249, 250) !important;
 $color-contrast: #d3d5a0 !important;
-$color-darkPrimary: #4b6584;
+$color-darkContrast: #a3a772 !important;
+$color-darkPrimary: #4b6584 !important;
 $color-contrastLight: rgba(211, 213, 160, 0.2) !important;
-$color-text: #333333;
+$color-text: #333333 ;
+$color-danger: #e76f51 !important;
+$color-darkDanger: #c85a42 !important;
 $font-style: "Montserrat", sans-serif !important;
 $card-height: 150px;
 
@@ -60,11 +63,18 @@ a {
   text-decoration: none;
 }
 
+td, th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+
 a:hover {
   color: $color-darkPrimary;
   font-weight: bold;
 }
 
+/* BOTONES */
 .btn-primary {
   background-color: $color-primary;
   color: $color-contrast;
@@ -84,15 +94,50 @@ a:hover {
   font-weight: bold;
   color: $color-contrast;
 }
+.btn-danger {
+  background-color: $color-danger;
+  color: $color-contrast;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, font-weight 0.3s;
+  margin-top: 10px;
+}
+
+.btn-danger:hover {
+  background-color: $color-darkDanger;
+    font-weight: bold;
+}
+
+.btn-agregar{
+  background-color: $color-contrast;
+  color: $color-primary;
+    padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, font-weight 0.3s;
+  margin-top: 10px;
+
+}
+
+.btn-agregar:hover {
+  background-color: $color-darkContrast;
+
+  color: $color-primary;
+}
 
 /* Color de acento */
 .acento {
-  color: #e76f51;
+  color: $color-danger;
 }
 .text-danger {
   font-size: 0.875rem;
   font-style: italic;
-  color: #e76f51; /* Acento para los errores */
+  color: $color-danger
 }
 /* Tarjetas */
 .card {
@@ -106,7 +151,7 @@ a:hover {
 /* Secciones */
 #about {
   // background-color: $color-contrastLight;
-  color: #6d85a8;
+  color: $color-primary;
 }
 
 .form-check-input {
@@ -115,7 +160,7 @@ a:hover {
   height: 20px;
   margin-right: 10px;
   background-color: $color-secondary;
-  border: 1px solid $color-primary;  
+  border: 1px solid $color-primary;
   border-radius: 4px;
 }
 

@@ -20,6 +20,10 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { ConcertsFormComponent } from './components/admin/concerts/concerts-form.component';
+import { ConcertsListComponent } from './components/admin/concerts/concerts-list.component';
+
+
 
 
 
@@ -39,6 +43,8 @@ import { AdminComponent } from './components/admin/admin.component';
     TuitionsComponent,
     NoteEditorComponent,
     AdminComponent,
+    ConcertsFormComponent,
+    ConcertsListComponent
   ],
   imports: [
     BrowserModule,

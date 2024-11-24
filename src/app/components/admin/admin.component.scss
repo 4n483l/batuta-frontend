@@ -1,0 +1,147 @@
+@import "src/styles.scss";
+
+/* .table {
+  margin-top: 30px;
+  background-color: $color-contrastLight;
+} */
+
+/* Contenedor principal */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: $color-secondary;
+  font-family: $font-style;
+}
+
+/* Barra lateral (sidebar) */
+.sidebar {
+  width: 250px;
+  background-color: $color-darkPrimary;
+  padding: 20px;
+  color: $color-contrast;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Asegura que los botones se alineen arriba */
+  height: 100vh;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo h3 {
+  color: $color-contrast;
+  margin-bottom: 30px; /* Separa el logo de los botones */
+}
+
+.nav-item {
+  margin-bottom: 10px;
+}
+/*
+.nav-item .btn {
+  //border-radius: 5px;
+  //padding: 10px;
+  //color: $color-contrast;
+  //font-weight: bold;
+  text-align: center;
+  //display: block;
+}
+ */
+.nav-item .btn:hover,
+.nav-item .btn:focus {
+  background-color: $color-contrast;
+  color: $color-primary;
+}
+
+/* Contenido principal */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: $color-secondary;
+}
+
+.content-header {
+  margin-bottom: 30px;
+}
+
+.content-header p {
+  font-size: 1.2rem;
+}
+
+.card {
+  background-color: $color-contrastLight;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.card-header {
+  font-weight: bold;
+  color: $color-darkPrimary;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-footer {
+  text-align: right;
+}
+
+/* Estilo para los botones */
+.btn-primary {
+  background-color: $color-primary;
+  color: $color-contrast;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: $color-darkPrimary;
+  font-weight: bold;
+  color: $color-contrast;
+}
+
+.btn-danger {
+  background-color: $color-danger;
+  color: $color-contrast;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 100%;
+  transition: background-color 0.3s ease, font-weight 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: $color-darkDanger;
+  font-weight: bold;
+}
+
+/* Reglas para las tablas */
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+th {
+  background-color: $color-primary;
+  color: $color-contrast;
+}
+
+tr:nth-child(even) {
+  background-color: $color-contrastLight;
+}
+
+tr:hover {
+  background-color: $color-darkPrimary;
+  color: $color-contrast;
+  cursor: pointer;
+}

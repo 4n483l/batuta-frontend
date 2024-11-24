@@ -1,0 +1,46 @@
+<div class="admin-container">
+  <!-- Barra lateral -->
+  <div class="sidebar">
+    <div class="logo">
+      <h3 class="text-center text-light mt-5">Panel de Administración</h3>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <button class="btn btn-primary w-100" (click)="showConcertForm()">Conciertos</button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-primary w-100" (click)="showRehearsalForm()">Ensayos</button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-primary w-100" (click)="showExamsForm()">Exámenes</button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-primary w-100" (click)="showCoursesForm()">Cursos</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Título de la página -->
+    <div class="content-header text-center">
+      <h1 class="display-4">Bienvenido al Panel de Administración</h1>
+     <!--  <p class="lead">Administra Conciertos, Ensayos, Exámenes y Cursos</p> -->
+    </div>
+
+    <!-- Formularios -->
+    <div *ngIf="selectedTab === 'concerts'">
+      <app-concerts-form *ngIf="isFormVisible" [selectedConcert]="selectedConcert"
+        (cerrarFormulario)="cerrarFormulario()"></app-concerts-form>
+    </div>
+<!--     <div *ngIf="selectedTab === 'rehearsals'">
+      <app-rehearsals-form></app-rehearsals-form>
+    </div>
+    <div *ngIf="selectedTab === 'exams'">
+      <app-exams-form></app-exams-form>
+    </div>
+    <div *ngIf="selectedTab === 'courses'">
+      <app-courses-form></app-courses-form>
+    </div> -->
+  </div>
+</div>

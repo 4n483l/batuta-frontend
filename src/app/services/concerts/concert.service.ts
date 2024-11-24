@@ -8,8 +8,8 @@ import { Concert } from 'src/app/models/concert.model';
   providedIn: 'root',
 })
 export class ConcertService {
-  // private concertsUrl = API_ROUTES.concerts;
-  private concertsUrl = 'http://localhost:8000/api/concerts';
+   private concertsUrl = API_ROUTES.concerts;
+ // private concertsUrl = 'http://localhost:8000/api/concerts';
 
   constructor(private http: HttpClient) {}
 

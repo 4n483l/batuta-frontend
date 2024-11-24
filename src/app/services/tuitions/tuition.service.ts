@@ -10,7 +10,7 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 })
 export class TuitionService {
   private tuitionsUrl = API_ROUTES.tuitions;
-  // private tuitionsUrl = 'http://localhost:8000/api/tuitions';
+   //private tuitionsUrl = 'http://localhost:8000/api/tuitions';
 
   private token?: string = '';
   headers: HttpHeaders;

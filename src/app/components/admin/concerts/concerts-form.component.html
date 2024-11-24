@@ -1,0 +1,25 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h3>{{ selectedConcert?.id ? 'Editar Concierto' : 'Agregar Concierto' }}</h3>
+    <form (ngSubmit)="saveConcert()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input id="title" type="text" class="form-control" [(ngModel)]="concert.title" name="title" required />
+      </div>
+      <div class="mb-3">
+        <label for="place" class="form-label">Lugar</label>
+        <input id="place" type="text" class="form-control" [(ngModel)]="concert.place" name="place" required />
+      </div>
+      <div class="mb-3">
+        <label for="date" class="form-label">Fecha</label>
+        <input id="date" type="date" class="form-control" [(ngModel)]="concert.date" name="date" required />
+      </div>
+      <div class="mb-3">
+        <label for="hour" class="form-label">Hora</label>
+        <input id="hour" type="time" class="form-control" [(ngModel)]="concert.hour" name="hour" required />
+      </div>
+      <button class="btn btn-success" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>
+    </form>
+  </div>
+</div>

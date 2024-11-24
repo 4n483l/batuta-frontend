@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
 import { Instrument } from 'src/app/models/instrument.model';
+import { API_ROUTES } from 'src/app/config/api-routes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InstrumentService {
-  private instrumentsUrl = 'http://localhost:8000/api/subjects/instruments';
-  //'http://panel.batuta.lo/api/subjects';
+  private instrumentsUrl = API_ROUTES.instruments;
 
   private token?: string = '';
   headers: HttpHeaders;

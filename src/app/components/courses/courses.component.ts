@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
-import { EventService } from 'src/app/services/eventos/event.service';
+import { CourseService } from 'src/app/services/courses/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -10,10 +10,10 @@ import { EventService } from 'src/app/services/eventos/event.service';
 export class CoursesComponent implements OnInit {
   courses: Course[] = [];
 
-  constructor(private eventService:EventService) {}
+  constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.eventService.getCourses().subscribe((data: any) => {
+    this.courseService.getCourses().subscribe((data: any) => {
       this.courses = Array.isArray(data.Courses) ? data.Courses : [];
       console.log('Componente courses:', this.courses);
     });

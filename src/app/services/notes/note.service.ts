@@ -1,26 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_ROUTES } from 'src/app/config/api-routes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NoteService {
-  private apiUrl = 'http://localhost/api/notes';
+  private notesUrl = API_ROUTES.notes;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  createNote(note: any) : Observable<any> {
-    return this.http.post(this.apiUrl, note,{
+  createNote(note: any): Observable<any> {
+    return this.http.post(this.notesUrl, note, {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
   }
 
-
-  saveAsPdf(note: any) : Observable<any> {
-    return this.http.post(`${this.apiUrl}/generate-pdf`, note);
+  saveAsPdf(note: any): Observable<any> {
+    return this.http.post(`${this.notesUrl}/generate-pdf`, note);
   }
-
 }

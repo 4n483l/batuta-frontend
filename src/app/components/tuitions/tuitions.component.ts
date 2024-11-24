@@ -7,7 +7,6 @@ import { SubjectService } from 'src/app/services/subjects/subject.service';
 import { Subject } from 'src/app/models/subject.model';
 import { Instrument } from 'src/app/models/instrument.model';
 import { InstrumentService } from 'src/app/services/instruments/instrument.service';
-import { tr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-tuitions',
@@ -42,14 +41,10 @@ export class TuitionsComponent implements OnInit {
     private instrumentService: InstrumentService
   ) {}
 
-  // el get de back para cuando inicialice la pantalla
   ngOnInit(): void {
 
-    // trae los instrumentos del back
     this.instrumentService.getInstruments().subscribe((dataInstrument: any) => {
-      // console.log('Datos de Instrumentos: ', dataInstrument);
       this.instrumentos = dataInstrument.instruments;
-      //  console.log('Instrumento 1 ', this.instrumentos[0]);
       this.isInstrumentLoading = false;
     });
 
@@ -80,12 +75,9 @@ export class TuitionsComponent implements OnInit {
       console.log('Componente tuitions:', data.usuario);
       this.isUserLoading = false;
     });
-
   }
 
-  // Envío del formulario
   onSubmit(form: NgForm) {
-
     if (form.valid) {
       const selectedSubjects = Object.keys(this.checkedSubjects)
         .filter((key) => this.checkedSubjects[+key])
@@ -97,7 +89,6 @@ export class TuitionsComponent implements OnInit {
       );
 
       if (instrumentSubject && this.selectedInstrumentId) {
-        // Agregar la asignatura de instrumento al array de asignaturas seleccionadas
         selectedSubjects.push(instrumentSubject.id); // TODO: agregar instrumento desde el backend
       }
 
@@ -120,12 +111,9 @@ export class TuitionsComponent implements OnInit {
     }
   }
 
-  // Método para manejar los cambios en checkbox de asignaturas
   onClickCheckbox(subjectId: number) {
     this.checkedSubjects[subjectId] = !this.checkedSubjects[subjectId];
-    // console.log('onClickCheckbox:', this.checkedSubjects);
   }
-  // Método para manejar los cambios en el select de instrumentos
   onInstrumentChange(instrumentId: number | null) {
     this.selectedInstrumentId = instrumentId;
     console.log('Instrumento seleccionado:', this.selectedInstrumentId);

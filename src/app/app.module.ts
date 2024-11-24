@@ -19,6 +19,7 @@ import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 
@@ -37,6 +38,7 @@ import { NoteEditorComponent } from './components/note-editor/note-editor.compon
     CoursesComponent,
     TuitionsComponent,
     NoteEditorComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

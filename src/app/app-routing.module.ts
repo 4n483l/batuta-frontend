@@ -9,6 +9,7 @@ import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'tuitions', component: TuitionsComponent },
   { path: 'edit-notes', component: NoteEditorComponent },
+  { path: 'admin', component: AdminComponent },
 
 
   { path: '**', redirectTo: '' }, // Redirigir a la página de login si no se encuentra la ruta

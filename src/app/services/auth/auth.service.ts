@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { API_ROUTES } from 'src/app/config/api-routes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private API_URL = 'http://127.0.0.1:8000/api'; // URL del backend Laravel
+  // private API_URL = 'http://127.0.0.1:8000/api';
+   private authUrl = API_ROUTES.auth;
 
   // El estado de si el usuario está logueado. emisor de eventos
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
@@ -19,7 +21,7 @@ export class AuthService {
 
   // Método para el login
   login(email: string, password: string): Observable<any> {
-    const url = `${this.API_URL}/login`; // Ruta de login en Laravel
+    const url = `${this.authUrl}/login`; // Ruta de login en Laravel
     return this.http.post(url, { email, password }).pipe(
       map((response: any) => {
         // Almacenar el token JWT en localStorage
@@ -47,7 +49,7 @@ export class AuthService {
     password: string;
     confirmPassword: string;
   }): Observable<any> {
-    const url = `${this.API_URL}/register`; 
+    const url = `${this.authUrl}/register`;
 
     return this.http.post(url, data);
   }
@@ -74,6 +76,6 @@ export class AuthService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.http.get(`${this.API_URL}/${endpoint}`, { headers });
+    return this.http.get(`${this.authUrl}/${endpoint}`, { headers });
   }
 }

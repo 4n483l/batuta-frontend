@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
 import { Subject } from 'src/app/models/subject.model';
+import { API_ROUTES } from 'src/app/config/api-routes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SubjectService {
-  private subjectsUrl = 'http://localhost:8000/api/subjects';
-  //'http://panel.batuta.lo/api/subjects';
+  private subjectsUrl = API_ROUTES.subjects;
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -28,6 +28,4 @@ export class SubjectService {
       headers: this.headers,
     });
   }
-
- 
 }

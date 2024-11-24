@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tuition } from 'src/app/models/tuition.model';
 import { AuthService } from '../auth/auth.service';
+import { API_ROUTES } from 'src/app/config/api-routes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TuitionService {
-  private tuitionsUrl = 'http://localhost:8000/api/tuitions';
+  private tuitionsUrl = API_ROUTES.tuitions;
+  // private tuitionsUrl = 'http://localhost:8000/api/tuitions';
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -33,6 +35,4 @@ export class TuitionService {
       headers: this.headers,
     });
   }
-
-  
 }

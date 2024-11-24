@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rehearsal } from 'src/app/models/rehearsal.model';
-import { EventService } from 'src/app/services/eventos/event.service';
+import { RehearsalService } from 'src/app/services/rehearsals/rehearsal.service';
 
 @Component({
   selector: 'app-rehearsals',
@@ -10,10 +10,10 @@ import { EventService } from 'src/app/services/eventos/event.service';
 export class RehearsalsComponent implements OnInit {
   rehearsals: Rehearsal[] = [];
 
-  constructor(private eventService: EventService) {}
+  constructor(private rehearsalService: RehearsalService) {}
 
   ngOnInit(): void {
-    this.eventService.getRehearsals().subscribe((data: any) => {
+    this.rehearsalService.getRehearsals().subscribe((data: any) => {
       this.rehearsals = Array.isArray(data.Rehearsals) ? data.Rehearsals : [];
       console.log('Componente rehearsals:', this.rehearsals);
     });

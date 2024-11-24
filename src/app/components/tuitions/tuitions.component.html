@@ -1,9 +1,9 @@
-<div *ngIf="isLoading" class="loading-container text-center">
+<div *ngIf="isUserLoading || isInstrumentLoading || isSubjectLoading" class="loading-container text-center">
   <img src="assets/pics/loading.gif" alt="Cargando..." />
   <p>Cargando datos...</p>
 </div>
 
-<div *ngIf="!isLoading" class="container">
+<div *ngIf="!isUserLoading && !isInstrumentLoading && !isSubjectLoading" class="container">
   <h2 class="text-center">Formulario de Matrícula</h2>
 
   <!-- Formulario de matrícula vinculado con ngForm -->
@@ -22,11 +22,11 @@
 
       <!-- Apellidos -->
       <div class="form-group two-thirds-width">
-        <label for="lastName">Apellidos</label>
-        <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName"
-          #lastNameInput="ngModel" required placeholder="Escribe tus apellidos" />
-        <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger">
-          <div *ngIf="lastNameInput.errors?.['required']">Los apellidos son obligatorios.</div>
+        <label for="lastname">Apellidos</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="lastname"
+          #lastnameInput="ngModel" required placeholder="Escribe tus apellidos" />
+        <div *ngIf="lastnameInput.invalid && lastnameInput.touched" class="text-danger">
+          <div *ngIf="lastnameInput.errors?.['required']">Los apellidos son obligatorios.</div>
         </div>
       </div>
     </div>
@@ -101,27 +101,13 @@
     </div>
 
 
-    <!--     <div class="form-group">
-      <label for="instrument">Instrumento</label>
-      <select class="form-control form-select" id="instrument" name="instrument" [(ngModel)]="instrument"
-        #instrumentInput="ngModel" required>
-        <option value="">Selecciona un instrumento</option>
-        <option *ngFor="let instrument of instruments" [value]="instrument">
-          {{ instrument }}
-        </option>
-      </select>
-      <div *ngIf="instrumentInput.invalid && instrumentInput.touched" class="text-danger">
-        <div *ngIf="instrumentInput.errors?.['required']">El instrumento es obligatorio.</div>
-      </div>
-    </div> -->
-
   <!-- Instrumento select-->
   <div class="form-group">
     <label for="instrument">Instrumento</label>
     <select class="form-control form-select" id="instrument" name="instrument" [(ngModel)]="selectedInstrumentId"
       #instrumentInput="ngModel" required (change)="onInstrumentChange(selectedInstrumentId)">
       <option value="null" disabled >Selecciona un instrumento</option>
-      <option *ngFor="let instrument of instruments" [value]="instrument.id">
+      <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
         {{ instrument.name }}
       </option>
     </select>
@@ -133,7 +119,7 @@
     <!-- Asignaturas -->
     <div class="form-group">
       <label>Asignaturas</label>
-      <div *ngFor="let subject of subjects" class="form-check">
+      <div *ngFor="let subject of asignaturas" class="form-check">
         <!-- Mostrar checkbox para asignaturas, excepto Instrumento -->
         <ng-container *ngIf="subject.name !== 'Instrumento'">
           <input type="checkbox" class="form-check-input" [id]="subject.id" [name]="subject.name"

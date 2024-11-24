@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { TuitionService } from 'src/app/services/tuitions/tuition.service';
-import { Instrument, Tuition, Subject } from 'src/app/models/tuition.model';
+import { Tuition } from 'src/app/models/tuition.model';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
-
+import { Subject } from 'src/app/models/subject.model';
+import { Instrument } from 'src/app/models/instrument.model';
+import { InstrumentService } from 'src/app/services/instruments/instrument.service';
+import { tr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-tuitions',
@@ -14,7 +17,7 @@ import { SubjectService } from 'src/app/services/subjects/subject.service';
 export class TuitionsComponent implements OnInit {
   // Inicializar datos
   name: string = '';
-  lastName: string = '';
+  lastname: string = '';
   dni: string = '';
   phone: string = '';
   address: string = '';
@@ -23,69 +26,50 @@ export class TuitionsComponent implements OnInit {
   birth_date: string = '';
   email: string = '';
 
-  subjects: Subject[] = [];
+  asignaturas: Subject[] = [];
   checkedSubjects: { [key: number]: boolean } = {};
-  instruments: Instrument[] = [];
+  instrumentos: Instrument[] = [];
   selectedInstrumentId: number | null = null;
 
-  isLoading: boolean = true;
+  isUserLoading: boolean = true;
+  isSubjectLoading: boolean = true;
+  isInstrumentLoading: boolean = true;
 
-  // datos de prueba
-  /*  subjects: { id: number; nombre: string }[] = [ ];
-  checkedSubjects: { [key: number]: boolean } = {};
-  instruments2: string[] = [
-    'Clarinete',
-    'Flauta',
-    'Oboe',
-    'Saxo',
-    'Trompa',
-    'Trompeta',
-    'Trombón',
-    'Fagot',
-    'Percusión',
-    'Tuba',
-    'Bombardino',
-    'Piano',
-    'Guitarra',
-    'Violín',
-    'Violoncello',
-  ];
-  instrument: string = '';
-  instruments: Instrument[] = [
-    { id: 1, name: 'Piano' },
-    { id: 2, name: 'Guitarra' },
-    { id: 3, name: 'Violín' },
-  ];
-  selectedInstrumentId: number | null = null;
- */
-
-  constructor(private router: Router, private tuitionService: TuitionService, private subjectService: SubjectService) {}
+  constructor(
+    private router: Router,
+    private tuitionService: TuitionService,
+    private subjectService: SubjectService,
+    private instrumentService: InstrumentService
+  ) {}
 
   // el get de back para cuando inicialice la pantalla
   ngOnInit(): void {
 
-    // this.checkedSubjects[4] = true;
-
-    this.subjectService.getSubjects().subscribe((dataSubject: any) => {
-      console.log('Datos de asignaturas: ', dataSubject);
-
-      this.subjects = dataSubject;
+    // trae los instrumentos del back
+    this.instrumentService.getInstruments().subscribe((dataInstrument: any) => {
+      // console.log('Datos de Instrumentos: ', dataInstrument);
+      this.instrumentos = dataInstrument.instruments;
+      //  console.log('Instrumento 1 ', this.instrumentos[0]);
+      this.isInstrumentLoading = false;
     });
 
-     this.subjectService.getInstruments().subscribe((dataInstrument: any) => {
-       console.log('Datos de Instrumentos: ', dataInstrument);
+    // trae las asignaturas del back
+    this.subjectService.getSubjects().subscribe((dataSubject: any) => {
+      console.log('Datos de asignaturas: ', dataSubject);
+      this.asignaturas = dataSubject.subjects;
+      this.isSubjectLoading = false;
+    });
+    // inicializar los checkbox
+    this.asignaturas.forEach((subject) => {
+      if (subject.name !== 'Instrumento') {
+        this.checkedSubjects[subject.id] = false;
+      }
+    });
 
-           this.instruments = dataInstrument.instruments;
-
-           console.log('Instrumento 1 ', this.instruments[0]);
-           console.log('Instrumento 2 ', this.instruments[1]);
-     });
-
-
-
+    // trae los datos del usuario logueado
     this.tuitionService.getTuitions().subscribe((data: any) => {
-            console.log('Datos recibidos de la API:', data);
-                 this.isLoading = false;
+      console.log('Datos recibidos de la API:', data);
+
       // traemos los datos del usuario logueado
       this.phone = data.usuario.phone;
       this.address = data.usuario.address;
@@ -93,46 +77,29 @@ export class TuitionsComponent implements OnInit {
       this.postal_code = data.usuario.postal_code;
       this.email = data.usuario.email;
 
-
-        // this.subjects.find((subject) => subject.name === 'Instrumento') ?.instruments || [];
-
-      // inicializar los checkbox
-      this.subjects.forEach((subject) => {
-        if (subject.name !== 'Instrumento') {
-          this.checkedSubjects[subject.id] = false;
-        }
-      });
       console.log('Componente tuitions:', data.usuario);
-
-
+      this.isUserLoading = false;
     });
-    console.log('cambios estado:', this.checkedSubjects);
+
   }
 
   // Envío del formulario
   onSubmit(form: NgForm) {
+
     if (form.valid) {
       const selectedSubjects = Object.keys(this.checkedSubjects)
         .filter((key) => this.checkedSubjects[+key])
         .map((key) => +key); // Convierte los strings a números
 
       // Cuando se selecciona un instrumento, se agrega a la lista de asignaturas
-        const instrumentSubject = this.subjects.find(
-          (subject) => subject.name === 'Instrumento'
-        );
-        if (instrumentSubject && this.selectedInstrumentId) {
+      const instrumentSubject = this.asignaturas.find(
+        (subject) => subject.name === 'Instrumento'
+      );
 
-          // Agregar la asignatura de instrumento al array de asignaturas seleccionadas
-          selectedSubjects.push(instrumentSubject.id);
-
-         /*   const instrumentSubjectData: Subject = {
-             id: instrumentSubject.id, // Usamos el id del "Instrumento"
-             nombre: 'Instrumento',
-             instrumentId: this.selectedInstrumentId, // El id del instrumento seleccionado
-           };
-           // Agregar la asignatura de instrumento al array de asignaturas seleccionadas
-           selectedSubjects.push(instrumentSubjectData.id); */
-        }
+      if (instrumentSubject && this.selectedInstrumentId) {
+        // Agregar la asignatura de instrumento al array de asignaturas seleccionadas
+        selectedSubjects.push(instrumentSubject.id); // TODO: agregar instrumento desde el backend
+      }
 
       console.log('Asignaturas seleccionadas:', selectedSubjects);
 
@@ -156,7 +123,7 @@ export class TuitionsComponent implements OnInit {
   // Método para manejar los cambios en checkbox de asignaturas
   onClickCheckbox(subjectId: number) {
     this.checkedSubjects[subjectId] = !this.checkedSubjects[subjectId];
-    console.log('onClickCheckbox:', this.checkedSubjects);
+    // console.log('onClickCheckbox:', this.checkedSubjects);
   }
   // Método para manejar los cambios en el select de instrumentos
   onInstrumentChange(instrumentId: number | null) {

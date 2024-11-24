@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
-import { Subject } from 'src/app/models/subject.model';
+import { Instrument } from 'src/app/models/instrument.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SubjectService {
-  private subjectsUrl = 'http://localhost:8000/api/subjects';
+export class InstrumentService {
+  private instrumentsUrl = 'http://localhost:8000/api/subjects/instruments';
   //'http://panel.batuta.lo/api/subjects';
 
   private token?: string = '';
@@ -23,11 +23,9 @@ export class SubjectService {
     });
   }
 
-  getSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(this.subjectsUrl, {
+  getInstruments(): Observable<Instrument[]> {
+    return this.http.get<Instrument[]>(this.instrumentsUrl, {
       headers: this.headers,
     });
   }
-
- 
 }

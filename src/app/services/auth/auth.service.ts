@@ -47,19 +47,10 @@ export class AuthService {
     password: string;
     confirmPassword: string;
   }): Observable<any> {
-    const url = `${this.API_URL}/register`; // Ruta de registro en Laravel
+    const url = `${this.API_URL}/register`; 
 
     return this.http.post(url, data);
   }
-
-  // Método para obtener los datos del usuario autenticado
-  /*   getUser(): Observable<any> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get(`${this.API_URL}/user`, { headers });
-  } */
 
   // Método para obtener el token almacenado
   getToken(): string | null {

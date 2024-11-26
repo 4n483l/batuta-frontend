@@ -1,0 +1,53 @@
+<div class="admin-container">
+  <!-- Barra lateral -->
+  <nav class="sidebar">
+    <div class="logo">
+      <h2>Admin Panel</h2>
+    </div>
+    <div class="nav-item">
+      <button class="btn btn-primary" (click)="switchTab('concerts')">Conciertos</button>
+    </div>
+    <div class="nav-item">
+      <button class="btn btn-primary" (click)="switchTab('rehearsals')">Ensayos</button>
+    </div>
+    <div class="nav-item">
+      <button class="btn btn-primary" (click)="switchTab('courses')">Cursos</button>
+    </div>
+    <div class="nav-item">
+      <button class="btn btn-primary" (click)="switchTab('exams')">Exámenes</button>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <div class="content-header d-flex justify-content-between align-items-center">
+      <h1>{{ getTabTitle() }}</h1>
+      <button class="btn btn-agregar" (click)="addItem()">Agregar</button>
+    </div>
+
+    <!-- Tabla dinámica -->
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Título</th>
+          <th>Lugar</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of currentList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.title }}</td>
+          <td>{{ item.place }}</td>
+          <td>{{ item.date }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="editItem(item)">Modificar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteItem(item.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>

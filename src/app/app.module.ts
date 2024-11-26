@@ -22,8 +22,9 @@ import { NoteEditorComponent } from './components/note-editor/note-editor.compon
 import { AdminComponent } from './components/admin/admin.component';
 import { ConcertsFormComponent } from './components/admin/concerts/concerts-form.component';
 import { ConcertsListComponent } from './components/admin/concerts/concerts-list.component';
-
-
+import { RehearsalsFormComponent } from './components/admin/rehearsals/rehearsals-form.component';
+import { RehearsalsListComponent } from './components/admin/rehearsals/rehearsals-list.component';
+import { ConcertAdminComponent } from './components/admin/concerts/concert-admin/concert-admin.component';
 
 
 
@@ -44,7 +45,10 @@ import { ConcertsListComponent } from './components/admin/concerts/concerts-list
     NoteEditorComponent,
     AdminComponent,
     ConcertsFormComponent,
-    ConcertsListComponent
+    ConcertsListComponent,
+    RehearsalsListComponent,
+    RehearsalsFormComponent,
+    ConcertAdminComponent,
   ],
   imports: [
     BrowserModule,

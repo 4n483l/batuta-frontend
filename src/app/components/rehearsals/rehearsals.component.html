@@ -1,1 +1,9 @@
+
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
+</div>
+<div *ngIf="!isLoading">
 <app-calendar [events]="rehearsals" title="Calendario de ensayos"></app-calendar>
+
+</div>

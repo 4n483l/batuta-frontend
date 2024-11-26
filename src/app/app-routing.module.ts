@@ -10,7 +10,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
 import { AdminComponent } from './components/admin/admin.component';
-
+import { ConcertAdminComponent } from './components/admin/concerts/concert-admin/concert-admin.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -23,14 +23,22 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'tuitions', component: TuitionsComponent },
   { path: 'edit-notes', component: NoteEditorComponent },
-  { path: 'admin', component: AdminComponent },
-
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'concert-admin',
+        component: ConcertAdminComponent,
+      },
+    ],
+  },
 
   { path: '**', redirectTo: '' }, // Redirigir a la página de login si no se encuentra la ruta
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

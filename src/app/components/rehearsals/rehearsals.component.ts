@@ -9,6 +9,7 @@ import { RehearsalService } from 'src/app/services/rehearsals/rehearsal.service'
 })
 export class RehearsalsComponent implements OnInit {
   rehearsals: Rehearsal[] = [];
+  isLoading: boolean = true;
 
   constructor(private rehearsalService: RehearsalService) {}
 
@@ -16,6 +17,12 @@ export class RehearsalsComponent implements OnInit {
     this.rehearsalService.getRehearsals().subscribe((data: any) => {
       this.rehearsals = Array.isArray(data.Rehearsals) ? data.Rehearsals : [];
       console.log('Componente rehearsals:', this.rehearsals);
-    });
+      this.isLoading = false;
+    },
+    (error) => {
+      console.error('Error al cargar ensayos', error);
+      this.isLoading = false;
+    }
+  );
   }
 }

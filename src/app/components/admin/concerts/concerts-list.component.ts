@@ -11,7 +11,7 @@ export class ConcertsListComponent implements OnInit {
   concerts: Concert[] = [];
   selectedConcert: Concert | null = null;
   isFormVisible: boolean = false;
-
+  
   constructor(private concertService: ConcertService) {}
 
   ngOnInit(): void {
@@ -22,10 +22,12 @@ export class ConcertsListComponent implements OnInit {
     this.concertService.getConcerts().subscribe(
       (data: Concert[]) => {
         this.concerts = data;
+
       },
       (error) => {
         console.error('Error fetching concerts', error);
-      }
+
+      },
     );
   }
 
@@ -53,6 +55,6 @@ export class ConcertsListComponent implements OnInit {
   }
 
   cerrarFormulario(): void {
-    this.isFormVisible = false; 
+    this.isFormVisible = false;
   }
 }

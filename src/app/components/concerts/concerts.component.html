@@ -1,5 +1,9 @@
 
 
-<app-calendar [events]="concerts" title="Calendario de conciertos"></app-calendar>
-
-
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
+</div>
+<div *ngIf="!isLoading">
+  <app-calendar [events]="concerts" title="Calendario de conciertos"></app-calendar>
+</div>

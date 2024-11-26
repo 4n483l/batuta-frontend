@@ -1,0 +1,33 @@
+<!-- Contenido principal -->
+<main class="main-content">
+  <div class="content-header d-flex justify-content-between align-items-center">
+    <h1> Conciertos </h1>
+    <button class="btn btn-agregar"><a href="/concerts-form">Agregar</a></button>
+  </div>
+
+  <!-- Tabla dinámica -->
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Título</th>
+        <th>Lugar</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of currentList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.place }}</td>
+        <td>{{ item.date }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" >Modificar</button> <!-- (click)="editItem(item)" -->
+          <button class="btn btn-danger btn-sm" >Eliminar</button> <!-- (click)="deleteItem(item.id)" -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+

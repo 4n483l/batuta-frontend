@@ -18,4 +18,10 @@ export class ConcertAdminComponent implements OnInit {
       this.currentList = Array.isArray(data.Concerts) ? data.Concerts : [];
     });
   }
+
+ /*  deleteConcert(id: string) {
+    this.concertService.deleteConcert(id).subscribe(() => {
+      this.currentList = this.currentList.filter((concert) => concert._id !== id);
+    });
+  } */
 }

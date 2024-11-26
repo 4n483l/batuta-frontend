@@ -11,6 +11,7 @@ import { TuitionsComponent } from './components/tuitions/tuitions.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ConcertAdminComponent } from './components/admin/concerts/concert-admin/concert-admin.component';
+import { NoteFormComponent } from './components/note-form/note-form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'tuitions', component: TuitionsComponent },
   { path: 'edit-notes', component: NoteEditorComponent },
+  { path: 'note-form', component: NoteFormComponent },
   {
     path: 'admin',
     component: AdminComponent,

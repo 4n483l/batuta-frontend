@@ -25,6 +25,8 @@ import { ConcertsListComponent } from './components/admin/concerts/concerts-list
 import { RehearsalsFormComponent } from './components/admin/rehearsals/rehearsals-form.component';
 import { RehearsalsListComponent } from './components/admin/rehearsals/rehearsals-list.component';
 import { ConcertAdminComponent } from './components/admin/concerts/concert-admin/concert-admin.component';
+import { NotesComponent } from './components/notes/notes.component';
+import { NoteFormComponent } from './components/note-form/note-form.component';
 
 
 
@@ -49,6 +51,8 @@ import { ConcertAdminComponent } from './components/admin/concerts/concert-admin
     RehearsalsListComponent,
     RehearsalsFormComponent,
     ConcertAdminComponent,
+    NotesComponent,
+    NoteFormComponent,
   ],
   imports: [
     BrowserModule,

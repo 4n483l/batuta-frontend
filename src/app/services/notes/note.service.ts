@@ -9,6 +9,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class NoteService {
   private notesUrl = API_ROUTES.notes;
+  private teacherSubjectsUrl = API_ROUTES.teacherSubjects;
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -24,6 +25,12 @@ export class NoteService {
 
   saveNote(note: any): Observable<any> {
     return this.http.post(this.notesUrl, note, {
+      headers: this.headers,
+    });
+  }
+
+  getSubjectsForTeacher(): Observable<any> {
+    return this.http.get(this.teacherSubjectsUrl, {
       headers: this.headers,
     });
   }

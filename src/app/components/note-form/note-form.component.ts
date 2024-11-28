@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/notes/note.service';
 import jsPDF from 'jspdf';
 
+
+
 @Component({
   selector: 'app-note-form',
   templateUrl: './note-form.component.html',
@@ -9,11 +11,25 @@ import jsPDF from 'jspdf';
 })
 export class NoteFormComponent implements OnInit {
   note = { title: '', topic: '', content: '', subject_id: '' };
+  subjects: any[] = [];
   pdf = new jsPDF();
 
   constructor(private noteService: NoteService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadSubjects();
+  }
+
+  loadSubjects() {
+    this.noteService.getSubjectsForTeacher().subscribe(
+      (response: any) => {
+        this.subjects = response.subjects; // Extraer solo el arreglo subjects
+      },
+      (error) => {
+        console.error('Error al cargar asignaturas:', error);
+      }
+    );
+  }
 
   onSubmit() {
     this.saveNotePdf();
@@ -80,7 +96,6 @@ export class NoteFormComponent implements OnInit {
         yPosition += 10;
       });
     });
-    
   }
 
   previewPdf() {

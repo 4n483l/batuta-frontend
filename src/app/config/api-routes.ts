@@ -6,9 +6,11 @@ export const API_ROUTES = {
   concerts: `${API_URL}/concerts`,
   rehearsals: `${API_URL}/rehearsals`,
   subjects: `${API_URL}/subjects`,
-  instruments: `${API_URL}/subjects/instruments`,
+  instruments: `${API_URL}/instruments`,
   tuitions: `${API_URL}/tuitions`,
   exams: `${API_URL}/exams`,
   courses: `${API_URL}/courses`,
   notes: `${API_URL}/notes`,
+  teacherSubjects: `${API_URL}/teacher/subjects`,
+  teacherInstruments: `${API_URL}/teacher/instruments`,
 };

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from 'src/app/config/api-routes';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,17 +10,25 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 export class NoteService {
   private notesUrl = API_ROUTES.notes;
 
-  constructor(private http: HttpClient) {}
+  private token?: string = '';
+  headers: HttpHeaders;
 
-  createNote(note: any): Observable<any> {
-    return this.http.post(this.notesUrl, note, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  constructor(private http: HttpClient, private authService: AuthService) {
+    // Obtener el token de autenticación
+    this.token = this.authService.getToken() || '';
+    // Crear los headers con el token de autenticación
+    this.headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
     });
   }
 
-  saveAsPdf(note: any): Observable<any> {
-    return this.http.post(`${this.notesUrl}/generate-pdf`, note);
+  saveNote(note: any): Observable<any> {
+    return this.http.post(this.notesUrl, note, {
+      headers: this.headers,
+    });
   }
+
+  /*  saveAsPdf(note: any): Observable<any> {
+    return this.http.post(`${this.notesUrl}/generate-pdf`, note);
+  } */
 }

@@ -18,7 +18,7 @@ export class NoteEditorComponent implements OnInit {
   }
 
   createNote() {
-    this.noteService.createNote(this.note).subscribe((response) => {
+    this.noteService.saveNote(this.note).subscribe((response) => {
       this.note = response.note;
       console.log(response);
     });
@@ -34,11 +34,11 @@ export class NoteEditorComponent implements OnInit {
       }
     );
   } */
-
+/*
   saveAsPdf() {
     this.noteService.saveAsPdf(this.note).subscribe((response) => {
       window.open(response.pdf_url); // Abrir en una nueva pestaña
       console.log(response);
     });
-  }
+  } */
 }

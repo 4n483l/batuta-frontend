@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Concert } from 'src/app/models/concert.model';
 import { ConcertService } from 'src/app/services/concerts/concert.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-concert-admin',
@@ -23,7 +23,7 @@ export class ConcertAdminComponent implements OnInit {
     });
   }
 
-  deleteConcert(id: number): void {
+   deleteConcert(id: number): void {
     if (confirm('¿Estás seguro de que quieres eliminar este concierto?')) {
       this.concertService.deleteConcert(id).subscribe({
         next: () => {
@@ -41,4 +41,6 @@ export class ConcertAdminComponent implements OnInit {
       });
     }
   }
+ 
+
 }

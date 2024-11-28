@@ -8,13 +8,16 @@ import { Concert } from 'src/app/models/concert.model';
   providedIn: 'root',
 })
 export class ConcertService {
-   private concertsUrl = API_ROUTES.concerts;
- // private concertsUrl = 'http://localhost:8000/api/concerts';
+  private concertsUrl = API_ROUTES.concerts;
+  // private concertsUrl = 'http://localhost:8000/api/concerts';
 
   constructor(private http: HttpClient) {}
 
   getConcerts(): Observable<Concert[]> {
     return this.http.get<Concert[]>(this.concertsUrl);
+  }
+  getConcertById(id: number): Observable<Concert> {
+    return this.http.get<Concert>(`${this.concertsUrl}/${id}`);
   }
 
   createConcert(concert: Concert): Observable<Concert> {

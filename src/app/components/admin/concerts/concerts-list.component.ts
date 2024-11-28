@@ -11,7 +11,7 @@ export class ConcertsListComponent implements OnInit {
   concerts: Concert[] = [];
   selectedConcert: Concert | null = null;
   isFormVisible: boolean = false;
-  
+
   constructor(private concertService: ConcertService) {}
 
   ngOnInit(): void {

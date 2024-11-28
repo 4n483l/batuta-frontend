@@ -12,6 +12,7 @@ import { NoteEditorComponent } from './components/note-editor/note-editor.compon
 import { AdminComponent } from './components/admin/admin.component';
 import { ConcertAdminComponent } from './components/admin/concerts/concert-admin/concert-admin.component';
 import { NoteFormComponent } from './components/note-form/note-form.component';
+import { ConcertsFormComponent } from './components/admin/concerts/concerts-form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -32,6 +33,14 @@ const routes: Routes = [
       {
         path: 'concert-admin',
         component: ConcertAdminComponent,
+      },
+      {
+        path: 'concerts-form', // agragar concierto
+        component: ConcertsFormComponent,
+      },
+      {
+        path: 'concerts-form/:id', // editar concierto
+        component: ConcertsFormComponent,
       },
     ],
   },

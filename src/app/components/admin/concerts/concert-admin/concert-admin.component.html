@@ -2,7 +2,7 @@
 <main class="main-content">
   <div class="content-header d-flex justify-content-between align-items-center">
     <h1> Conciertos </h1>
-    <button class="btn btn-agregar"><a href="/concerts-form">Agregar</a></button>
+    <button class="btn btn-agregar" [routerLink]="['/admin/concerts-form']">Agregar</button>
   </div>
 
   <!-- Tabla dinámica -->
@@ -23,11 +23,12 @@
         <td>{{ item.place }}</td>
         <td>{{ item.date }}</td>
         <td>
-          <button class="btn btn-primary btn-sm" >Modificar</button> <!-- (click)="editItem(item)" -->
-          <button class="btn btn-danger btn-sm" >Eliminar</button> <!-- (click)="deleteItem(item.id)" -->
+          <button class="btn btn-primary btn-sm" [routerLink]="['/admin/concerts-form', item.id]">Modificar</button>
+
+          <button class="btn btn-danger btn-sm"  (click)="deleteConcert(item.id)">Eliminar</button>
+
         </td>
       </tr>
     </tbody>
   </table>
 </main>
-

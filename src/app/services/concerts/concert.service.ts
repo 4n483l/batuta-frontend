@@ -16,6 +16,7 @@ export class ConcertService {
   getConcerts(): Observable<Concert[]> {
     return this.http.get<Concert[]>(this.concertsUrl);
   }
+
   getConcertById(id: number): Observable<Concert> {
     return this.http.get<Concert>(`${this.concertsUrl}/${id}`);
   }

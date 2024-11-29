@@ -28,4 +28,32 @@ export class InstrumentService {
       headers: this.headers,
     });
   }
+
+  getInstrumentById(id: number): Observable<Instrument> {
+    return this.http.get<Instrument>(`${this.instrumentsUrl}/${id}`, {
+      headers: this.headers,
+    });
+  }
+
+  createInstrument(instrument: Instrument): Observable<Instrument> {
+    return this.http.post<Instrument>(this.instrumentsUrl, instrument, {
+      headers: this.headers,
+    });
+  }
+
+  updateInstrument(instrument: Instrument): Observable<Instrument> {
+    return this.http.put<Instrument>(
+      `${this.instrumentsUrl}/${instrument.id}`,
+      instrument,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  deleteInstrument(id: number): Observable<Instrument> {
+    return this.http.delete<Instrument>(`${this.instrumentsUrl}/${id}`, {
+      headers: this.headers,
+    });
+  }
 }

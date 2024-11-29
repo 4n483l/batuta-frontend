@@ -1,0 +1,27 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h3>Gestión de Asignaturas</h3>
+    <button class="btn btn-agregar" (click)="addSubject()">Agregar Nueva Asignatura</button>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Level</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subject of subjects">
+          <td>{{ subject.id }}</td>
+          <td>{{ subject.name }}</td>
+          <td>{{ subject.level }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="editSubject(subject.id)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteSubject(subject.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

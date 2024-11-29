@@ -1,0 +1,25 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h3>Administración de Instrumentos</h3>
+    <button class="btn btn-agregar" (click)="addInstrument()">Agregar Instrumento</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let instrument of instruments">
+          <td>{{ instrument.id }}</td>
+          <td>{{ instrument.name }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="editInstrument(instrument.id)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteInstrument(instrument.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

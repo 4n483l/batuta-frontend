@@ -16,15 +16,19 @@ import { RehearsalsComponent } from './components/rehearsals/rehearsals.componen
 import { ExamsComponent } from './components/exams/exams.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { TuitionsComponent } from './components/tuitions/tuitions.component';
-import { NoteEditorComponent } from './components/note-editor/note-editor.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ConcertsFormComponent } from './components/admin/concerts/concerts-form.component';
-import { ConcertsListComponent } from './components/admin/concerts/concerts-list.component';
+import { ConcertAdminComponent } from './components/admin/concerts/concert-admin.component';
 import { RehearsalsFormComponent } from './components/admin/rehearsals/rehearsals-form.component';
-import { RehearsalsListComponent } from './components/admin/rehearsals/rehearsals-list.component';
-import { ConcertAdminComponent } from './components/admin/concerts/concert-admin/concert-admin.component';
+
+
 import { NotesComponent } from './components/notes/notes.component';
 import { NoteFormComponent } from './components/note-form/note-form.component';
+import { RehearsalAdminComponent } from './components/admin/rehearsals/rehearsal-admin.component';
+import { SubjectAdminComponent } from './components/admin/subjects/subject-admin.component';
+import { SubjectFormComponent } from './components/admin/subjects/subject-form.component';
+import { InstrumentFormComponent } from './components/admin/instruments/instrument-form.component';
+import { InstrumentAdminComponent } from './components/admin/instruments/instrument-admin.component';
 
 @NgModule({
   declarations: [
@@ -40,15 +44,17 @@ import { NoteFormComponent } from './components/note-form/note-form.component';
     ExamsComponent,
     CoursesComponent,
     TuitionsComponent,
-    NoteEditorComponent,
     AdminComponent,
     ConcertsFormComponent,
-    ConcertsListComponent,
-    RehearsalsListComponent,
     RehearsalsFormComponent,
     ConcertAdminComponent,
     NotesComponent,
     NoteFormComponent,
+    RehearsalAdminComponent,
+    SubjectAdminComponent,
+    SubjectFormComponent,
+    InstrumentFormComponent,
+    InstrumentAdminComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
 

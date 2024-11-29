@@ -1,0 +1,13 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h3>{{ subject.id ? 'Editar Asignatura' : 'Agregar Asignatura' }}</h3>
+    <form (ngSubmit)="saveSubject()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input id="name" type="text" class="form-control" [(ngModel)]="subject.name" name="name" required />
+      </div>
+      <button class="btn btn-success" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>
+    </form>
+  </div>
+</div>

@@ -9,8 +9,14 @@
       <button class="btn btn-primary" [routerLink]="['/admin/concert-admin']">Conciertos</button>
     </div>
     <div class="nav-item">
-      <button class="btn btn-primary" (click)="switchTab('rehearsals')">Ensayos</button>
+      <button class="btn btn-primary" [routerLink]="['/admin/rehearsal-admin']">Ensayos</button>
     </div>
+      <div class="nav-item">
+        <button class="btn btn-primary" [routerLink]="['/admin/subject-admin']">Asignaturas</button>
+      </div>
+        <div class="nav-item">
+          <button class="btn btn-primary" [routerLink]="['/admin/instrument-admin']">Instrumentos</button>
+        </div>
     <div class="nav-item">
       <button class="btn btn-primary" (click)="switchTab('courses')">Cursos</button>
     </div>

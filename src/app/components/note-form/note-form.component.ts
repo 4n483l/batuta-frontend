@@ -23,7 +23,7 @@ export class NoteFormComponent implements OnInit {
   loadSubjects() {
     this.noteService.getSubjectsForTeacher().subscribe(
       (response: any) => {
-        this.subjects = response.subjects; // Extraer solo el arreglo subjects
+        this.subjects = response.subjects; 
       },
       (error) => {
         console.error('Error al cargar asignaturas:', error);

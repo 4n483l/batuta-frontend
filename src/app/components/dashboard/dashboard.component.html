@@ -9,8 +9,11 @@
 <section id="about" class="py-5">
   <div class="container">
     <h2 class="text-center mb-4">Sobre Nosotros</h2>
-    <p class="text-center">En esta Sociedad Musical apostamos por el futuro y la formación de las nuevas generaciones. En nuestra escuela de música ofrecemos formación en lenguaje musical, instrumentos y otros estudios complementarios para todas las edades.</p>
-    <p class="text-center">Nuestro elenco de profesores está formado por profesionales con años de experiencia en formaciones musicales y el mundo de la música, así como en la enseñanza musical.</p>
+    <p class="text-center">En esta Sociedad Musical apostamos por el futuro y la formación de las nuevas generaciones.
+      En nuestra escuela de música ofrecemos formación en lenguaje musical, instrumentos y otros estudios
+      complementarios para todas las edades.</p>
+    <p class="text-center">Nuestro elenco de profesores está formado por profesionales con años de experiencia en
+      formaciones musicales y el mundo de la música, así como en la enseñanza musical.</p>
 
 
   </div>
@@ -25,7 +28,8 @@
         <div class="card border-0 shadow-sm">
           <div class="card-body text-center">
             <h3 class="card-title">Canto</h3>
-            <p class="card-text">Desarrolla tu voz y técnica vocal con nuestros expertos. En nuestras clases de canto te sentirás la estrella del escenario.</p>
+            <p class="card-text">Desarrolla tu voz y técnica vocal con nuestros expertos. En nuestras clases de canto te
+              sentirás la estrella del escenario.</p>
           </div>
         </div>
       </div>
@@ -33,7 +37,8 @@
         <div class="card border-0 shadow-sm">
           <div class="card-body text-center">
             <h3 class="card-title ">Lenguaje Musical</h3>
-            <p class="card-text">Disfruta aprendiendo a leer y escribir música, y comprende la teoría musical. Para todas las edades, no hay límite de edad para nuevos conocimientos.</p>
+            <p class="card-text">Disfruta aprendiendo a leer y escribir música, y comprende la teoría musical. Para
+              todas las edades, no hay límite de edad para nuevos conocimientos.</p>
           </div>
         </div>
       </div>
@@ -41,7 +46,8 @@
         <div class="card border-0 shadow-sm">
           <div class="card-body text-center">
             <h3 class="card-title">Instrumento</h3>
-            <p class="card-text">Ofrecemos clases de diferentes instrumentos musicales, como guitarra, clarinete, percusión, piano, trompeta y muchos más. Intentamos adaptarnos a las necesidades de los alumnos</p>
+            <p class="card-text">Ofrecemos clases de diferentes instrumentos musicales, como guitarra, clarinete,
+              percusión, piano, trompeta y muchos más. Intentamos adaptarnos a las necesidades de los alumnos</p>
           </div>
         </div>
       </div>
@@ -49,40 +55,83 @@
   </div>
 </section>
 
+<!-- <section id="concerts" class="py-5">
+  <div class="container">
+    <h2 class="text-center">Próximos Conciertos</h2>
+    <div *ngIf="isLoading" class="text-center">Cargando conciertos...</div>
+
+     <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let concert of concerts">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title">{{ concert.title }}</h3>
+            <p class="card-text">Fecha: {{ concert.date | date:'longDate' }}</p>
+            <p class="card-text">Hora: {{ concert.hour }}</p>
+            <p class="card-text">Lugar: {{ concert.place }}</p>
+          </div>
+        </div>
+      </div>
+
+    <div *ngIf="!isLoading && concerts.length === 0" class="text-center">
+      No hay conciertos programados en este momento.
+    </div>
+    </div>
+  </div>
+</section> -->
+
+
 <section id="concerts" class="py-5">
   <div class="container">
     <h2 class="text-center">Próximos Conciertos</h2>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h3 class="card-title">Concierto de Primavera</h3>
-            <p class="card-text">Fecha: 25 de marzo</p>
-            <p class="card-text">Hora: 18:00</p>
-            <p class="card-text">Lugar: Auditorio Principal</p>
+
+    <!-- Carrusel de Bootstrap -->
+    <div *ngIf="isLoading" class="text-center">Cargando conciertos...</div>
+
+    <div *ngIf="!isLoading && concerts.length > 0" id="concertCarousel" class="carousel slide" data-bs-ride="carousel"
+      data-bs-interval="5000">
+
+      <!-- Controles del carrusel -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#concertCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button *ngFor="let concert of concerts; let i = index" type="button" [attr.data-bs-target]="'#concertCarousel'"
+          [attr.data-bs-slide-to]="i" [class.active]="i === 0" aria-label="'Slide ' + (i + 1)"></button>
+      </div>
+
+      <!-- Elementos del carrusel -->
+      <div class="carousel-inner">
+        <!-- Para cada conjunto de 3 conciertos, agrupamos las tarjetas en un "carousel-item" -->
+        <div class="carousel-item" *ngFor="let chunk of chunkedConcerts; let i = index" [class.active]="i === 0">
+          <div class="row">
+            <div class="col-md-4 mb-4" *ngFor="let concert of chunk">
+              <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <h3 class="card-title">{{ concert.title }}</h3>
+                  <p class="card-text"><strong>Fecha:</strong> {{ concert.date | date: 'longDate' }}</p>
+                  <p class="card-text"><strong>Hora:</strong> {{ concert.hour }}</p>
+                  <p class="card-text"><strong>Lugar:</strong> {{ concert.place }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h3 class="card-title">Recital de Verano</h3>
-            <p class="card-text">Fecha: 15 de junio</p>
-            <p class="card-text">Hora: 19:00</p>
-            <p class="card-text">Lugar: Sala de Conciertos</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h3 class="card-title">Festival de Otoño</h3>
-            <p class="card-text">Fecha: 10 de septiembre</p>
-            <p class="card-text">Hora: 17:00</p>
-            <p class="card-text">Lugar: Parque Central</p>
-          </div>
-        </div>
-      </div>
+
+      <!-- Controles de navegación -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#concertCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#concertCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Mensaje cuando no hay conciertos -->
+    <div *ngIf="!isLoading && concerts.length === 0" class="text-center">
+      No hay conciertos programados en este momento.
     </div>
   </div>
 </section>
+

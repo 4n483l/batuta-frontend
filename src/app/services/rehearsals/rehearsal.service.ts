@@ -17,6 +17,10 @@ export class RehearsalService {
     return this.http.get<Rehearsal[]>(this.rehearsalsUrl);
   }
 
+  getRehearsalById(id: number): Observable<Rehearsal> {
+    return this.http.get<Rehearsal>(`${this.rehearsalsUrl}/${id}`);
+  }
+
   createRehearsal(rehearsal: Rehearsal): Observable<Rehearsal> {
     return this.http.post<Rehearsal>(this.rehearsalsUrl, rehearsal);
   }

@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Concert } from 'src/app/models/concert.model';
-import { Rehearsal } from 'src/app/models/rehearsal.model';
-import { Course } from 'src/app/models/course.model';
 import { ConcertService } from 'src/app/services/concerts/concert.service';
 import { RehearsalService } from 'src/app/services/rehearsals/rehearsal.service';
 import { CourseService } from 'src/app/services/courses/course.service';

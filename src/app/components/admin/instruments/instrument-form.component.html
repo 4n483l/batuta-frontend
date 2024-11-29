@@ -1,0 +1,13 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h3>{{ isEditMode ? 'Editar Instrumento' : 'Agregar Instrumento' }}</h3>
+    <form (ngSubmit)="saveInstrument()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre del Instrumento</label>
+        <input id="name" type="text" class="form-control" [(ngModel)]="instrument.name" name="name" required />
+      </div>
+      <button class="btn btn-success" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="cancel()">Cancelar</button>
+    </form>
+  </div>
+</div>

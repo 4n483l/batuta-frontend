@@ -28,4 +28,29 @@ export class SubjectService {
       headers: this.headers,
     });
   }
+
+  getSubjectById(id: number): Observable<Subject> {
+    return this.http.get<Subject>(`${this.subjectsUrl}/${id}`, {
+      headers: this.headers,
+    });
+  }
+
+  createSubject(subject: Subject): Observable<Subject> {
+    return this.http.post<Subject>(this.subjectsUrl, subject, {
+      headers: this.headers,
+    });
+  }
+
+  updateSubject(subject: Subject): Observable<Subject> {
+    return this.http.put<Subject>(`${this.subjectsUrl}/${subject.id}`, subject, {
+      headers: this.headers,
+    });
+  }
+
+  deleteSubject(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.subjectsUrl}/${id}`, {
+      headers: this.headers,
+    });
+  }
+
 }

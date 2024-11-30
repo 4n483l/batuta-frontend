@@ -1,25 +1,38 @@
-<div class="card mt-4">
-  <div class="card-body">
-    <h3>Administración de Instrumentos</h3>
-    <button class="btn btn-agregar" (click)="addInstrument()">Agregar Instrumento</button>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let instrument of instruments">
-          <td>{{ instrument.id }}</td>
-          <td>{{ instrument.name }}</td>
-          <td>
-            <button class="btn btn-primary btn-sm" (click)="editInstrument(instrument.id)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="deleteInstrument(instrument.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<main class="main-content">
+
+<div *ngIf="isLoading$ | async"  class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
 </div>
+
+
+  <div *ngIf="!(isLoading$ | async)" class="content-header d-flex justify-content-between align-items-center">
+    <h1>Instrumentos</h1>
+    <button class="btn btn-agregar" [routerLink]="['/admin/instrument-form']">Agregar</button>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Nivel</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let instrument of instrumentsList">
+        <td>{{ instrument.id }}</td>
+        <td class="text-start">{{ instrument.name }}</td>
+        <td>{{ instrument.level }}</td>
+        <td>
+          <div class="d-flex gap-1">
+            <button class="btn btn-primary btn-sm"
+              [routerLink]="['/admin/instrument-form', instrument.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteInstrument(instrument.id, instrument.name)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>

@@ -1,7 +1,14 @@
 <!-- Contenido principal -->
 <main class="main-content">
-  <div class="content-header d-flex justify-content-between align-items-center">
-    <h1> Conciertos </h1>
+
+  <div *ngIf="isLoading" class="loading-container text-center">
+    <img src="assets/pics/loading.gif" alt="Cargando..." />
+    <p>Cargando datos...</p>
+  </div>
+
+
+  <div *ngIf="!isLoading" class="content-header d-flex justify-content-between align-items-center">
+    <h1> Ensayos </h1>
     <button class="btn btn-agregar" [routerLink]="['/admin/rehearsals-form']">Agregar</button>
   </div>
 
@@ -19,14 +26,14 @@
     <tbody>
       <tr *ngFor="let item of currentList; let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ item.place }}</td>
+        <td class="text-start">{{ item.place }}</td>
         <td>{{ item.date }}</td>
         <td>{{ item.hour }}</td>
         <td>
-          <button class="btn btn-primary btn-sm" [routerLink]="['/admin/rehearsals-form', item.id]">Modificar</button>
-
-          <button class="btn btn-danger btn-sm" (click)="deleteRehearsal(item.id)">Eliminar</button>
-
+          <div class="d-flex gap-1">
+            <button class="btn btn-primary btn-sm" [routerLink]="['/admin/rehearsals-form', item.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteRehearsal(item.id)">Eliminar</button>
+          </div>
         </td>
       </tr>
     </tbody>

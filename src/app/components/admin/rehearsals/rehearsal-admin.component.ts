@@ -9,6 +9,7 @@ import { RehearsalService } from 'src/app/services/rehearsals/rehearsal.service'
 })
 export class RehearsalAdminComponent implements OnInit {
   currentList: Rehearsal[] = [];
+  isLoading: boolean = true;
 
   constructor(private rehearsalService: RehearsalService) {}
 
@@ -19,6 +20,7 @@ export class RehearsalAdminComponent implements OnInit {
   loadRehearsals(): void {
     this.rehearsalService.getRehearsals().subscribe((data: any) => {
       this.currentList = Array.isArray(data.Rehearsals) ? data.Rehearsals : [];
+      this.isLoading = false;
     });
   }
 

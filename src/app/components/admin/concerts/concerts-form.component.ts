@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-concerts-form',
   templateUrl: './concerts-form.component.html',
-  styleUrls: ['../admin.component.scss'],
+  styleUrls: ['./concert-admin.component.scss'],
 })
 export class ConcertsFormComponent implements OnInit {
   @Input() selectedConcert: Concert | null = null;
@@ -19,6 +19,9 @@ export class ConcertsFormComponent implements OnInit {
     hour: '',
   };
 
+  isEditMode: boolean = false;
+  isLoading: boolean = true;
+
   constructor(
     private concertService: ConcertService,
     private route: ActivatedRoute,
@@ -28,6 +31,10 @@ export class ConcertsFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.selectedConcert) {
       this.concert = { ...this.selectedConcert };
+      this.isEditMode = true;
+      this.isLoading = false;
+    }else{
+      this.isLoading = false;
     }
 
     this.route.params.subscribe((params) => {
@@ -37,7 +44,11 @@ export class ConcertsFormComponent implements OnInit {
           .getConcertById(concertId)
           .subscribe((data: Concert) => {
             this.concert = data;
+            this.isEditMode = true;
+            this.isLoading = false;
           });
+      } else {
+        this.isLoading = false;
       }
     });
   }
@@ -48,10 +59,12 @@ export class ConcertsFormComponent implements OnInit {
       this.concertService.createConcert(this.concert).subscribe(
         (newConcert) => {
           console.log('Concierto creado:', newConcert);
-           this.router.navigate(['/admin/concert-admin']);
+          this.router.navigate(['/admin/concert-admin']);
+          this.isLoading = false;
         },
         (error) => {
           console.error('Error creando concierto:', error);
+          this.isLoading = false;
         }
       );
     } else {
@@ -60,15 +73,17 @@ export class ConcertsFormComponent implements OnInit {
         (updatedConcert) => {
           console.log('Concierto actualizado:', updatedConcert);
           this.router.navigate(['/admin/concert-admin']);
+          this.isLoading = false;
         },
         (error) => {
           console.error('Error actualizando concierto:', error);
+          this.isLoading = false;
         }
       );
     }
   }
 
   closeForm(): void {
-   this.router.navigate(['/admin/concert-admin']);
+    this.router.navigate(['/admin/concert-admin']);
   }
 }

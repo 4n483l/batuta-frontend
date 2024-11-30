@@ -1,8 +1,12 @@
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
+</div>
 
 
-<div class="card mt-4 mx-auto" style="width: 600px;">
+<div *ngIf="!isLoading" class="card mt-4 mx-auto">
   <div class="card-body">
-    <h3>{{ selectedConcert?.id ? 'Editar Concierto' : 'Agregar Concierto' }}</h3>
+    <h3>{{ isEditMode ? 'Editar Concierto' : 'Agregar Concierto' }}</h3>
     <form (ngSubmit)="saveConcert()">
       <div class="mb-3">
         <label for="title" class="form-label">Título</label>

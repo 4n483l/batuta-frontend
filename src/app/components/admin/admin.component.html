@@ -6,6 +6,9 @@
     </div>
     <!--  botones  -->
     <div class="nav-item">
+      <div class="nav-item">
+        <button class="btn btn-primary" [routerLink]="['/admin/user-admin']">Usuarios</button>
+      </div>
       <button class="btn btn-primary" [routerLink]="['/admin/concert-admin']">Conciertos</button>
     </div>
     <div class="nav-item">
@@ -18,10 +21,10 @@
           <button class="btn btn-primary" [routerLink]="['/admin/instrument-admin']">Instrumentos</button>
         </div>
     <div class="nav-item">
-      <button class="btn btn-primary" (click)="switchTab('courses')">Cursos</button>
+      <button class="btn btn-primary" >Cursos</button>
     </div>
     <div class="nav-item">
-      <button class="btn btn-primary" (click)="switchTab('exams')">Exámenes</button>
+      <button class="btn btn-primary" >Exámenes</button>
     </div>
   </nav>
 

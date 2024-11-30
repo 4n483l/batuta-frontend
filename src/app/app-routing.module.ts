@@ -36,18 +36,20 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     children: [
+      /* --------------CONCIERTOS ----------- */
       {
         path: 'concert-admin',
         component: ConcertAdminComponent,
       },
       {
-        path: 'concerts-form', // agragar concierto
+        path: 'concerts-form',
         component: ConcertsFormComponent,
       },
       {
-        path: 'concerts-form/:id', // editar concierto
+        path: 'concerts-form/:id',
         component: ConcertsFormComponent,
       },
+      /* --------------ENSAYOS ----------- */
       {
         path: 'rehearsal-admin',
         component: RehearsalAdminComponent,
@@ -60,6 +62,7 @@ const routes: Routes = [
         path: 'rehearsals-form/:id', // editar concierto
         component: RehearsalsFormComponent,
       },
+      /* --------------ASIGNATURAS ----------- */
       {
         path: 'subject-admin', // Rutas para administrar asignaturas
         component: SubjectAdminComponent,
@@ -72,6 +75,7 @@ const routes: Routes = [
         path: 'subject-form/:id', // Editar asignatura
         component: SubjectFormComponent,
       },
+      /* --------------INSTRUMENTOS ----------- */
       {
         path: 'instrument-admin', // Rutas para administrar instrumentos
         component: InstrumentAdminComponent,

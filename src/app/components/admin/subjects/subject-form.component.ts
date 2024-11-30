@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
@@ -6,10 +6,18 @@ import { SubjectService } from 'src/app/services/subjects/subject.service';
 @Component({
   selector: 'app-subject-form',
   templateUrl: './subject-form.component.html',
-  // styleUrls: ['./subject-form.component.scss'],
+  styleUrls: ['./subject-admin.component.scss'],
 })
 export class SubjectFormComponent implements OnInit {
-  subject: Subject = { id: 0, name: '', level: '' };
+  @Input() selectedSubject: Subject | null = null;
+
+  subject: Subject = {
+    id: 0,
+    name: '',
+    level: '',
+  };
+  isEditMode: boolean = false;
+  isLoading: boolean = true;
 
   constructor(
     private subjectService: SubjectService,
@@ -18,25 +26,58 @@ export class SubjectFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.subjectService.getSubjectById(+id).subscribe((data) => {
-        this.subject = data;
-      });
+    if (this.selectedSubject) {
+      this.subject = { ...this.selectedSubject };
+       this.isEditMode = true;
+       this.isLoading = false;
+    }else{
+      this.isLoading = false;
     }
+
+    this.route.params.subscribe((params) => {
+      const subjectId = params['id'];
+      if (subjectId) {
+        this.isLoading = true;
+        this.subjectService
+          .getSubjectById(subjectId)
+          .subscribe((data: Subject) => {
+            this.subject = data;
+             this.isEditMode = true;
+             this.isLoading = false;
+          });
+      } else {
+        this.isLoading = false;
+      }
+    });
   }
 
   saveSubject(): void {
     if (this.subject.id === 0) {
       // Crear nueva asignatura
-      this.subjectService.createSubject(this.subject).subscribe(() => {
-        this.router.navigate(['/admin/subject-admin']);
-      });
+      this.subjectService.createSubject(this.subject).subscribe(
+        (newSubject) => {
+          console.log('Asignatura creada:', newSubject);
+          this.router.navigate(['/admin/subject-admin']);
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error al guardar la asignatura', error);
+          this.isLoading = false;
+        }
+      );
     } else {
       // Editar asignatura existente
-      this.subjectService.updateSubject(this.subject).subscribe(() => {
-        this.router.navigate(['/admin/subject-admin']);
-      });
+      this.subjectService.updateSubject(this.subject).subscribe(
+        (updatedSubject) => {
+          console.log('Asignatura actualizada:', updatedSubject);
+          this.router.navigate(['/admin/subject-admin']);
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error al actualizar la asignatura', error);
+          this.isLoading = false;
+        }
+      );
     }
   }
 

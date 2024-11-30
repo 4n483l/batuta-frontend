@@ -6,10 +6,11 @@ import { ConcertService } from 'src/app/services/concerts/concert.service';
 @Component({
   selector: 'app-concert-admin',
   templateUrl: './concert-admin.component.html',
-  // styleUrls: ['./concert-admin.component.scss']
+  styleUrls: ['./concert-admin.component.scss'],
 })
 export class ConcertAdminComponent implements OnInit {
   currentList: Concert[] = [];
+  isLoading: boolean = true;
 
   constructor(private concertService: ConcertService) {}
 
@@ -20,10 +21,11 @@ export class ConcertAdminComponent implements OnInit {
   loadConcerts(): void {
     this.concertService.getConcerts().subscribe((data: any) => {
       this.currentList = Array.isArray(data.Concerts) ? data.Concerts : [];
+      this.isLoading = false;
     });
   }
 
-   deleteConcert(id: number): void {
+  deleteConcert(id: number): void {
     if (confirm('¿Estás seguro de que quieres eliminar este concierto?')) {
       this.concertService.deleteConcert(id).subscribe({
         next: () => {
@@ -41,6 +43,4 @@ export class ConcertAdminComponent implements OnInit {
       });
     }
   }
- 
-
 }

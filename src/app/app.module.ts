@@ -21,7 +21,6 @@ import { ConcertsFormComponent } from './components/admin/concerts/concerts-form
 import { ConcertAdminComponent } from './components/admin/concerts/concert-admin.component';
 import { RehearsalsFormComponent } from './components/admin/rehearsals/rehearsals-form.component';
 
-
 import { NotesComponent } from './components/notes/notes.component';
 import { NoteFormComponent } from './components/note-form/note-form.component';
 import { RehearsalAdminComponent } from './components/admin/rehearsals/rehearsal-admin.component';
@@ -29,6 +28,8 @@ import { SubjectAdminComponent } from './components/admin/subjects/subject-admin
 import { SubjectFormComponent } from './components/admin/subjects/subject-form.component';
 import { InstrumentFormComponent } from './components/admin/instruments/instrument-form.component';
 import { InstrumentAdminComponent } from './components/admin/instruments/instrument-admin.component';
+import { UserAdminComponent } from './components/admin/users/user-admin.component';
+import { UserFormComponent } from './components/admin/users/user-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,8 @@ import { InstrumentAdminComponent } from './components/admin/instruments/instrum
     SubjectFormComponent,
     InstrumentFormComponent,
     InstrumentAdminComponent,
+    UserAdminComponent,
+    UserFormComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
 

@@ -1,13 +1,25 @@
-<div class="card mt-4">
-  <div class="card-body">
-    <h3>{{ isEditMode ? 'Editar Instrumento' : 'Agregar Instrumento' }}</h3>
-    <form (ngSubmit)="saveInstrument()">
-      <div class="mb-3">
-        <label for="name" class="form-label">Nombre del Instrumento</label>
-        <input id="name" type="text" class="form-control" [(ngModel)]="instrument.name" name="name" required />
-      </div>
-      <button class="btn btn-success" type="submit">Guardar</button>
-      <button class="btn btn-secondary ms-2" type="button" (click)="cancel()">Cancelar</button>
-    </form>
+
+  <div *ngIf="isLoading" class="loading-container text-center">
+    <img src="assets/pics/loading.gif" alt="Cargando..." />
+    <p>Cargando datos...</p>
   </div>
-</div>
+
+
+  <div *ngIf="!isLoading" class="card mt-4 mx-auto">
+    <div class="card-body">
+      <h3>{{ isEditMode ? 'Editar Instrumento' : 'Agregar Instrumento' }}</h3>
+      <form (ngSubmit)="saveInstrument()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Instrumento</label>
+          <input id="name" type="text" class="form-control" [(ngModel)]="instrument.name" name="name" required />
+        </div>
+        <div class="mb-3">
+          <label for="level" class="form-label">Nivel</label>
+          <input id="level" type="text" class="form-control" [(ngModel)]="instrument.level" name="level" />
+        </div>
+        <button class="btn btn-success" type="submit">Guardar</button>
+        <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+

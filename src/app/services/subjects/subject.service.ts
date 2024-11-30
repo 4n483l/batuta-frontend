@@ -42,9 +42,13 @@ export class SubjectService {
   }
 
   updateSubject(subject: Subject): Observable<Subject> {
-    return this.http.put<Subject>(`${this.subjectsUrl}/${subject.id}`, subject, {
-      headers: this.headers,
-    });
+    return this.http.put<Subject>(
+      `${this.subjectsUrl}/${subject.id}`,
+      subject,
+      {
+        headers: this.headers,
+      }
+    );
   }
 
   deleteSubject(id: number): Observable<void> {
@@ -52,5 +56,6 @@ export class SubjectService {
       headers: this.headers,
     });
   }
+
 
 }

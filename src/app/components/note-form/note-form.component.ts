@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/notes/note.service';
 import jsPDF from 'jspdf';
+import { Router } from '@angular/router';
 
 
 
@@ -14,16 +15,17 @@ export class NoteFormComponent implements OnInit {
   subjects: any[] = [];
   pdf = new jsPDF();
 
-  constructor(private noteService: NoteService) {}
+  constructor(private noteService: NoteService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadSubjects();
+
   }
 
   loadSubjects() {
     this.noteService.getSubjectsForTeacher().subscribe(
       (response: any) => {
-        this.subjects = response.subjects; 
+        this.subjects = response.subjects;
       },
       (error) => {
         console.error('Error al cargar asignaturas:', error);
@@ -33,6 +35,7 @@ export class NoteFormComponent implements OnInit {
 
   onSubmit() {
     this.saveNotePdf();
+    this.router.navigate(['/notes']);
   }
 
   generatePdf() {

@@ -30,6 +30,8 @@ import { InstrumentFormComponent } from './components/admin/instruments/instrume
 import { InstrumentAdminComponent } from './components/admin/instruments/instrument-admin.component';
 import { UserAdminComponent } from './components/admin/users/user-admin.component';
 import { UserFormComponent } from './components/admin/users/user-form.component';
+import { CourseAdminComponent } from './components/admin/courses/course-admin.component';
+import { CourseFormComponent } from './components/admin/courses/course-form.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { UserFormComponent } from './components/admin/users/user-form.component'
     InstrumentAdminComponent,
     UserAdminComponent,
     UserFormComponent,
+    CourseAdminComponent,
+    CourseFormComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
 

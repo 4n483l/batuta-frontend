@@ -5,6 +5,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
+
 }
 
 .hero-section::before {
@@ -23,3 +24,37 @@
   z-index: 2; /* Asegura que el texto esté por encima del fondo */
 }
 
+
+// ------- ESTILOS CARRUSEL
+/* Cambia el color de las flechas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
+  background-image: none;
+    color:#4b6584;
+  border-radius: 50%; /* Opcional, redondear las flechas */
+  width: 40px; /* Ajusta el tamaño si es necesario */
+  height: 40px;
+}
+
+/* Inserta contenido personalizado con flechas */
+.carousel-control-prev-icon::after,
+.carousel-control-next-icon::after {
+ // content: '\2190'; /* Flecha hacia la izquierda (Unicode) para "prev" */
+  color: $color-darkPrimary;
+  font-size: 2rem;
+}
+
+/* Personaliza los botones en general */
+.carousel-control-prev,
+.carousel-control-next {
+  filter: none; /* Elimina el filtro por defecto de Bootstrap */
+  color:#4b6584; /* Cambia el color de los contenedores */
+  opacity: 1; /* Asegura que no se vean semitransparentes */
+}
+
+/* Ajusta el tamaño del área de clic */
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  content: ''; /* Elimina contenido por defecto si aparece */
+}

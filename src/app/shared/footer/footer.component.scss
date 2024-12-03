@@ -1,8 +1,15 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 footer {
   background-color: $color-primary;
   color: $color-secondary;
+  width: 100%; 
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+footer .container {
+  padding: 0;
 }
 
 footer h5,

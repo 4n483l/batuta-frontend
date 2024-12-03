@@ -8,15 +8,33 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NavbarComponent {
   isLoggedIn: boolean = false;
+  userType: string = '';
+  hasStudents: boolean = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Puedes verificar el estado de autenticación de varias maneras:
-    // Aquí se asume que el AuthService tiene un método para verificar si el usuario está logueado
-    // this.isLoggedIn = this.authService.isAuthenticated();
+    this.loadUserType();
+  }
+
+  loadUserType(): void {
     this.authService.isLoggedIn$.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
+
+      if (this.isLoggedIn) {
+        this.authService.getUserData().subscribe((userData) => {
+          this.userType = userData.user_type;
+        });
+        this.loadUserStudentData();
+      }
+    });
+  }
+
+  loadUserStudentData(): void {
+    this.authService.getUserStudents().subscribe((students) => {
+      if (students.length > 0) {
+        this.hasStudents = true;
+      }
     });
   }
 

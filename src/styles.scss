@@ -10,8 +10,14 @@ $color-darkDanger: #c85a42 !important;
 $font-style: "Montserrat", sans-serif !important;
 $card-height: 150px;
 
-main{
-  margin-top: 40px;
+/* * {
+  outline: 1px solid red; // Temporal, para inspeccionar el layout.
+} */
+
+
+
+main {
+  margin-top: calc(56px + 10px); // Ajusta dinámicamente el margen según el alto del navbar.
 }
 
 body {

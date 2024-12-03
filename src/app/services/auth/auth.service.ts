@@ -9,7 +9,7 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 })
 export class AuthService {
   // private API_URL = 'http://127.0.0.1:8000/api';
-   private authUrl = API_ROUTES.auth;
+  private authUrl = API_ROUTES.auth;
 
   // El estado de si el usuario está logueado. emisor de eventos
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
@@ -62,6 +62,22 @@ export class AuthService {
   // Método para verificar si el usuario está autenticado
   isAuthenticated(): boolean {
     return this.getToken() !== null;
+  }
+
+  getUserData(): Observable<any> {
+    return this.http.get(`${this.authUrl}/user`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  getUserStudents(): Observable<any> {
+    return this.http.get(`${this.authUrl}/user/students`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
   }
 
   // Método para cerrar sesión

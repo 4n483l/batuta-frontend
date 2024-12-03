@@ -1,0 +1,41 @@
+<main class="main-content">
+  <div *ngIf="isLoading" class="loading-container text-center">
+    <img src="assets/pics/loading.gif" alt="Cargando..." />
+    <p>Cargando datos...</p>
+  </div>
+
+  <div *ngIf="!isLoading" class="content-header d-flex justify-content-between align-items-center">
+    <h1>Cursos</h1>
+    <button class="btn btn-agregar" [routerLink]="['/admin/course-form']">Agregar</button>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Asignatura</th>
+        <th>Profesor</th>
+        <th>Aula</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of currentList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ course.instrument ? course.instrument : course.subject }}</td>
+        <td>{{ course.user }}</td>
+        <td>{{ course.classroom }}</td>
+        <td>{{ course.date }}</td>
+        <td>{{ course.hour }}</td>
+        <td>
+          <div class="d-flex gap-1">
+            <button class="btn btn-primary btn-sm" [routerLink]="['/admin/course-form', course.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>

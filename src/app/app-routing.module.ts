@@ -19,6 +19,9 @@ import { SubjectAdminComponent } from './components/admin/subjects/subject-admin
 import { SubjectFormComponent } from './components/admin/subjects/subject-form.component';
 import { InstrumentAdminComponent } from './components/admin/instruments/instrument-admin.component';
 import { InstrumentFormComponent } from './components/admin/instruments/instrument-form.component';
+import { CourseAdminComponent } from './components/admin/courses/course-admin.component';
+import { CourseFormComponent } from './components/admin/courses/course-form.component';
+import { NotesComponent } from './components/notes/notes.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -30,7 +33,7 @@ const routes: Routes = [
   { path: 'exams', component: ExamsComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'tuitions', component: TuitionsComponent },
-
+  { path: 'notes', component: NotesComponent },
   { path: 'note-form', component: NoteFormComponent },
   {
     path: 'admin',
@@ -87,6 +90,19 @@ const routes: Routes = [
       {
         path: 'instrument-form/:id', // Editar instrumento
         component: InstrumentFormComponent,
+      },
+      /* --------------CURSOS ----------- */
+      {
+        path: 'course-admin', // Rutas para administrar courseos
+        component: CourseAdminComponent,
+      },
+      {
+        path: 'course-form', // Agregar courseo
+        component: CourseFormComponent,
+      },
+      {
+        path: 'course-form/:id', // Editar courseo
+        component: CourseFormComponent,
       },
     ],
   },

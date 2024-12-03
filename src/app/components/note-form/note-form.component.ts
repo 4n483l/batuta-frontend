@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NoteService } from 'src/app/services/notes/note.service';
 import jsPDF from 'jspdf';
 import { Router } from '@angular/router';
-
-
+import { Note } from 'src/app/models/note.model';
 
 @Component({
   selector: 'app-note-form',
@@ -11,26 +10,81 @@ import { Router } from '@angular/router';
   styleUrls: ['./note-form.component.scss'],
 })
 export class NoteFormComponent implements OnInit {
-  note = { title: '', topic: '', content: '', subject_id: '' };
-  subjects: any[] = [];
+  note: Note = {
+    title: '',
+    topic: '',
+    content: '',
+    subject_id: '',
+    instrument_id: '',
+  };
+  asignaturas: any[] = [];
+  instrumentos: any[] = [];
   pdf = new jsPDF();
 
   constructor(private noteService: NoteService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadSubjects();
-
+    this.loadInstruments();
   }
+
+  // Cargar solo instrumentos
+  loadInstruments() {
+    this.noteService.getInstrumentsForTeacher().subscribe(
+      (response: any) => {
+        this.instrumentos = response.instruments;
+      },
+      (error) => {
+        console.error('Error al cargar instrumentos:', error);
+      }
+    );
+  }
+
+  /*
+  loadSubjectsAndInstruments() {
+    this.noteService.getSubjectsAndInstruments().subscribe(
+      (response: any) => {
+        // Combina asignaturas e instrumentos en una sola lista con identificadores distintos
+        this.asignaturas = [
+          ...response.subjects.map((subject: any) => ({
+            id: `subject-${subject.id}`,
+            name: subject.name,
+          })),
+          ...response.instruments.map((instrument: any) => ({
+            id: `instrument-${instrument.id}`,
+            name: instrument.name,
+          })),
+        ];
+      },
+      (error) => {
+        console.error('Error al cargar asignaturas e instrumentos:', error);
+      }
+    );
+  } */
 
   loadSubjects() {
     this.noteService.getSubjectsForTeacher().subscribe(
       (response: any) => {
-        this.subjects = response.subjects;
+        this.asignaturas = response.subjects;
       },
       (error) => {
         console.error('Error al cargar asignaturas:', error);
       }
     );
+  }
+
+  // Deshabilitar la selección de instrumento si se selecciona una asignatura
+  disableInstrumentSelect() {
+    if (this.note.subject_id) {
+      this.note.instrument_id = ''; // Limpiar selección de instrumento
+    }
+  }
+
+  // Deshabilitar la selección de asignatura si se selecciona un instrumento
+  disableSubjectSelect() {
+    if (this.note.instrument_id) {
+      this.note.subject_id = ''; // Limpiar selección de asignatura
+    }
   }
 
   onSubmit() {
@@ -113,7 +167,14 @@ export class NoteFormComponent implements OnInit {
     notePdf.append('title', this.note.title);
     notePdf.append('topic', this.note.topic);
     notePdf.append('content', this.note.content);
-    notePdf.append('subject_id', '1');
+
+    if (this.note.subject_id) {
+      notePdf.append('subject_id', this.note.subject_id);
+    }
+
+    if (this.note.instrument_id) {
+      notePdf.append('instrument_id', this.note.instrument_id);
+    }
 
     // Convertir el PDF generado a un archivo Blob y añadirlo al formulario
     const pdfBlob = this.pdf.output('blob');

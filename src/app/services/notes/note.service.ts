@@ -10,6 +10,8 @@ import { AuthService } from '../auth/auth.service';
 export class NoteService {
   private notesUrl = API_ROUTES.notes;
   private teacherSubjectsUrl = API_ROUTES.teacherSubjects;
+  private teacherInstrumentsUrl = API_ROUTES.teacherInstruments;
+  private subjectInstrumentUrl = API_ROUTES.subjectInstrumet;
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -35,7 +37,21 @@ export class NoteService {
     });
   }
 
-  /*  saveAsPdf(note: any): Observable<any> {
-    return this.http.post(`${this.notesUrl}/generate-pdf`, note);
-  } */
+  getInstrumentsForTeacher(): Observable<any> {
+    return this.http.get(this.teacherInstrumentsUrl, {
+      headers: this.headers,
+    });
+  }
+
+  getSubjectsAndInstruments(): Observable<any> {
+    return this.http.get(this.subjectInstrumentUrl, {
+      headers: this.headers,
+    });
+  }
+
+  getNotes(): Observable<any> {
+    return this.http.get(this.notesUrl, {
+      headers: this.headers,
+    });
+  }
 }

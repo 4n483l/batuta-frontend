@@ -1,5 +1,6 @@
 // URL del backend Laravel
 const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL_PDF = 'http://127.0.0.1:8000/storage';
 
 export const API_ROUTES = {
   auth: API_URL,
@@ -13,4 +14,6 @@ export const API_ROUTES = {
   notes: `${API_URL}/notes`,
   teacherSubjects: `${API_URL}/teacher/subjects`,
   teacherInstruments: `${API_URL}/teacher/instruments`,
+  subjectInstrumet: `${API_URL}/notes/subjectInstrument`,
+  pdf: `${API_URL_PDF}`,
 };

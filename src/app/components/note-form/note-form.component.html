@@ -13,19 +13,43 @@
     </div>
 
     <!-- Selector de Asignaturas -->
-    <div class="mb-3">
-      <label for="subject" class="form-label">Asignatura</label>
-      <select [(ngModel)]="note.subject_id" name="subject_id" class="form-select" required>
+    <!--  <div class="mb-3">
+      <label for="asignatura" class="form-label">Asignatura</label>
+      <select name="asignatura_id" [(ngModel)]="note.subject_id"  class="form-select" required>
         <option value="" disabled selected>Seleccionar asignatura</option>
-        <option *ngFor="let subject of subjects" [value]="subject.id">
+        <option *ngFor="let item of asignaturas" [value]="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+    </div> -->
+
+
+    <!-- Asignatura -->
+    <div class="mb-3">
+      <label for="subject_id" class="form-label">Asignatura</label>
+      <select id="subject_id"  class="form-select" [(ngModel)]="note.subject_id" name="subject_id"
+       (change)="disableInstrumentSelect()" *ngIf="asignaturas.length > 0">
+        <option value="" disabled selected>Seleccionar asignatura</option>
+        <option *ngFor="let subject of asignaturas" [value]="subject.id">
           {{ subject.name }}
         </option>
       </select>
     </div>
 
+    <!-- Instrumento -->
+    <div class="mb-3">
+      <label for="instrument_id" class="form-label">Instrumento</label>
+      <select id="instrument_id"  class="form-select" [(ngModel)]="note.instrument_id" name="instrument_id"
+      (change)="disableSubjectSelect()" *ngIf="instrumentos.length > 0">
+        <option value="" disabled selected>Seleccionar instrumento</option>
+        <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
+          {{ instrument.name }}
+        </option>
+      </select>
+    </div>
 
     <div class="d-flex justify-content-between">
-      <button type="submit" class="btn btn-primary w-25" [disabled]="!note.subject_id" >Guardar apunte</button>
+      <button type="submit" class="btn btn-primary w-25" [disabled]="!note.subject_id && !note.instrument_id">Guardar apunte</button>
 
     </div>
   </form>

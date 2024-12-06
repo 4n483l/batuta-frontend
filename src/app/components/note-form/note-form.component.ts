@@ -21,6 +21,8 @@ export class NoteFormComponent implements OnInit {
   instrumentos: any[] = [];
   pdf = new jsPDF();
 
+  isLoading: boolean = true;
+
   constructor(private noteService: NoteService, private router: Router) {}
 
   ngOnInit(): void {
@@ -33,42 +35,24 @@ export class NoteFormComponent implements OnInit {
     this.noteService.getInstrumentsForTeacher().subscribe(
       (response: any) => {
         this.instrumentos = response.instruments;
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error al cargar instrumentos:', error);
+        this.isLoading = false;
       }
     );
   }
-
-  /*
-  loadSubjectsAndInstruments() {
-    this.noteService.getSubjectsAndInstruments().subscribe(
-      (response: any) => {
-        // Combina asignaturas e instrumentos en una sola lista con identificadores distintos
-        this.asignaturas = [
-          ...response.subjects.map((subject: any) => ({
-            id: `subject-${subject.id}`,
-            name: subject.name,
-          })),
-          ...response.instruments.map((instrument: any) => ({
-            id: `instrument-${instrument.id}`,
-            name: instrument.name,
-          })),
-        ];
-      },
-      (error) => {
-        console.error('Error al cargar asignaturas e instrumentos:', error);
-      }
-    );
-  } */
 
   loadSubjects() {
     this.noteService.getSubjectsForTeacher().subscribe(
       (response: any) => {
         this.asignaturas = response.subjects;
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error al cargar asignaturas:', error);
+        this.isLoading = false;
       }
     );
   }
@@ -76,19 +60,20 @@ export class NoteFormComponent implements OnInit {
   // Deshabilitar la selección de instrumento si se selecciona una asignatura
   disableInstrumentSelect() {
     if (this.note.subject_id) {
-      this.note.instrument_id = ''; // Limpiar selección de instrumento
+      this.note.instrument_id = '';
     }
   }
 
   // Deshabilitar la selección de asignatura si se selecciona un instrumento
   disableSubjectSelect() {
     if (this.note.instrument_id) {
-      this.note.subject_id = ''; // Limpiar selección de asignatura
+      this.note.subject_id = '';
     }
   }
 
   onSubmit() {
     this.saveNotePdf();
+    this.noteService.triggerNotesUpdate();
     this.router.navigate(['/notes']);
   }
 

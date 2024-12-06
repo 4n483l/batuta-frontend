@@ -1,4 +1,10 @@
-<div class="note-editor-container container mt-5">
+
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
+</div>
+
+<div *ngIf="!isLoading" class="note-editor-container container mt-5">
   <h3 class="text-center text-primary">Editor de Apuntes</h3>
   <form class="mb-4" (ngSubmit)="onSubmit()">
     <div class="mb-3">
@@ -12,18 +18,7 @@
         required></textarea>
     </div>
 
-    <!-- Selector de Asignaturas -->
-    <!--  <div class="mb-3">
-      <label for="asignatura" class="form-label">Asignatura</label>
-      <select name="asignatura_id" [(ngModel)]="note.subject_id"  class="form-select" required>
-        <option value="" disabled selected>Seleccionar asignatura</option>
-        <option *ngFor="let item of asignaturas" [value]="item.id">
-          {{ item.name }}
-        </option>
-      </select>
-    </div> -->
-
-
+  
     <!-- Asignatura -->
     <div class="mb-3">
       <label for="subject_id" class="form-label">Asignatura</label>

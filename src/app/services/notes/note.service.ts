@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { AuthService } from '../auth/auth.service';
@@ -12,6 +12,8 @@ export class NoteService {
   private teacherSubjectsUrl = API_ROUTES.teacherSubjects;
   private teacherInstrumentsUrl = API_ROUTES.teacherInstruments;
   private subjectInstrumentUrl = API_ROUTES.subjectInstrumet;
+
+  notesUpdated = new EventEmitter<void>();
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -53,5 +55,9 @@ export class NoteService {
     return this.http.get(this.notesUrl, {
       headers: this.headers,
     });
+  }
+
+  triggerNotesUpdate() {
+    this.notesUpdated.emit();
   }
 }

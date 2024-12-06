@@ -1,1 +1,30 @@
 @import "src/styles.scss";
+
+
+
+
+.card {
+  height: 450px; // Altura fija para todas las tarjetas
+ /*  display: flex;
+  flex-direction: column; */
+
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Para empujar el contenido al espacio disponible
+  height: 100%;
+}
+
+.card-text {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.btn-primary {
+  margin-top: auto;
+  width: 100%;
+}
+

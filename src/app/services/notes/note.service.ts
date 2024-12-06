@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { AuthService } from '../auth/auth.service';
@@ -13,20 +13,23 @@ export class NoteService {
   private teacherInstrumentsUrl = API_ROUTES.teacherInstruments;
   private subjectInstrumentUrl = API_ROUTES.subjectInstrumet;
 
-  notesUpdated = new EventEmitter<void>();
+  // notesUpdated = new EventEmitter<void>();
 
   private token?: string = '';
   headers: HttpHeaders;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    // Obtener el token de autenticación
     this.token = this.authService.getToken() || '';
-    // Crear los headers con el token de autenticación
     this.headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
   }
 
+  getNotes(): Observable<any> {
+    return this.http.get(this.notesUrl, {
+      headers: this.headers,
+    });
+  }
   saveNote(note: any): Observable<any> {
     return this.http.post(this.notesUrl, note, {
       headers: this.headers,
@@ -51,13 +54,7 @@ export class NoteService {
     });
   }
 
-  getNotes(): Observable<any> {
-    return this.http.get(this.notesUrl, {
-      headers: this.headers,
-    });
-  }
-
-  triggerNotesUpdate() {
+  /* triggerNotesUpdate() {
     this.notesUpdated.emit();
-  }
+  } */
 }

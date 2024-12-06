@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { NoteService } from 'src/app/services/notes/note.service';
 import jsPDF from 'jspdf';
 import { Router } from '@angular/router';
 import { Note } from 'src/app/models/note.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-note-form',
@@ -20,26 +21,44 @@ export class NoteFormComponent implements OnInit {
   asignaturas: any[] = [];
   instrumentos: any[] = [];
   pdf = new jsPDF();
+  @ViewChild('noteForm') noteForm!: NgForm;
 
   isLoading: boolean = true;
 
-  constructor(private noteService: NoteService, private router: Router) {}
+  constructor(
+    private noteService: NoteService,
+    private router: Router,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadSubjects();
     this.loadInstruments();
   }
+  onSubmit() {
+    // this.saveNotePdf();
 
-  // Cargar solo instrumentos
+    this.noteService.saveNote(this.note).subscribe((response) => {
+      this.router.navigate(['/notes']);
+    });
+  }
+
+  // hook ciclo de vida. Se ejecuta después de que Angular haya inicializado las vistas del componente
+  ngAfterViewInit() {
+    // datos cambian fuera del cclo de vida, fuerza la detección de cambios que no son detectados automáticamente
+    this.cdRef.detectChanges(); 
+  }
+
+
   loadInstruments() {
     this.noteService.getInstrumentsForTeacher().subscribe(
       (response: any) => {
         this.instrumentos = response.instruments;
-        this.isLoading = false;
+        this.setLoadingState(false);
       },
       (error) => {
         console.error('Error al cargar instrumentos:', error);
-        this.isLoading = false;
+        this.setLoadingState(false);
       }
     );
   }
@@ -48,33 +67,38 @@ export class NoteFormComponent implements OnInit {
     this.noteService.getSubjectsForTeacher().subscribe(
       (response: any) => {
         this.asignaturas = response.subjects;
-        this.isLoading = false;
+        this.setLoadingState(false);
       },
       (error) => {
         console.error('Error al cargar asignaturas:', error);
-        this.isLoading = false;
+        this.setLoadingState(false);
       }
     );
   }
 
-  // Deshabilitar la selección de instrumento si se selecciona una asignatura
+  // comprueba si se ha seleccionado un instrumento o una asignatura
   disableInstrumentSelect() {
     if (this.note.subject_id) {
       this.note.instrument_id = '';
     }
   }
-
-  // Deshabilitar la selección de asignatura si se selecciona un instrumento
   disableSubjectSelect() {
     if (this.note.instrument_id) {
       this.note.subject_id = '';
     }
   }
+  // validación del formulario para botón de envío
+  get isSubmitDisabled(): boolean {
+    return (
+      ((!this.note.subject_id && !this.note.instrument_id) ||
+        this.noteForm?.invalid) ??
+      false // para evitar null
+    );
+  }
 
-  onSubmit() {
-    this.saveNotePdf();
-    this.noteService.triggerNotesUpdate();
-    this.router.navigate(['/notes']);
+  setLoadingState(state: boolean): void {
+    this.isLoading = state;
+    this.cdRef.detectChanges();
   }
 
   generatePdf() {

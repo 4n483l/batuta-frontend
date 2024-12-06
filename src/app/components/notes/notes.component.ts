@@ -27,10 +27,7 @@ export class NotesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserType();
-
-    this.noteService.notesUpdated.subscribe(() => {
-      this.getNotesData();
-    });
+    this.getNotesData();
   }
 
   loadUserType(): void {
@@ -48,13 +45,14 @@ export class NotesComponent implements OnInit {
 
   getNotesData(): void {
     this.noteService.getNotes().subscribe((data: any) => {
+
       if (this.userType === 'teacher') {
         this.notes = data.notesTeacher;
-        this.isLoading = false;
+
       } else {
         console.log('Data asignaturas:', data);
 
-      this.notes = [];
+        this.notes = [];
 
         for (let studentId in data.notesStudent) {
           const apuntesAlumno = data.notesStudent[studentId];
@@ -63,8 +61,8 @@ export class NotesComponent implements OnInit {
             this.notes.push(apunte);
           });
         }
-        this.isLoading = false;
       }
+      this.isLoading = false;
       console.log('Data notes:', data);
     });
   }
@@ -78,7 +76,6 @@ export class NotesComponent implements OnInit {
     console.log('Link:', link);
   }
 
-  // Función para formatear la fecha
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString();

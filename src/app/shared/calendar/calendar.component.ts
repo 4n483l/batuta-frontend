@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit {
 
   generateCalendar() {
     const firstDay = new Date(this.currentYear, this.currentMonth, 1);
-    this.firstDayOfWeek = firstDay.getDay(); // Primer día del mes (0 = domingo, 6 = sábado)
+    this.firstDayOfWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // asegura que el lunes sea el primer día de la semana
     this.daysInMonth = Array.from(
       {
         length: new Date(this.currentYear, this.currentMonth + 1, 0).getDate(),

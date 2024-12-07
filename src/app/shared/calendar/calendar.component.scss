@@ -33,6 +33,21 @@ h1 {
     margin-bottom: 30px;
   }
 
+  .day-header {
+      text-align: center;
+      font-weight: bold;
+      //background-color: $color-primary;
+      color:  $color-primary;
+      font-size: 1.2rem;
+      //padding: 10px;
+      //border-radius: 8px;
+     // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-slot {
+      background-color: transparent;
+    }
+
   .day-card {
     background-color: $color-contrastLight;
     padding: 15px;
@@ -40,6 +55,7 @@ h1 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     height: $card-height;
+    text-align: center;
     display: flex; // centra el contenido
     flex-direction: column ; // aplida el contenido de arriba a abajo
     justify-content: space-between; // mantener espaciado uniforme
@@ -63,84 +79,3 @@ h1 {
     }
   }
 }
-
-/* Estilos responsivos */
-/* @media (max-width: 1024px) {
-  .calendar-container {
-    .calendar-header {
-      gap: 10px;
-
-      h2 {
-        font-size: 2.0rem;
-      }
-
-      button {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
-    }
-
-    .calendar-grid {
-      gap: 8px;
-    }
-
-    .day-card {
-      height: 180px;
-      padding: 10px;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .calendar-container {
-    .calendar-header {
-      flex-direction: column;
-      gap: 8px;
-
-      h2 {
-        font-size: 2rem;
-      }
-    }
-
-    .calendar-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-    }
-
-    .day-card {
-      height: 160px;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .calendar-container {
-    .calendar-header {
-      h2 {
-        font-size: 1rem;
-      }
-
-      button {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-      }
-    }
-
-    .calendar-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 5px;
-    }
-
-    .day-card {
-      height: 140px;
-      padding: 8px;
-      .day {
-        font-size: 1.1rem;
-      }
-      p {
-        font-size: 0.75rem;
-      }
-    }
-  }
-}
- */

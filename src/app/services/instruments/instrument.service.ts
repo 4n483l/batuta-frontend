@@ -11,33 +11,30 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 export class InstrumentService {
   private instrumentsUrl = API_ROUTES.instruments;
 
-  private token?: string = '';
-  headers: HttpHeaders;
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    // Obtener el token de autenticación
-    this.token = this.authService.getToken() || '';
-    // Crear los headers con el token de autenticación
-    this.headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
     });
   }
 
   getInstruments(): Observable<Instrument[]> {
     return this.http.get<Instrument[]>(this.instrumentsUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   getInstrumentById(id: number): Observable<Instrument> {
     return this.http.get<Instrument>(`${this.instrumentsUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   createInstrument(instrument: Instrument): Observable<Instrument> {
     return this.http.post<Instrument>(this.instrumentsUrl, instrument, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
@@ -46,14 +43,14 @@ export class InstrumentService {
       `${this.instrumentsUrl}/${instrument.id}`,
       instrument,
       {
-        headers: this.headers,
+        headers: this.getHeaders(),
       }
     );
   }
 
   deleteInstrument(id: number): Observable<Instrument> {
     return this.http.delete<Instrument>(`${this.instrumentsUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 }

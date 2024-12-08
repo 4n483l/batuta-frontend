@@ -11,13 +11,12 @@ import { AuthService } from '../auth/auth.service';
 export class ConcertService {
   private concertsUrl = API_ROUTES.concerts;
 
-  private token?: string = '';
-  headers: HttpHeaders;
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.token = this.authService.getToken() || '';
-    this.headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
     });
   }
 
@@ -27,13 +26,13 @@ export class ConcertService {
 
   getConcertById(id: number): Observable<Concert> {
     return this.http.get<Concert>(`${this.concertsUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   createConcert(concert: Concert): Observable<Concert> {
     return this.http.post<Concert>(this.concertsUrl, concert, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
@@ -42,14 +41,14 @@ export class ConcertService {
       `${this.concertsUrl}/${concert.id}`,
       concert,
       {
-        headers: this.headers,
+        headers: this.getHeaders(),
       }
     );
   }
 
   deleteConcert(id: number): Observable<void> {
     return this.http.delete<void>(`${this.concertsUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 }

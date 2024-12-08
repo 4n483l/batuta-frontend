@@ -11,12 +11,19 @@ export class AuthService {
   private authUrl = API_ROUTES.auth;
   private usersUrl = API_ROUTES.users;
   private studentsUrl = API_ROUTES.students;
-  
+
   // El estado de si el usuario está logueado. emisor de eventos
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
   isLoggedIn$ = this.loggedIn.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  private getHeaders(): HttpHeaders {
+    const token = this.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  }
 
   /* *****  AUTENTICACION  ***** */
 
@@ -54,7 +61,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('jwtToken');
-    this.loggedIn.next(false); // Emitir el evento de que el usuario no está logueado
+    this.loggedIn.next(false);
   }
 
   getToken(): string | null {
@@ -66,52 +73,38 @@ export class AuthService {
   }
   // metodo para obtener datos autenticados
   getAuthenticatedData(endpoint: string): Observable<any> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+    return this.http.get(`${this.authUrl}/${endpoint}`, {
+      headers: this.getHeaders(),
     });
-    return this.http.get(`${this.authUrl}/${endpoint}`, { headers });
   }
 
   /* *****  USUARIOS  ***** */
 
   getUsers(): Observable<any> {
-    return this.http.get(`${this.usersUrl}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
-    });
+    return this.http.get(`${this.usersUrl}`, { headers: this.getHeaders() });
   }
 
   getUserById(id: number): Observable<any> {
     return this.http.get(`${this.usersUrl}/${id}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
   createUser(user: any): Observable<any> {
     return this.http.post(`${this.usersUrl}`, user, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
   updateUser(id: number, user: any): Observable<any> {
     return this.http.put(`${this.usersUrl}/${id}`, user, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.usersUrl}/${id}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
@@ -126,51 +119,37 @@ export class AuthService {
   /* *****  ESTUDIANTES  ***** */
 
   getStudents(): Observable<any> {
-    return this.http.get(`${this.studentsUrl}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
-    });
+    return this.http.get(`${this.studentsUrl}`, { headers: this.getHeaders() });
   }
+
   getStudentById(studentId: string): Observable<any> {
     return this.http.get(`${this.studentsUrl}/${studentId}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
   createStudent(student: any): Observable<any> {
     return this.http.post(`${this.studentsUrl}`, student, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
   updateStudent(studentId: string, student: any): Observable<any> {
     return this.http.put(`${this.studentsUrl}/${studentId}`, student, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 
   deleteStudent(studentId: number): Observable<any> {
     return this.http.delete(`${this.studentsUrl}/${studentId}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
-
 
   // Método para obtener los estudiantes de un usuario
   getUserStudents(): Observable<any> {
     return this.http.get(`${this.authUrl}/user/students`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.getToken()}`,
-      }),
+      headers: this.getHeaders(),
     });
   }
 }

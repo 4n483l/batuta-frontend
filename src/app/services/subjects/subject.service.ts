@@ -11,33 +11,30 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 export class SubjectService {
   private subjectsUrl = API_ROUTES.subjects;
 
-  private token?: string = '';
-  headers: HttpHeaders;
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    // Obtener el token de autenticación
-    this.token = this.authService.getToken() || '';
-    // Crear los headers con el token de autenticación
-    this.headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
     });
   }
 
   getSubjects(): Observable<Subject[]> {
     return this.http.get<Subject[]>(this.subjectsUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   getSubjectById(id: number): Observable<Subject> {
     return this.http.get<Subject>(`${this.subjectsUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   createSubject(subject: Subject): Observable<Subject> {
     return this.http.post<Subject>(this.subjectsUrl, subject, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
@@ -46,16 +43,14 @@ export class SubjectService {
       `${this.subjectsUrl}/${subject.id}`,
       subject,
       {
-        headers: this.headers,
+        headers: this.getHeaders(),
       }
     );
   }
 
   deleteSubject(id: number): Observable<void> {
     return this.http.delete<void>(`${this.subjectsUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
-
-
 }

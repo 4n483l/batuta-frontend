@@ -43,35 +43,16 @@ export class UserFormComponent implements OnInit {
   }
 
   saveUser(): void {
-    // Crear un objeto con los datos del usuario a guardar, sin incluir el correo electrónico si estamos en modo de edición
-    const userToSave = { ...this.user };
 
-    // Si estamos en modo de edición, no enviamos el campo email
-    if (this.isEditMode) {
-      delete userToSave.email; // Eliminar el campo email antes de enviarlo al backend
-    }
-
-    if (this.isEditMode) {
-      this.authService.updateUser(this.user.id, userToSave).subscribe(
-        (response) => {
-          alert('Usuario actualizado');
-          this.router.navigate(['/admin/user-admin']);
-        },
-        (error) => {
-          console.error('Error al actualizar usuario:', error);
-        }
-      );
-    } else {
-      this.authService.createUser(this.user).subscribe(
-        (response) => {
-          alert('Usuario creado');
-          this.router.navigate(['/admin/user-admin']);
-        },
-        (error) => {
-          console.error('Error al crear usuario:', error);
-        }
-      );
-    }
+    this.authService.updateUser(this.user.id, this.user).subscribe(
+      (response) => {
+        alert('Usuario actualizado');
+        this.router.navigate(['/admin/user-admin']); 
+      },
+      (error) => {
+        console.error('Error al actualizar usuario:', error);
+      }
+    );
   }
 
   closeForm(): void {

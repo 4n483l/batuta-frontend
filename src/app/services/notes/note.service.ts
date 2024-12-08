@@ -14,57 +14,62 @@ export class NoteService {
   private teacherInstrumentsUrl = API_ROUTES.teacherInstruments;
   private subjectInstrumentUrl = API_ROUTES.subjectInstrumet;
 
-  private token?: string = '';
-  headers: HttpHeaders;
+
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.token = this.authService.getToken() || '';
-    this.headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+
+  }
+
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
     });
   }
 
   getNotes(): Observable<any> {
     return this.http.get(this.notesUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
   saveNote(note: any): Observable<any> {
     return this.http.post(this.notesUrl, note, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
   getNoteById(id: number): Observable<any> {
-    return this.http.get(`${this.notesUrl}/${id}`, { headers: this.headers });
+    return this.http.get(`${this.notesUrl}/${id}`, {
+      headers: this.getHeaders(),
+    });
   }
 
   updateNote(id: number, note: Note): Observable<any> {
     return this.http.put(`${this.notesUrl}/${note.id}`, note, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   getSubjectsForTeacher(): Observable<any> {
     return this.http.get(this.teacherSubjectsUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   getInstrumentsForTeacher(): Observable<any> {
     return this.http.get(this.teacherInstrumentsUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   getSubjectsAndInstruments(): Observable<any> {
     return this.http.get(this.subjectInstrumentUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   deleteNoteById(id: number): Observable<void> {
     return this.http.delete<void>(`${this.notesUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 }

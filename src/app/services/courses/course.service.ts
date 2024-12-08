@@ -10,43 +10,44 @@ import { AuthService } from '../auth/auth.service';
 })
 export class CourseService {
   private coursesUrl = API_ROUTES.courses;
-  private token: string = '';
-  headers: HttpHeaders;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.token = this.authService.getToken() || '';
-    this.headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  // Método para obtener los encabezados de las peticiones
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
     });
   }
 
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.coursesUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   getCourseById(id: number): Observable<Course> {
     return this.http.get<Course>(`${this.coursesUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   createCourse(course: Course): Observable<Course> {
     return this.http.post<Course>(this.coursesUrl, course, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   updateCourse(course: Course): Observable<Course> {
     return this.http.put<Course>(`${this.coursesUrl}/${course.id}`, course, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   deleteCourse(id: number): Observable<void> {
     return this.http.delete<void>(`${this.coursesUrl}/${id}`, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 }

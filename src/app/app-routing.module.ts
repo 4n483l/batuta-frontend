@@ -26,6 +26,8 @@ import { UserAdminComponent } from './components/admin/users/user-admin.componen
 import { UserFormComponent } from './components/admin/users/user-form.component';
 import { StudentAdminComponent } from './components/admin/students/student-admin.component';
 import { StudentFormComponent } from './components/admin/students/student-form.component';
+import { ExamAdminComponent } from './components/admin/exams/exam-admin.component';
+import { ExamFormComponent } from './components/admin/exams/exam-form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -127,12 +129,25 @@ const routes: Routes = [
         component: CourseAdminComponent,
       },
       {
-        path: 'course-form', 
+        path: 'course-form',
         component: CourseFormComponent,
       },
       {
         path: 'course-form/:id',
         component: CourseFormComponent,
+      },
+      /* --------------EXAMENES ----------- */
+      {
+        path: 'exam-admin', // Rutas para administrar examos
+        component: ExamAdminComponent,
+      },
+      {
+        path: 'exam-form',
+        component: ExamFormComponent,
+      },
+      {
+        path: 'exam-form/:id',
+        component: ExamFormComponent,
       },
     ],
   },

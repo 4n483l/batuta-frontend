@@ -1,0 +1,35 @@
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
+</div>
+
+<div *ngIf="!isLoading" class="card mt-4 mx-auto">
+  <div class="card-body">
+    <h3>{{ isEditMode ? 'Editar Examen' : 'Agregar Examen' }}</h3>
+    <form > <!-- (ngSubmit)="saveExam()" -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre del Examen</label>
+        <input id="name" type="text" class="form-control" [(ngModel)]="exam.name" name="name" required />
+      </div>
+      <div class="mb-3">
+        <label for="subject" class="form-label">Asignatura</label>
+        <input id="subject" type="text" class="form-control" [(ngModel)]="exam.subject" name="subject" required />
+      </div>
+      <div class="mb-3">
+        <label for="date" class="form-label">Fecha</label>
+        <input id="date" type="date" class="form-control" [(ngModel)]="exam.date" name="date" required />
+      </div>
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duración (en minutos)</label>
+        <input id="duration" type="number" class="form-control" [(ngModel)]="exam.duration" name="duration" required />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea id="description" class="form-control" [(ngModel)]="exam.description" name="description"
+          rows="3"></textarea>
+      </div>
+      <button class="btn btn-success" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>
+    </form>
+  </div>
+</div>

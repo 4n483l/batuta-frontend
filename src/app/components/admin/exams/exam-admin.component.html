@@ -1,0 +1,39 @@
+<main class="main-content">
+  <div *ngIf="isLoading" class="loading-container text-center">
+    <img src="assets/pics/loading.gif" alt="Cargando..." />
+    <p>Cargando datos...</p>
+  </div>
+
+  <div *ngIf="!isLoading" class="content-header d-flex justify-content-between align-items-center">
+    <h1>Exámenes</h1>
+    <button class="btn btn-agregar" [routerLink]="['/admin/exam-form']">Agregar</button>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Asignatura</th>
+        <th>Fecha</th>
+        <th>Duración</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exam of currentList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ exam.name }}</td>
+        <td>{{ exam.subject }}</td>
+        <td>{{ exam.date }}</td>
+        <td>{{ exam.duration }}</td>
+        <td>
+          <div class="d-flex gap-1">
+            <button class="btn btn-primary btn-sm" [routerLink]="['/admin/exam-form', exam.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteExam(exam.id)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>

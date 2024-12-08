@@ -10,29 +10,25 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 })
 export class TuitionService {
   private tuitionsUrl = API_ROUTES.tuitions;
-   //private tuitionsUrl = 'http://localhost:8000/api/tuitions';
 
-  private token?: string = '';
-  headers: HttpHeaders;
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    // Obtener el token de autenticación
-    this.token = this.authService.getToken() || '';
-    // Crear los headers con el token de autenticación
-    this.headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken() || '';
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
     });
   }
 
   getTuitions(): Observable<Tuition[]> {
     return this.http.get<Tuition[]>(this.tuitionsUrl, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 
   postTuition(tuition: Tuition): Observable<Tuition> {
     return this.http.post<Tuition>(this.tuitionsUrl, tuition, {
-      headers: this.headers,
+      headers: this.getHeaders(),
     });
   }
 }

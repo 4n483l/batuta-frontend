@@ -1,0 +1,72 @@
+<!-- student-form.html -->
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos del estudiante...</p>
+</div>
+
+<div *ngIf="!isLoading" class="card mt-4 mx-auto">
+  <div class="card-body">
+    <h3>{{ isEditMode ? 'Editar Estudiante' : 'Agregar Estudiante' }}</h3>
+
+    <form (ngSubmit)="saveStudent()">
+      <!-- Campo de Nombre -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input id="name" type="text" class="form-control" [(ngModel)]="student.name" name="name" required />
+      </div>
+
+      <!-- Campo Apellidos -->
+      <div class="mb-3">
+        <label for="lastname" class="form-label">Apellidos</label>
+        <input id="lastname" type="text" class="form-control" [(ngModel)]="student.lastname" name="lastname"
+          [required]="!isEditMode" />
+      </div>
+
+      <!-- Campo de Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email" class="form-control" [(ngModel)]="student.email" name="email" />
+      </div>
+
+      <!-- Campo Teléfono -->
+      <div class="mb-3">
+        <label for="phone" class="form-label">Teléfono</label>
+        <input id="phone" type="text" class="form-control" [(ngModel)]="student.phone" name="phone"
+          [required]="!isEditMode" />
+      </div>
+
+      <!-- Campo Dirección -->
+      <div class="mb-3">
+        <label for="address" class="form-label">Dirección</label>
+        <input id="address" type="text" class="form-control" [(ngModel)]="student.address" name="address"
+          [required]="!isEditMode" />
+      </div>
+
+      <!-- Campo Población -->
+      <div class="mb-3">
+        <label for="city" class="form-label">Población</label>
+        <input id="city" type="text" class="form-control" [(ngModel)]="student.city" name="city"
+          [required]="!isEditMode" />
+      </div>
+
+      <!-- Campo Código Postal -->
+      <div class="mb-3">
+        <label for="postal_code" class="form-label">Código Postal</label>
+        <input id="postal_code" type="text" class="form-control" [(ngModel)]="student.postal_code" name="postal_code"
+          [required]="!isEditMode" />
+      </div>
+
+      <!-- Campo Código Postal -->
+      <div class="mb-3">
+        <label for="postal_code" class="form-label">Código Postal</label>
+        <input id="postal_code" type="text" class="form-control" [(ngModel)]="student.postal_code" name="postal_code"
+          [required]="!isEditMode" />
+      </div>
+
+
+      <!-- Botones de acción -->
+      <button class="btn btn-success" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>
+    </form>
+  </div>
+</div>

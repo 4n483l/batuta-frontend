@@ -21,7 +21,7 @@ export class UserAdminComponent implements OnInit {
   loadUsers(): void {
     this.authService.getAuthenticatedData('users').subscribe(
       (response: any) => {
-        this.users = response.Users; // Ajustar según la respuesta de la API
+        this.users = response.Users;
         this.isLoading = false;
         console.log('Usuarios cargados:', this.users);
       },
@@ -32,13 +32,11 @@ export class UserAdminComponent implements OnInit {
     );
   }
 
-
-
   deleteUser(userId: number): void {
     this.authService.deleteUser(userId).subscribe(
       (response: any) => {
         alert('Usuario eliminado');
-        this.loadUsers(); // Recargar los usuarios después de eliminar
+        this.loadUsers();
       },
       (error) => {
         console.error('Error al eliminar usuario:', error);

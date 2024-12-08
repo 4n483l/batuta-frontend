@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -23,7 +22,6 @@ export class UserFormComponent implements OnInit {
     const userId = this.route.snapshot.paramMap.get('id');
     if (userId) {
       this.isEditMode = true;
-      console.log('Edit mode activado', this.isEditMode);
       this.loadUser(userId);
     }
   }

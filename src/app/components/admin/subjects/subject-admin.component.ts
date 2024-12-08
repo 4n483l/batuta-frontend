@@ -25,22 +25,12 @@ export class SubjectAdminComponent implements OnInit {
   }
 
   deleteSubject(id: number, name: string): void {
-       const confirmMessage = `¿Estás seguro de que deseas eliminar esta asignatura: "${name}"?`;
+    const confirmMessage = `¿Estás seguro de que deseas eliminar esta asignatura: "${name}"?`;
 
-    if (confirm('¿Estás seguro de que deseas eliminar esta asignatura?')) {
-      this.subjectService.deleteSubject(id).subscribe({
-        next: () => {
-          this.subjectsList = this.subjectsList.filter(
-            (subject) => subject.id !== id
-          );
-          alert('Asignatura eliminada correctamente');
-        },
-        error: (error) => {
-          console.error('Error eliminando la asignatura:', error);
-          alert(
-            'Hubo un problema al eliminar la asignatura. Inténtalo de nuevo más tarde.'
-          );
-        },
+    if (confirm(confirmMessage)) {
+      this.subjectService.deleteSubject(id).subscribe(() => {
+        alert('Asignatura eliminada correctamente');
+        this.loadSubjects();
       });
     }
   }

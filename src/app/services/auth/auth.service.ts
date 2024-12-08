@@ -9,12 +9,16 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 })
 export class AuthService {
   private authUrl = API_ROUTES.auth;
+  private usersUrl = API_ROUTES.users;
+  private studentsUrl = API_ROUTES.students;
+  
   // El estado de si el usuario está logueado. emisor de eventos
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
-  // Observable para suscribirse a los cambios en el estado de autenticación
   isLoggedIn$ = this.loggedIn.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  /* *****  AUTENTICACION  ***** */
 
   login(email: string, password: string): Observable<any> {
     const url = `${this.authUrl}/login`; // Ruta de login en Laravel
@@ -48,8 +52,31 @@ export class AuthService {
     return this.http.post(url, data);
   }
 
+  logout(): void {
+    localStorage.removeItem('jwtToken');
+    this.loggedIn.next(false); // Emitir el evento de que el usuario no está logueado
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('jwtToken');
+  }
+  // Método para verificar si el usuario está autenticado
+  isAuthenticated(): boolean {
+    return this.getToken() !== null;
+  }
+  // metodo para obtener datos autenticados
+  getAuthenticatedData(endpoint: string): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get(`${this.authUrl}/${endpoint}`, { headers });
+  }
+
+  /* *****  USUARIOS  ***** */
+
   getUsers(): Observable<any> {
-    return this.http.get(`${this.authUrl}/users`, {
+    return this.http.get(`${this.usersUrl}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
@@ -57,7 +84,7 @@ export class AuthService {
   }
 
   getUserById(id: number): Observable<any> {
-    return this.http.get(`${this.authUrl}/users/${id}`, {
+    return this.http.get(`${this.usersUrl}/${id}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
@@ -65,7 +92,7 @@ export class AuthService {
   }
 
   createUser(user: any): Observable<any> {
-    return this.http.post(`${this.authUrl}/users`, user, {
+    return this.http.post(`${this.usersUrl}`, user, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
@@ -73,7 +100,7 @@ export class AuthService {
   }
 
   updateUser(id: number, user: any): Observable<any> {
-    return this.http.put(`${this.authUrl}/users/${id}`, user, {
+    return this.http.put(`${this.usersUrl}/${id}`, user, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
@@ -81,54 +108,69 @@ export class AuthService {
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.authUrl}/users/${id}`, {
+    return this.http.delete(`${this.usersUrl}/${id}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
     });
-  }
-
-
-  
-
-  // Método para obtener el token almacenado
-  getToken(): string | null {
-    return localStorage.getItem('jwtToken');
-  }
-
-  // Método para verificar si el usuario está autenticado
-  isAuthenticated(): boolean {
-    return this.getToken() !== null;
   }
 
   getUserData(): Observable<any> {
-    return this.http.get(`${this.authUrl}/user`, {
+    return this.http.get(`${this.usersUrl}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
     });
   }
 
+  /* *****  ESTUDIANTES  ***** */
+
+  getStudents(): Observable<any> {
+    return this.http.get(`${this.studentsUrl}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+  getStudentById(studentId: string): Observable<any> {
+    return this.http.get(`${this.studentsUrl}/${studentId}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  createStudent(student: any): Observable<any> {
+    return this.http.post(`${this.studentsUrl}`, student, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  updateStudent(studentId: string, student: any): Observable<any> {
+    return this.http.put(`${this.studentsUrl}/${studentId}`, student, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  deleteStudent(studentId: number): Observable<any> {
+    return this.http.delete(`${this.studentsUrl}/${studentId}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+
+  // Método para obtener los estudiantes de un usuario
   getUserStudents(): Observable<any> {
     return this.http.get(`${this.authUrl}/user/students`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),
     });
-  }
-
-  // Método para cerrar sesión
-  logout(): void {
-    localStorage.removeItem('jwtToken');
-    this.loggedIn.next(false); // Emitir el evento de que el usuario no está logueado
-  }
-
-  // Método para hacer una llamada autenticada con JWT
-  getAuthenticatedData(endpoint: string): Observable<any> {
-    const token = this.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get(`${this.authUrl}/${endpoint}`, { headers });
   }
 }

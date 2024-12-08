@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/courses/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'src/app/models/subject.model';
+import { Instrument } from 'src/app/models/instrument.model';
 
 @Component({
   selector: 'app-courses-form',
@@ -11,9 +13,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CourseFormComponent implements OnInit {
   course: Course = {
     id: 0,
-    subject: '',
+    subject: null,
     instrument: '',
-    user: '',
+    user_id : '',
     classroom: '',
     date: '',
     hour: '',
@@ -69,7 +71,7 @@ export class CourseFormComponent implements OnInit {
   // Deshabilitar el campo "subject" cuando se llena el campo "instrument"
   disableSubjectOnInstrument() {
     if (this.course.instrument) {
-      this.course.subject = ''; 
+      this.course.subject = '';
     }
   }
 }

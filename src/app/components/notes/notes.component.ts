@@ -43,12 +43,13 @@ export class NotesComponent implements OnInit {
     });
   }
 
+ // obtiene los apuntes de teacher y de student
   getNotesData(): void {
     this.noteService.getNotes().subscribe((data: any) => {
-
+      console.log('Data apuntes:', data);
       if (this.userType === 'teacher') {
         this.notes = data.notesTeacher;
-
+        
       } else {
         console.log('Data asignaturas:', data);
 
@@ -61,13 +62,14 @@ export class NotesComponent implements OnInit {
             this.notes.push(apunte);
           });
         }
+
       }
       this.isLoading = false;
       console.log('Data notes:', data);
     });
   }
-
-  editNote(): void {
+// crea un apunte nuevo
+  addNote(): void {
     this.router.navigate(['/note-form']);
   }
 

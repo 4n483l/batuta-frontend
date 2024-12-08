@@ -31,7 +31,7 @@ export class CalendarComponent implements OnInit {
   }
   ngOnInit(): void {
     this.generateCalendar();
-    console.log('Eventos en metodo ngOnInit:', this.events);
+  //  console.log('Eventos en metodo ngOnInit:', this.events);
   }
 
   generateCalendar() {

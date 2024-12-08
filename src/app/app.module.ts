@@ -32,6 +32,10 @@ import { UserAdminComponent } from './components/admin/users/user-admin.componen
 import { UserFormComponent } from './components/admin/users/user-form.component';
 import { CourseAdminComponent } from './components/admin/courses/course-admin.component';
 import { CourseFormComponent } from './components/admin/courses/course-form.component';
+import { StudentAdminComponent } from './components/admin/students/student-admin.component';
+import { StudentFormComponent } from './components/admin/students/student-form.component';
+
+
 
 @NgModule({
   declarations: [
@@ -62,6 +66,10 @@ import { CourseFormComponent } from './components/admin/courses/course-form.comp
     UserFormComponent,
     CourseAdminComponent,
     CourseFormComponent,
+    StudentAdminComponent,
+    StudentFormComponent,
+
+
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
 

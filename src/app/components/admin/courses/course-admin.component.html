@@ -25,7 +25,7 @@
       <tr *ngFor="let course of currentList; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ course.instrument ? course.instrument : course.subject }}</td>
-        <td>{{ course.user }}</td>
+        <td>{{ course.user_id }}</td>
         <td>{{ course.classroom }}</td>
         <td>{{ course.date }}</td>
         <td>{{ course.hour }}</td>

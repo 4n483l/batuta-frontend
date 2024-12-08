@@ -1,38 +1,53 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { Rehearsal } from 'src/app/models/rehearsal.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RehearsalService {
   private rehearsalsUrl = API_ROUTES.rehearsals;
-  // private rehearsalsUrl = 'http://localhost:8000/api/rehearsals';
 
-  constructor(private http: HttpClient) {}
+  private token?: string = '';
+  headers: HttpHeaders;
 
-  getRehearsals(): Observable<Rehearsal[]> {
-    return this.http.get<Rehearsal[]>(this.rehearsalsUrl);
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.token = this.authService.getToken() || '';
+    this.headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`,
+    });
   }
 
-  getRehearsalById(id: number): Observable<Rehearsal> {
-    return this.http.get<Rehearsal>(`${this.rehearsalsUrl}/${id}`);
+  getRehearsals(): Observable<any> {
+    return this.http.get(this.rehearsalsUrl, {
+      headers: this.headers,
+    });
   }
 
-  createRehearsal(rehearsal: Rehearsal): Observable<Rehearsal> {
-    return this.http.post<Rehearsal>(this.rehearsalsUrl, rehearsal);
+  getRehearsalById(id: number): Observable<any> {
+    return this.http.get(`${this.rehearsalsUrl}/${id}`, {
+      headers: this.headers,
+    });
   }
 
-  updateRehearsal(rehearsal: Rehearsal): Observable<Rehearsal> {
-    return this.http.put<Rehearsal>(
-      `${this.rehearsalsUrl}/${rehearsal.id}`,
-      rehearsal
-    );
+  createRehearsal(rehearsal: Rehearsal): Observable<any> {
+    return this.http.post(this.rehearsalsUrl, rehearsal, {
+      headers: this.headers,
+    });
   }
 
-  deleteRehearsal(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.rehearsalsUrl}/${id}`);
+  updateRehearsal(rehearsal: Rehearsal): Observable<any> {
+    return this.http.put(`${this.rehearsalsUrl}/${rehearsal.id}`, rehearsal, {
+      headers: this.headers,
+    });
+  }
+
+  deleteRehearsal(id: number): Observable<any> {
+    return this.http.delete(`${this.rehearsalsUrl}/${id}`, {
+      headers: this.headers,
+    });
   }
 }

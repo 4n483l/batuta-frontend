@@ -3,6 +3,23 @@
   <img src="assets/pics/loading.gif" alt="Cargando..." />
   <p>Cargando datos...</p>
 </div>
+
+<!--
 <div *ngIf="!isLoading">
-<app-calendar [events]="courses" title="Horario de clases"></app-calendar>
+<app-calendar [events]="coursesList" title="Horario de clases"></app-calendar>
+</div>
+ -->
+
+
+<div *ngIf="!isLoading">
+  <h2>Cursos por Estudiante</h2>
+  <div *ngFor="let studentId of (coursesByStudent | keyvalue)">
+    <h3>Estudiante ID: {{ studentId.key }}</h3>
+    <ul>
+      <li *ngFor="let course of studentId.value">
+       <!--  <strong>{{ course.subject?.name || 'Sin asignatura' }}</strong> - -->
+        <span>{{ course.classroom }}</span> en {{ course.date }} a las {{ course.hour }}
+      </li>
+    </ul>
+  </div>
 </div>

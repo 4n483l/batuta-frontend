@@ -8,18 +8,14 @@ import { API_ROUTES } from 'src/app/config/api-routes';
   providedIn: 'root',
 })
 export class AuthService {
-  // private API_URL = 'http://127.0.0.1:8000/api';
   private authUrl = API_ROUTES.auth;
-
   // El estado de si el usuario está logueado. emisor de eventos
   private loggedIn = new BehaviorSubject<boolean>(this.isAuthenticated());
-
   // Observable para suscribirse a los cambios en el estado de autenticación
   isLoggedIn$ = this.loggedIn.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  // Método para el login
   login(email: string, password: string): Observable<any> {
     const url = `${this.authUrl}/login`; // Ruta de login en Laravel
     return this.http.post(url, { email, password }).pipe(
@@ -33,8 +29,6 @@ export class AuthService {
       })
     );
   }
-
-  // Método para el registro
 
   register(data: {
     name: string;
@@ -53,6 +47,49 @@ export class AuthService {
 
     return this.http.post(url, data);
   }
+
+  getUsers(): Observable<any> {
+    return this.http.get(`${this.authUrl}/users`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.authUrl}/users/${id}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  createUser(user: any): Observable<any> {
+    return this.http.post(`${this.authUrl}/users`, user, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  updateUser(id: number, user: any): Observable<any> {
+    return this.http.put(`${this.authUrl}/users/${id}`, user, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.authUrl}/users/${id}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.getToken()}`,
+      }),
+    });
+  }
+
+
+  
 
   // Método para obtener el token almacenado
   getToken(): string | null {

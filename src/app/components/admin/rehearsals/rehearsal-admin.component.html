@@ -1,13 +1,13 @@
 <!-- Contenido principal -->
 <main class="main-content">
 
-  <div *ngIf="isLoading" class="loading-container text-center">
+  <div *ngIf="isLoading"  class="loading-container text-center">
     <img src="assets/pics/loading.gif" alt="Cargando..." />
     <p>Cargando datos...</p>
   </div>
 
 
-  <div *ngIf="!isLoading" class="content-header d-flex justify-content-between align-items-center">
+  <div *ngIf="!isLoading"  class="content-header d-flex justify-content-between align-items-center">
     <h1> Ensayos </h1>
     <button class="btn btn-agregar" [routerLink]="['/admin/rehearsals-form']">Agregar</button>
   </div>

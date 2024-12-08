@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { AuthService } from '../auth/auth.service';
+import { Note } from 'src/app/models/note.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,6 @@ export class NoteService {
   private teacherSubjectsUrl = API_ROUTES.teacherSubjects;
   private teacherInstrumentsUrl = API_ROUTES.teacherInstruments;
   private subjectInstrumentUrl = API_ROUTES.subjectInstrumet;
-
-  // notesUpdated = new EventEmitter<void>();
 
   private token?: string = '';
   headers: HttpHeaders;
@@ -32,6 +31,15 @@ export class NoteService {
   }
   saveNote(note: any): Observable<any> {
     return this.http.post(this.notesUrl, note, {
+      headers: this.headers,
+    });
+  }
+  getNoteById(id: number): Observable<any> {
+    return this.http.get(`${this.notesUrl}/${id}`, { headers: this.headers });
+  }
+
+  updateNote(id: number, note: Note): Observable<any> {
+    return this.http.put(`${this.notesUrl}/${note.id}`, note, {
       headers: this.headers,
     });
   }
@@ -54,7 +62,9 @@ export class NoteService {
     });
   }
 
-  /* triggerNotesUpdate() {
-    this.notesUpdated.emit();
-  } */
+  deleteNoteById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.notesUrl}/${id}`, {
+      headers: this.headers,
+    });
+  }
 }

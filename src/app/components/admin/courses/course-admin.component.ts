@@ -19,8 +19,6 @@ export class CourseAdminComponent implements OnInit {
 
   loadCourses(): void {
     this.courseService.getCourses().subscribe((data: any) => {
-      
-
       this.currentList = Array.isArray(data.Courses) ? data.Courses : [];
       this.isLoading = false;
       console.log('Cursos cargados:', data);

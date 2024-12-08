@@ -1,1 +1,41 @@
+<main class="main-content">
 
+  <div *ngIf="isLoading" class="loading-container text-center">
+    <img src="assets/pics/loading.gif" alt="Cargando..." />
+    <p>Cargando datos...</p>
+  </div>
+
+  <div *ngIf="!isLoading" class="content-header d-flex justify-content-between align-items-center">
+    <h1>Usuarios</h1>
+    <button class="btn btn-agregar" [routerLink]="['/admin/user-form']">Agregar Usuario</button>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Tipo de usuario</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td class="text-start">{{ user.name }}</td>
+        <td class="text-start">{{ user.lastname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.user_type }}</td>
+        <td>
+          <div class="d-flex gap-1">
+            <button class="btn btn-primary btn-sm" [routerLink]="['/admin/user-form', user.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>

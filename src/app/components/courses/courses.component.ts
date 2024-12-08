@@ -8,22 +8,36 @@ import { CourseService } from 'src/app/services/courses/course.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[] = [];
+  coursesList: Course[] = [];
+  coursesByStudent: { [studentId: number]: Course[] } = {};
   isLoading: boolean = true;
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe((data: any) => {
-      this.courses = Array.isArray(data.Courses) ? data.Courses : [];
-      this.isLoading = false;
+    this.loadCourses();
+  }
 
-      console.log('Componente courses:', this.courses);
-    },
-    (error) => {
-      console.error('Error al cargar cursos', error);
-      this.isLoading = false;
-    }
-  );
+  loadCourses(): void {
+    this.courseService.getCourses().subscribe(
+      (data: any) => {
+        // trae los cusros por estudiante
+        this.coursesByStudent = data.Courses;
+
+        // agrupa todos los cursos de estudiantes
+       // this.coursesList = Object.values(this.coursesByStudent).flat();
+
+       // this.coursesList = Array.isArray(data.Courses) ? data.Courses : [];
+
+
+        this.isLoading = false;
+        console.log('Componente courses:', data);
+        console.log('Cursos por estudiante:', this.coursesByStudent);
+      },
+      (error) => {
+        console.error('Error al cargar cursos', error);
+        this.isLoading = false;
+      }
+    );
   }
 }

@@ -35,30 +35,30 @@ export class NoteFormComponent implements OnInit {
     this.loadSubjects();
     this.loadInstruments();
   }
-  onSubmit() {
-    // this.saveNotePdf();
 
+  onSubmit() {
     this.noteService.saveNote(this.note).subscribe((response) => {
       this.router.navigate(['/notes']);
     });
   }
-
   // hook ciclo de vida. Se ejecuta después de que Angular haya inicializado las vistas del componente
   ngAfterViewInit() {
     // datos cambian fuera del cclo de vida, fuerza la detección de cambios que no son detectados automáticamente
-    this.cdRef.detectChanges(); 
+    this.cdRef.detectChanges();
   }
-
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
 
   loadInstruments() {
     this.noteService.getInstrumentsForTeacher().subscribe(
       (response: any) => {
         this.instrumentos = response.instruments;
-        this.setLoadingState(false);
+       this.setLoadingState(false);
       },
       (error) => {
         console.error('Error al cargar instrumentos:', error);
-        this.setLoadingState(false);
+       this.setLoadingState(false);
       }
     );
   }

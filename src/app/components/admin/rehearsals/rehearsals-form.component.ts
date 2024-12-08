@@ -23,7 +23,7 @@ export class RehearsalsFormComponent implements OnInit {
   constructor(
     private rehearsalService: RehearsalService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class RehearsalsFormComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const rehearsalId = params['id'];
       if (rehearsalId) {
-         this.isLoading = true;
+      this.isLoading = true;
         this.rehearsalService
           .getRehearsalById(rehearsalId)
           .subscribe((data: Rehearsal) => {

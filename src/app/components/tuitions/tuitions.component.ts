@@ -42,39 +42,10 @@ export class TuitionsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    this.instrumentService.getInstruments().subscribe((dataInstrument: any) => {
-      this.instrumentos = dataInstrument.instruments;
-      this.isInstrumentLoading = false;
-    });
-
-    // trae las asignaturas del back
-    this.subjectService.getSubjects().subscribe((dataSubject: any) => {
-      console.log('Datos de asignaturas: ', dataSubject);
-      this.asignaturas = dataSubject.subjects;
-      this.isSubjectLoading = false;
-    });
-    // inicializar los checkbox
-    this.asignaturas.forEach((subject) => {
-      if (subject.name !== 'Instrumento') {
-        this.checkedSubjects[subject.id] = false;
-      }
-    });
-
-    // trae los datos del usuario logueado
-    this.tuitionService.getTuitions().subscribe((data: any) => {
-      console.log('Datos recibidos de la API:', data);
-
-      // traemos los datos del usuario logueado
-      this.phone = data.usuario.phone;
-      this.address = data.usuario.address;
-      this.city = data.usuario.city;
-      this.postal_code = data.usuario.postal_code;
-      this.email = data.usuario.email;
-
-      console.log('Componente tuitions:', data.usuario);
-      this.isUserLoading = false;
-    });
+    this.loadInstruments();
+    this.loadSubjects();
+    this.initCheckbox();
+    this.loadLoggedUser();
   }
 
   onSubmit(form: NgForm) {
@@ -109,6 +80,45 @@ export class TuitionsComponent implements OnInit {
     } else {
       alert('Por favor, completa correctamente el formulario.');
     }
+  }
+
+  loadInstruments() {
+    this.instrumentService.getInstruments().subscribe((dataInstrument: any) => {
+      this.instrumentos = dataInstrument.instruments;
+      this.isInstrumentLoading = false;
+    });
+  }
+  loadSubjects() {
+    this.subjectService.getSubjects().subscribe((dataSubject: any) => {
+      console.log('Datos de asignaturas: ', dataSubject);
+      this.asignaturas = dataSubject.subjects;
+      this.isSubjectLoading = false;
+    });
+  }
+  loadLoggedUser() {
+    // trae los datos del usuario logueado
+    this.tuitionService.getTuitions().subscribe((data: any) => {
+      console.log('Datos recibidos de la API:', data);
+
+      // traemos los datos del usuario logueado
+      this.phone = data.usuario.phone;
+      this.address = data.usuario.address;
+      this.city = data.usuario.city;
+      this.postal_code = data.usuario.postal_code;
+      this.email = data.usuario.email;
+
+      console.log('Componente tuitions:', data.usuario);
+      this.isUserLoading = false;
+    });
+  }
+
+  initCheckbox() {
+    // inicializar los checkbox
+    this.asignaturas.forEach((subject) => {
+      if (subject.name !== 'Instrumento') {
+        this.checkedSubjects[subject.id] = false;
+      }
+    });
   }
 
   onClickCheckbox(subjectId: number) {

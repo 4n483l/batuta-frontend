@@ -22,6 +22,10 @@ import { InstrumentFormComponent } from './components/admin/instruments/instrume
 import { CourseAdminComponent } from './components/admin/courses/course-admin.component';
 import { CourseFormComponent } from './components/admin/courses/course-form.component';
 import { NotesComponent } from './components/notes/notes.component';
+import { UserAdminComponent } from './components/admin/users/user-admin.component';
+import { UserFormComponent } from './components/admin/users/user-form.component';
+import { StudentAdminComponent } from './components/admin/students/student-admin.component';
+import { StudentFormComponent } from './components/admin/students/student-form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -39,6 +43,19 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     children: [
+      /* --------------USUARIOS ----------- */
+      {
+        path: 'user-admin',
+        component: UserAdminComponent,
+      },
+      {
+        path: 'user-form',
+        component: UserFormComponent,
+      },
+      {
+        path: 'user-form/:id',
+        component: UserFormComponent,
+      },
       /* --------------CONCIERTOS ----------- */
       {
         path: 'concert-admin',
@@ -58,12 +75,25 @@ const routes: Routes = [
         component: RehearsalAdminComponent,
       },
       {
-        path: 'rehearsals-form', // agragar concierto
+        path: 'rehearsals-form',
         component: RehearsalsFormComponent,
       },
       {
-        path: 'rehearsals-form/:id', // editar concierto
+        path: 'rehearsals-form/:id',
         component: RehearsalsFormComponent,
+      },
+      /* --------------ESTUDIANTES ----------- */
+      {
+        path: 'student-admin',
+        component: StudentAdminComponent,
+      },
+      {
+        path: 'student-form',
+        component: StudentFormComponent,
+      },
+      {
+        path: 'student-form/:id',
+        component: StudentFormComponent,
       },
       /* --------------ASIGNATURAS ----------- */
       {
@@ -97,11 +127,11 @@ const routes: Routes = [
         component: CourseAdminComponent,
       },
       {
-        path: 'course-form', // Agregar courseo
+        path: 'course-form', 
         component: CourseFormComponent,
       },
       {
-        path: 'course-form/:id', // Editar courseo
+        path: 'course-form/:id',
         component: CourseFormComponent,
       },
     ],

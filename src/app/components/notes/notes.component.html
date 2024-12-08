@@ -5,11 +5,11 @@
 
 <div *ngIf="!isLoading" class="container my-4">
 
-<div *ngIf="userType === 'teacher'" class="d-flex justify-content-end mb-3">
-  <button  (click)="editNote()" class="btn btn-agregar">
-    Agregar Apunte
-  </button>
-</div>
+  <div *ngIf="userType === 'teacher'" class="d-flex justify-content-end mb-3">
+    <button (click)="addNote()" class="btn btn-agregar">
+      Agregar Apunte
+    </button>
+  </div>
 
 
   <h2 class="text-center mb-4">Lista de Apuntes</h2>
@@ -20,13 +20,21 @@
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ note.title }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ note.topic }}</h6>
-        <p class="card-text flex-grow-1 overflow-auto">
+          <p class="card-text flex-grow-1 overflow-auto">
             {{ note.content }}
           </p>
 
-          <!-- Si existe PDF, mostrar un botón para verlo -->
-          <div class="mt-3" *ngIf="note.pdf">
-            <a (click)="seePdf(note.pdf)" class="btn btn-primary" target="_blank">Ver PDF</a>
+          <div class="d-flex justify-content-between mt-3">
+            <!-- Botón de edición de apunte -->
+           <!--  <div class="mt-3" *ngIf="userType === 'teacher'">
+              <button (click)="editNote(note)"   class="btn btn-primary">Editar Apunte</button>
+            </div> -->
+
+
+            <!-- Si existe PDF, mostrar un botón para verlo -->
+            <div class="mt-3" *ngIf="note.pdf">
+              <a (click)="seePdf(note.pdf)" class="btn btn-primary" target="_blank">Ver PDF</a>
+            </div>
           </div>
 
           <p class="mt-3 text-muted">

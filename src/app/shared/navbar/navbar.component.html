@@ -25,12 +25,11 @@
           <a class="nav-link" [routerLink]="['/courses']">Clases</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'musician' || (userType === 'member' && hasStudents)">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
           <a class="nav-link" [routerLink]="['/exams']">Examenes</a>
         </li>
 
-        <li class="nav-item"
-          *ngIf="userType === 'musician' || userType === 'teacher' || (userType === 'member' && hasStudents)">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
           <a class="nav-link" [routerLink]="['/notes']">Ver Apuntes</a>
         </li>
 

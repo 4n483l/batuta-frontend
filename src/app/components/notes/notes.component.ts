@@ -11,7 +11,7 @@ import { NoteService } from 'src/app/services/notes/note.service';
   styleUrls: ['./notes.component.scss'],
 })
 export class NotesComponent implements OnInit {
-  notes: any[] = [];
+  notesList: any[] = [];
   private pdfUrl = API_ROUTES.pdf;
 
   userType: string = '';
@@ -27,7 +27,6 @@ export class NotesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserType();
-    this.getNotesData();
   }
 
   loadUserType(): void {
@@ -46,26 +45,30 @@ export class NotesComponent implements OnInit {
  // obtiene los apuntes de teacher y de student
   getNotesData(): void {
     this.noteService.getNotes().subscribe((data: any) => {
-      console.log('Data apuntes:', data);
+
+      console.log('Data todos apuntes:', data);
+
       if (this.userType === 'teacher') {
-        this.notes = data.notesTeacher;
-        
+
+
+        this.notesList = data.NotesTeacher;
+
       } else {
         console.log('Data asignaturas:', data);
 
-        this.notes = [];
+        this.notesList = [];
 
         for (let studentId in data.notesStudent) {
           const apuntesAlumno = data.notesStudent[studentId];
 
           apuntesAlumno.forEach((apunte: any) => {
-            this.notes.push(apunte);
+            this.notesList.push(apunte);
           });
         }
 
       }
       this.isLoading = false;
-      console.log('Data notes:', data);
+    //  console.log('Data notes:', data);
     });
   }
 // crea un apunte nuevo

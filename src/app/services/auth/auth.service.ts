@@ -9,6 +9,7 @@ import { API_ROUTES } from 'src/app/config/api-routes';
 })
 export class AuthService {
   private authUrl = API_ROUTES.auth;
+  private navbarUrl = API_ROUTES.navbar;
   private usersUrl = API_ROUTES.users;
   private studentsUrl = API_ROUTES.students;
 
@@ -109,7 +110,7 @@ export class AuthService {
   }
 
   getUserData(): Observable<any> {
-    return this.http.get(`${this.usersUrl}`, {
+    return this.http.get(`${this.navbarUrl}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.getToken()}`,
       }),

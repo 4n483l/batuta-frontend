@@ -54,11 +54,11 @@ export class NoteFormComponent implements OnInit {
     this.noteService.getInstrumentsForTeacher().subscribe(
       (response: any) => {
         this.instrumentos = response.instruments;
-       this.setLoadingState(false);
+        this.setLoadingState(false);
       },
       (error) => {
         console.error('Error al cargar instrumentos:', error);
-       this.setLoadingState(false);
+        this.setLoadingState(false);
       }
     );
   }
@@ -99,6 +99,40 @@ export class NoteFormComponent implements OnInit {
   setLoadingState(state: boolean): void {
     this.isLoading = state;
     this.cdRef.detectChanges();
+  }
+
+  previewPdf() {
+    this.generatePdf();
+    this.pdf.save('note.pdf');
+  }
+
+  saveNotePdf() {
+    this.generatePdf();
+
+    const notePdf = new FormData();
+    notePdf.append('title', this.note.title);
+    notePdf.append('topic', this.note.topic);
+    notePdf.append('content', this.note.content);
+
+    if (this.note.subject_id) {
+      notePdf.append('subject_id', this.note.subject_id);
+    }
+
+    if (this.note.instrument_id) {
+      notePdf.append('instrument_id', this.note.instrument_id);
+    }
+
+    // Convertir el PDF generado a un archivo Blob y añadirlo al formulario
+    const pdfBlob = this.pdf.output('blob');
+    notePdf.append('pdf', pdfBlob, 'note.pdf');
+    this.noteService.saveNote(notePdf).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   generatePdf() {
@@ -162,39 +196,5 @@ export class NoteFormComponent implements OnInit {
         yPosition += 10;
       });
     });
-  }
-
-  previewPdf() {
-    this.generatePdf();
-    this.pdf.save('note.pdf');
-  }
-
-  saveNotePdf() {
-    this.generatePdf();
-
-    const notePdf = new FormData();
-    notePdf.append('title', this.note.title);
-    notePdf.append('topic', this.note.topic);
-    notePdf.append('content', this.note.content);
-
-    if (this.note.subject_id) {
-      notePdf.append('subject_id', this.note.subject_id);
-    }
-
-    if (this.note.instrument_id) {
-      notePdf.append('instrument_id', this.note.instrument_id);
-    }
-
-    // Convertir el PDF generado a un archivo Blob y añadirlo al formulario
-    const pdfBlob = this.pdf.output('blob');
-    notePdf.append('pdf', pdfBlob, 'note.pdf');
-    this.noteService.saveNote(notePdf).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   }
 }

@@ -22,7 +22,10 @@ export class LoginComponent {
 
       this.authService.login(email, password).subscribe(
         (response) => {
-          this.router.navigate(['/dashboard']); 
+          console.log('Inicio de sesión correcto:', response);
+          console.log('Token JWT:', this.authService.getToken());
+
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           alert('Error en el inicio de sesión');

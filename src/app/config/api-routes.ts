@@ -4,6 +4,7 @@ const API_URL_PDF = 'http://127.0.0.1:8000/storage';
 
 export const API_ROUTES = {
   auth: API_URL,
+  navbar: `${API_URL}/navbar`,
   users: `${API_URL}/users`,
   students: `${API_URL}/students`,
   concerts: `${API_URL}/concerts`,

@@ -2,6 +2,7 @@
   <img src="assets/pics/loading.gif" alt="Cargando..." />
   <p>Cargando datos...</p>
 </div>
+
 <div *ngIf="!isLoading">
-  <app-calendar [events]="exams" title="Horario de exámenes"></app-calendar>
+  <app-calendar [events]="examsList" title="Horario de exámenes"></app-calendar>
 </div>

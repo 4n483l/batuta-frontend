@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CourseService } from 'src/app/services/courses/course.service';
 
 @Component({
@@ -9,30 +10,57 @@ import { CourseService } from 'src/app/services/courses/course.service';
 })
 export class CoursesComponent implements OnInit {
   coursesList: Course[] = [];
-  coursesByStudent: { [studentId: number]: Course[] } = {};
+
+ // coursesByStudent: { [studentId: number]: Course[] } = {};
+  userType: string = '';
+  isLoggedIn: boolean = false;
+
   isLoading: boolean = true;
 
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private courseService: CourseService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.loadCourses();
+    this.loadUserType();
+  }
+
+  loadUserType(): void {
+    this.authService.isLoggedIn$.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+
+      if (this.isLoggedIn) {
+        this.authService.getUserData().subscribe((userData) => {
+          this.userType = userData.user_type;
+          this.loadCourses();
+        });
+      }
+    });
   }
 
   loadCourses(): void {
     this.courseService.getCourses().subscribe(
       (data: any) => {
-        // trae los cusros por estudiante
-        this.coursesByStudent = data.Courses;
+        console.log('Datos de los cursos:', data);
 
-        // agrupa todos los cursos de estudiantes
-       // this.coursesList = Object.values(this.coursesByStudent).flat();
+if(this.userType === 'teacher'){
+  this.coursesList = data.CoursesTeacher;
+}else{
+  this.coursesList = [];
 
-       // this.coursesList = Array.isArray(data.Courses) ? data.Courses : [];
+  for(let studentId in data.CoursesStudent){
+    const studentCourses = data.CoursesStudent[studentId];
 
+    studentCourses.forEach((course: Course) => {
+      this.coursesList.push(course);
+    });
+  }
+}
+this.isLoading = false;
 
-        this.isLoading = false;
-        console.log('Componente courses:', data);
-        console.log('Cursos por estudiante:', this.coursesByStudent);
+        console.log('Cursos obtenidos:', this.coursesList);
+        
       },
       (error) => {
         console.error('Error al cargar cursos', error);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { th, tr } from 'date-fns/locale';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -10,6 +11,7 @@ export class NavbarComponent {
   isLoggedIn: boolean = false;
   userType: string = '';
   hasStudents: boolean = false;
+ // isLoading: boolean = false;
 
   constructor(private authService: AuthService) {}
 
@@ -22,10 +24,11 @@ export class NavbarComponent {
       this.isLoggedIn = loggedIn;
 
       if (this.isLoggedIn) {
+
         this.authService.getUserData().subscribe((userData) => {
           this.userType = userData.user_type;
+          this.loadUserStudentData();
         });
-        this.loadUserStudentData();
       }
     });
   }

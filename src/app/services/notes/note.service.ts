@@ -43,8 +43,8 @@ export class NoteService {
     });
   }
 
-  updateNote(id: number, note: Note): Observable<any> {
-    return this.http.put(`${this.notesUrl}/${note.id}`, note, {
+  updateNote(id: number, note: any): Observable<any> {
+    return this.http.put(`${this.notesUrl}/${id}`, note, {
       headers: this.getHeaders(),
     });
   }

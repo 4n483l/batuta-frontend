@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-admin',
@@ -35,11 +36,18 @@ export class UserAdminComponent implements OnInit {
   deleteUser(userId: number): void {
     this.authService.deleteUser(userId).subscribe(
       (response: any) => {
-        alert('Usuario eliminado');
+         Swal.fire({
+           title: 'Usuario eliminado correctamente',
+           icon: 'success',
+         });
+
         this.loadUsers();
       },
       (error) => {
-        console.error('Error al eliminar usuario:', error);
+        Swal.fire({
+          title: 'Error al eliminar usuario',
+          icon: 'error',
+        });
       }
     );
   }

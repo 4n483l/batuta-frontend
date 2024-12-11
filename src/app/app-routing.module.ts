@@ -39,8 +39,14 @@ const routes: Routes = [
   { path: 'exams', component: ExamsComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'tuitions', component: TuitionsComponent },
-  { path: 'notes', component: NotesComponent },
+
+  { path: 'notes', component: NotesComponent},
+
   { path: 'note-form', component: NoteFormComponent },
+
+  { path: 'note-form/:id', component: NoteFormComponent },
+
+  
   {
     path: 'admin',
     component: AdminComponent,

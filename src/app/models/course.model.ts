@@ -12,13 +12,3 @@ export interface Course extends Event {
   user_id: string;
 }
 
-
-/* export interface Course extends Event {
-  id: number;
-  subject?: Subject | null;
-  instrument?: Instrument | null;
-  date: string;
-  hour: string;
-  classroom: string;
-  user_id: number;
-} */

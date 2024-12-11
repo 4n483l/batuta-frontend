@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
-
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -10,6 +9,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class StudentFormComponent implements OnInit {
   student: any = {};
+  users: any[] = [];
+
   isEditMode: boolean = false;
   isLoading: boolean = false;
 
@@ -21,15 +22,18 @@ export class StudentFormComponent implements OnInit {
 
   ngOnInit(): void {
     const studentId = this.route.snapshot.paramMap.get('id');
+    
     if (studentId) {
       this.isEditMode = true;
       this.loadStudent(studentId);
     } else {
       this.isEditMode = false;
     }
+
+    this.loadUsers();
   }
 
-   loadStudent(studentId: string): void {
+  loadStudent(studentId: string): void {
     this.isLoading = true;
     this.authService.getStudentById(studentId).subscribe(
       (response: any) => {
@@ -43,7 +47,18 @@ export class StudentFormComponent implements OnInit {
     );
   }
 
-   saveStudent(): void {
+  loadUsers(): void {
+    this.authService.getUsers().subscribe(
+      (response: any) => {
+        this.users = response.Users;
+      },
+      (error) => {
+        console.error('Error al cargar usuarios:', error);
+      }
+    );
+  }
+
+  saveStudent(): void {
     if (this.isEditMode) {
       this.authService.updateStudent(this.student.id, this.student).subscribe(
         (response) => {
@@ -55,6 +70,8 @@ export class StudentFormComponent implements OnInit {
         }
       );
     } else {
+      console.log(this.student);
+
       this.authService.createStudent(this.student).subscribe(
         (response) => {
           alert('Estudiante creado');

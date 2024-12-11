@@ -41,6 +41,10 @@
           <a class="nav-link" [routerLink]="['/tuitions']">Matrícula</a>
         </li>
 
+        <li class="nav-item" *ngIf="role === 'admin'">
+          <a class="nav-link" [routerLink]="['/admin']">Panel de Admin</a>
+        </li>
+
       </ul>
       <ul class="navbar-nav ms-auto">
         <!-- Mostrar solo si el usuario NO está logueado -->

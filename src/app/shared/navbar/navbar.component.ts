@@ -11,6 +11,7 @@ export class NavbarComponent {
   isLoggedIn: boolean = false;
   userType: string = '';
   hasStudents: boolean = false;
+  role: string = '';
  // isLoading: boolean = false;
 
   constructor(private authService: AuthService) {}
@@ -27,6 +28,7 @@ export class NavbarComponent {
 
         this.authService.getUserData().subscribe((userData) => {
           this.userType = userData.user_type;
+          this.role = userData.role;
           this.loadUserStudentData();
         });
       }

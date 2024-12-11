@@ -9,8 +9,17 @@
     <h3>{{ isEditMode ? 'Editar Estudiante' : 'Agregar Estudiante' }}</h3>
 
     <form (ngSubmit)="saveStudent()">
+
+<div class="mb-3">
+  <label for="user" class="form-label">Usuario</label>
+  <select id="user" class="form-control" [(ngModel)]="student.user_id" name="user">
+  <!--   <option value="" disabled selected>Asociar usuario</option> -->
+    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+  </select>
+</div>
+
       <!-- Campo de Nombre -->
-      <div class="mb-3">
+      <div class="mb-3"><!--  -->
         <label for="name" class="form-label">Nombre</label>
         <input id="name" type="text" class="form-control" [(ngModel)]="student.name" name="name" required />
       </div>
@@ -56,12 +65,12 @@
           [required]="!isEditMode" />
       </div>
 
-      <!-- Campo Código Postal -->
+      <!-- Campo de Cumpleaños -->
       <div class="mb-3">
-        <label for="postal_code" class="form-label">Código Postal</label>
-        <input id="postal_code" type="text" class="form-control" [(ngModel)]="student.postal_code" name="postal_code"
-          [required]="!isEditMode" />
+        <label for="birth_date" class="form-label">Fecha de Nacimiento</label>
+        <input id="birth_date" type="date" class="form-control" [(ngModel)]="student.birth_date" name="birth_date" />
       </div>
+
 
 
       <!-- Botones de acción -->

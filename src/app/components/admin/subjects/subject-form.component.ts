@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-subject-form',
@@ -57,11 +58,22 @@ export class SubjectFormComponent implements OnInit {
       this.subjectService.createSubject(this.subject).subscribe(
         (newSubject) => {
           console.log('Asignatura creada:', newSubject);
+
+          Swal.fire({
+            title: 'Asignatura creada con éxito',
+            icon: 'success',
+          });
+
+
           this.router.navigate(['/admin/subject-admin']);
           this.isLoading = false;
         },
         (error) => {
-          console.error('Error al guardar la asignatura', error);
+
+          Swal.fire({
+            title: 'Error al crear la asignatura',
+            icon: 'error',
+          });
           this.isLoading = false;
         }
       );
@@ -70,10 +82,20 @@ export class SubjectFormComponent implements OnInit {
       this.subjectService.updateSubject(this.subject).subscribe(
         (updatedSubject) => {
           console.log('Asignatura actualizada:', updatedSubject);
+
+            Swal.fire({
+              title: 'Asignatura actualizado con éxito',
+              icon: 'success',
+            });
           this.router.navigate(['/admin/subject-admin']);
           this.isLoading = false;
         },
         (error) => {
+
+          Swal.fire({
+            title: 'Error al actualizar la asignatura',
+            icon: 'error',
+          });
           console.error('Error al actualizar la asignatura', error);
           this.isLoading = false;
         }

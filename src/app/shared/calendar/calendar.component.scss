@@ -1,14 +1,14 @@
 @import 'src/styles.scss';
 
-$card-height: 200px;
+$card-height: 230px;
 
 h1 {
   margin-bottom: 20px;
-  text-align: center;  /* Centra el título */
+  text-align: center;
 }
 .btn-month {
-  padding: 5px 10px; // Tamaño reducido
-  font-size: 0.8rem; // Fuente más pequeña
+  padding: 5px 10px;
+  font-size: 0.8rem;
 }
 .calendar-container {
   width: 100%;
@@ -30,18 +30,15 @@ h1 {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
-    margin-bottom: 30px;
+ 
   }
 
   .day-header {
       text-align: center;
       font-weight: bold;
-      //background-color: $color-primary;
       color:  $color-primary;
       font-size: 1.2rem;
-      //padding: 10px;
-      //border-radius: 8px;
-     // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
     }
 
     .empty-slot {
@@ -49,28 +46,21 @@ h1 {
     }
 
   .day-card {
-    background-color: $color-contrastLight;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     height: $card-height;
-    text-align: center;
-    display: flex; // centra el contenido
-    flex-direction: column ; // aplida el contenido de arriba a abajo
-    justify-content: space-between; // mantener espaciado uniforme
+    justify-content: space-between;
     &:hover {
       transform: translateY(-5px);
     }
 
     .day {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: $color-primary;
     }
 
     p {
-      margin: 4px 0;
+      margin: 0 0;
       font-size: 0.85rem;
     }
 

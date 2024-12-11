@@ -36,7 +36,7 @@
         <td>
           <div class="d-flex gap-1">
             <button class="btn btn-primary btn-sm" [routerLink]="['/admin/user-form', user.id]">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
+            <button *ngIf="user.role != 'admin'" class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
           </div>
         </td>
       </tr>

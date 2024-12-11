@@ -5,7 +5,8 @@
 
 
 <div *ngIf="!isLoading" class="note-editor-container container mt-5">
-  <h3 class="text-center text-primary">Editor de Apuntes</h3>
+      
+  <h3 class="text-center text-primary">{{ isEditMode ? 'Editar Apuntes' : 'Crear Apuntes' }}</h3>
   <form #noteForm="ngForm" class="mb-4" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <input [(ngModel)]="note.title" name="title" class="form-control" placeholder="Title" required #title="ngModel" />
@@ -34,7 +35,7 @@
 
 
     <!-- Asignatura -->
-    <div class="mb-3">
+    <div class="mb-3" *ngIf="asignaturas.length > 0">
       <label for="subject_id" class="form-label">Asignatura</label>
       <select id="subject_id" class="form-select" [(ngModel)]="note.subject_id" name="subject_id"
         (change)="disableInstrumentSelect()" *ngIf="asignaturas.length > 0" [required]="!note.instrument_id"
@@ -47,7 +48,7 @@
     </div>
 
     <!-- Instrumento -->
-    <div class="mb-3">
+    <div class="mb-3" *ngIf="instrumentos.length > 0">
       <label for="instrument_id" class="form-label">Instrumento</label>
       <select id="instrument_id" class="form-select" [(ngModel)]="note.instrument_id" name="instrument_id"
         (change)="disableSubjectSelect()" *ngIf="instrumentos.length > 0" [required]="!note.subject_id"

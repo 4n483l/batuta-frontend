@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-form',
@@ -46,11 +47,17 @@ export class UserFormComponent implements OnInit {
 
     this.authService.updateUser(this.user.id, this.user).subscribe(
       (response) => {
-        alert('Usuario actualizado');
-        this.router.navigate(['/admin/user-admin']); 
+        Swal.fire({
+          title: 'Usuario actualizado con éxito',
+          icon: 'success',
+        });
+        this.router.navigate(['/admin/user-admin']);
       },
       (error) => {
-        console.error('Error al actualizar usuario:', error);
+        Swal.fire({
+          title: 'Error al actualizar usuario',
+          icon: 'error',
+        });
       }
     );
   }

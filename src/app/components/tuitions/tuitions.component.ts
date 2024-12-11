@@ -7,6 +7,7 @@ import { SubjectService } from 'src/app/services/subjects/subject.service';
 import { Subject } from 'src/app/models/subject.model';
 import { Instrument } from 'src/app/models/instrument.model';
 import { InstrumentService } from 'src/app/services/instruments/instrument.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tuitions',
@@ -63,7 +64,7 @@ export class TuitionsComponent implements OnInit {
         selectedSubjects.push(instrumentSubject.id); // TODO: agregar instrumento desde el backend
       }
 
-      console.log('Asignaturas seleccionadas:', selectedSubjects);
+      // console.log('Asignaturas seleccionadas:', selectedSubjects);
 
       const tuitionData: Tuition = {
         // operador de propagacion. Copia todos los valores de form.value
@@ -75,10 +76,20 @@ export class TuitionsComponent implements OnInit {
       this.tuitionService.postTuition(tuitionData).subscribe((data: any) => {
         console.log('Matrícula realizada:', data);
         this.router.navigate(['/dashboard']);
-        alert('Matrícula realizada con éxito.');
+
+
+        Swal.fire({
+          title: 'Matrícula realizada con éxito',
+          icon: 'success',
+        });
       });
     } else {
-      alert('Por favor, completa correctamente el formulario.');
+
+
+      Swal.fire({
+        title: 'Por favor, completa correctamente el formulario',
+        icon: 'error',
+      });
     }
   }
 
@@ -90,7 +101,7 @@ export class TuitionsComponent implements OnInit {
   }
   loadSubjects() {
     this.subjectService.getSubjects().subscribe((dataSubject: any) => {
-      console.log('Datos de asignaturas: ', dataSubject);
+     // console.log('Datos de asignaturas: ', dataSubject);
       this.asignaturas = dataSubject.subjects;
       this.isSubjectLoading = false;
     });
@@ -98,6 +109,7 @@ export class TuitionsComponent implements OnInit {
   loadLoggedUser() {
     // trae los datos del usuario logueado
     this.tuitionService.getTuitions().subscribe((data: any) => {
+      
       console.log('Datos recibidos de la API:', data);
 
       // traemos los datos del usuario logueado

@@ -8,7 +8,7 @@ import { CourseService } from 'src/app/services/courses/course.service';
   styleUrls: ['./course-admin.component.scss'],
 })
 export class CourseAdminComponent implements OnInit {
-  currentList: Course[] = [];
+  currentList: any[] = [];
   isLoading: boolean = true;
 
   constructor(private courseService: CourseService) {}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'src/app/models/subject.model';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-subject-admin',
@@ -29,7 +30,13 @@ export class SubjectAdminComponent implements OnInit {
 
     if (confirm(confirmMessage)) {
       this.subjectService.deleteSubject(id).subscribe(() => {
-        alert('Asignatura eliminada correctamente');
+    
+
+          Swal.fire({
+            title: 'Asignatura eliminada correctamente',
+            icon: 'success',
+          });
+
         this.loadSubjects();
       });
     }

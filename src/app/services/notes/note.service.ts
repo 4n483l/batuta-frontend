@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { AuthService } from '../auth/auth.service';
-import { Note } from 'src/app/models/note.model';
+
 
 @Injectable({
   providedIn: 'root',

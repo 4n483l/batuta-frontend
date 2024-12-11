@@ -15,6 +15,7 @@ export const API_ROUTES = {
   exams: `${API_URL}/exams`,
   courses: `${API_URL}/courses`,
   notes: `${API_URL}/notes`,
+  teachers: `${API_URL}/teachers`,
   teacherSubjects: `${API_URL}/teacher/subjects`,
   teacherInstruments: `${API_URL}/teacher/instruments`,
   subjectInstrumet: `${API_URL}/notes/subjectInstrument`,

@@ -202,6 +202,8 @@ export class NoteFormComponent implements OnInit {
       this.noteService.saveNote(notePdf).subscribe(
         (response) => {
           this.router.navigate(['/notes']);
+          
+
           console.log('dentro saveNote:', response);
         },
         (error) => {

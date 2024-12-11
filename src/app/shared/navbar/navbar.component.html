@@ -21,19 +21,19 @@
           <a class="nav-link" [routerLink]="['/rehearsals']">Ensayos</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) || role === 'admin'">
           <a class="nav-link" [routerLink]="['/courses']">Clases</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) ||role === 'admin'">
           <a class="nav-link" [routerLink]="['/exams']">Examenes</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) ||role === 'admin'">
           <a class="nav-link" [routerLink]="['/notes']">Ver Apuntes</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher'">
+        <li class="nav-item" *ngIf="userType === 'teacher' || role === 'admin'">
           <a class="nav-link" [routerLink]="['/note-form']">Crear Apuntes</a>
         </li>
 

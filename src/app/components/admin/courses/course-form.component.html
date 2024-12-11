@@ -21,22 +21,34 @@
       </div>
 
       <!-- Para el modo de agregar, los dos campos se muestran pero se desactivan dependiendo de cuál se llena -->
-   <!--    <div class="mb-3" *ngIf="!isEditMode">
+      <!--      <div class="mb-3" *ngIf="!isEditMode">
         <label for="subject" class="form-label">Asignatura</label>
         <input id="subject" type="text" class="form-control" [(ngModel)]="course.subject" name="subject"
           [disabled]="course.instrument" (input)="disableInstrumentOnSubject()" required />
-      </div> -->
+      </div>
+ -->
 
-     <!--  <div class="mb-3" *ngIf="isEditMode && course.instrument">
+      <!--  <div class="mb-3" *ngIf="isEditMode && course.instrument">
         <label for="instrument" class="form-label">Instrumento</label>
         <input id="instrument" type="text" class="form-control" [(ngModel)]="course.instrument" name="instrument"
           [disabled]="course.subject" (input)="disableSubjectOnInstrument()" required />
       </div> -->
 
-      <div class="mb-3">
+      <!--    <div class="mb-3">
         <label for="user" class="form-label">Profesor</label>
         <input id="user" type="text" class="form-control" [(ngModel)]="course.user_id" name="user" required />
+      </div> -->
+
+      <div class="mb-3">
+        <label for="user" class="form-label">Profesor</label>
+        <select id="user" class="form-control" [(ngModel)]="course.user_id" name="user" required>
+          <option value="" disabled selected>Seleccione un profesor</option>
+          <option *ngFor="let teacher of teachers" [value]="teacher.id">
+            {{ teacher.name }} ({{ teacher.email }})
+          </option>
+        </select>
       </div>
+
       <div class="mb-3">
         <label for="classroom" class="form-label">Aula</label>
         <input id="classroom" type="text" class="form-control" [(ngModel)]="course.classroom" name="classroom"

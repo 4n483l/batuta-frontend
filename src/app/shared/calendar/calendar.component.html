@@ -12,30 +12,50 @@
     </div>
 
 
-    <div class="calendar-grid mt-5">
-    <div *ngFor="let day of ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']" class="day-header">
-      {{ day }}
+    <div class="calendar-grid mt-5" *ngIf="events && events.length > 0">
+      <div *ngFor="let day of ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']"
+        class="day-header">
+        {{ day }}
 
-  </div>
+      </div>
 
       <!-- Rellenar los días hasta el primer día del mes -->
       <div *ngFor="let _ of [].constructor(firstDayOfWeek)"></div>
 
       <!-- Mostrar los días del mes -->
-      <div *ngFor="let day of daysInMonth" class="day-card card">
+            <div *ngFor="let day of daysInMonth" class="day-card card" >
         <h3 class="day">{{ day }}</h3>
-
         <div *ngFor="let event of getEventsForDay(day)">
           <p class="fs-5"><strong>{{ event.title || (event.subject?.name) || (event.instrument?.name)}}</strong></p>
           <p *ngIf="event.teacher"><strong>{{ event.teacher }}</strong></p>
           <p *ngIf="event.classroom"><strong>Aula:</strong> </p>
           <p> {{ event.classroom }}</p>
-          <p *ngIf="event.place"><strong>Lugar:</strong></p> <p> {{ event.place }}</p>
+          <p *ngIf="event.place"><strong>Lugar:</strong></p>
+          <p> {{ event.place }}</p>
           <p *ngIf="event.hour"><strong>Hora: </strong> </p>
           <p>{{ event.hour }}h</p>
-
         </div>
       </div>
+
+<!--       <div *ngFor="let day of daysInMonth" class="day-card card" (click)="editDay(day)" >
+        <h3 class="day">{{ day }}</h3>
+        <div *ngFor="let event of getEventsForDay(day)">
+          <p class="fs-5"><strong>{{ event.title || (event.subject?.name) || (event.instrument?.name)}}</strong></p>
+          <p *ngIf="event.teacher"><strong>{{ event.teacher }}</strong></p>
+          <p *ngIf="event.classroom"><strong>Aula:</strong> </p>
+          <p> {{ event.classroom }}</p>
+          <p *ngIf="event.place"><strong>Lugar:</strong></p>
+          <p> {{ event.place }}</p>
+          <p *ngIf="event.hour"><strong>Hora: </strong> </p>
+          <p>{{ event.hour }}h</p>
+        </div>
+      </div> -->
+
     </div>
+
+    <div *ngIf="events == undefined " class="text-center">
+      <p>No hay eventos para este mes</p>
+    </div>
+
   </div>
 </main>

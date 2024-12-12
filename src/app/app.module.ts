@@ -36,6 +36,7 @@ import { StudentAdminComponent } from './components/admin/students/student-admin
 import { StudentFormComponent } from './components/admin/students/student-form.component';
 import { ExamFormComponent } from './components/admin/exams/exam-form.component';
 import { ExamAdminComponent } from './components/admin/exams/exam-admin.component';
+import { CourseAddComponent } from './components/courses/course-add/course-add.component';
 
 
 
@@ -72,6 +73,7 @@ import { ExamAdminComponent } from './components/admin/exams/exam-admin.componen
     StudentFormComponent,
     ExamFormComponent,
     ExamAdminComponent,
+    CourseAddComponent,
 
 
   ],

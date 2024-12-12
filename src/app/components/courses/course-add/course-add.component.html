@@ -1,0 +1,57 @@
+<div *ngIf="isLoading" class="loading-container text-center">
+  <img src="assets/pics/loading.gif" alt="Cargando..." />
+  <p>Cargando datos...</p>
+</div>
+
+<div *ngIf="!isLoading" class="card mt-4 mx-auto">
+  <div class="card-body">
+    <h3>{{ isEditMode ? 'Editar Curso' : 'Agregar Curso' }}</h3>
+    <form (ngSubmit)="saveCourse()">
+
+      <!-- Asignatura -->
+      <div class="mb-3" *ngIf="asignaturas.length > 0">
+        <label for="subject_id" class="form-label">Asignatura</label>
+
+        <select id="subject_id" class="form-select" [(ngModel)]="course.subject_id" name="subject_id"
+          (change)="disableInstrumentOnSubject()" *ngIf="asignaturas.length > 0" [required]="!course.instrument_id"
+          #subject="ngModel">
+
+          <option value="" disabled>Seleccionar asignatura</option>
+          <option *ngFor="let subject of asignaturas" [value]="subject.id">
+            {{ subject.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Instrumento -->
+      <div class="mb-3" *ngIf="instrumentos.length > 0">
+        <label for="instrument_id" class="form-label">Instrumento</label>
+        <select id="instrument_id" class="form-select" [(ngModel)]="course.instrument_id" name="instrument_id"
+          (change)="disableSubjectOnInstrument()" *ngIf="instrumentos.length > 0" [required]="!course.subject_id"
+          #instrument="ngModel">
+          <option value="" disabled>Seleccionar instrumento</option>
+          <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
+            {{ instrument.name }}
+          </option>
+        </select>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="classroom" class="form-label">Aula</label>
+        <input id="classroom" type="text" class="form-control" [(ngModel)]="course.classroom" name="classroom"
+          required />
+      </div>
+      <div class="mb-3">
+        <label for="date" class="form-label">Fecha</label>
+        <input id="date" type="date" class="form-control" [(ngModel)]="course.date" name="date" required />
+      </div>
+      <div class="mb-3">
+        <label for="hour" class="form-label">Hora</label>
+        <input id="hour" type="time" class="form-control" [(ngModel)]="course.hour" name="hour" required />
+      </div>
+      <button class="btn btn-success" type="submit">Guardar</button>
+      <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>
+    </form>
+  </div>
+</div>

@@ -4,8 +4,6 @@ import { Rehearsal } from 'src/app/models/rehearsal.model';
 import { Exam } from 'src/app/models/exam.model';
 import { Course } from 'src/app/models/course.model';
 
-
-
 type EventType = Concert | Rehearsal | Exam | Course;
 
 @Component({
@@ -23,8 +21,6 @@ export class CalendarComponent implements OnInit {
   firstDayOfWeek: number = 0;
   currentMonthName: string = '';
 
-
-
   constructor() {
     const today = new Date();
     this.currentYear = today.getFullYear();
@@ -34,9 +30,13 @@ export class CalendarComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    this.generateCalendar();
-
+    if (this.events && this.events.length > 0) {
+      this.generateCalendar();
+    }
   }
+/*   editDay(day: number) {
+    if(this.events instanceof Course)
+  } */
 
   generateCalendar() {
     const firstDay = new Date(this.currentYear, this.currentMonth, 1);
@@ -54,10 +54,8 @@ export class CalendarComponent implements OnInit {
       this.currentMonth + 1
     ).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-
     return this.events.filter((event) => event.date === dateString);
   }
-
 
   changeMonth(offset: number) {
     this.currentMonth += offset;

@@ -28,6 +28,7 @@ import { StudentAdminComponent } from './components/admin/students/student-admin
 import { StudentFormComponent } from './components/admin/students/student-form.component';
 import { ExamAdminComponent } from './components/admin/exams/exam-admin.component';
 import { ExamFormComponent } from './components/admin/exams/exam-form.component';
+import { CourseAddComponent } from './components/courses/course-add/course-add.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -38,15 +39,13 @@ const routes: Routes = [
   { path: 'rehearsals', component: RehearsalsComponent },
   { path: 'exams', component: ExamsComponent },
   { path: 'courses', component: CoursesComponent },
+   { path: 'course-add', component: CourseAddComponent },
   { path: 'tuitions', component: TuitionsComponent },
-
   { path: 'notes', component: NotesComponent},
-
   { path: 'note-form', component: NoteFormComponent },
-
   { path: 'note-form/:id', component: NoteFormComponent },
 
-  
+
   {
     path: 'admin',
     component: AdminComponent,

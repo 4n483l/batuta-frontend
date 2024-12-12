@@ -5,14 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherService } from 'src/app/services/teachers/teacher.service';
 import { InstrumentService } from 'src/app/services/instruments/instrument.service';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
-
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
-  selector: 'app-courses-form',
-  templateUrl: './course-form.component.html',
-  styleUrls: ['./course-admin.component.scss'],
+  selector: 'app-course-add',
+  templateUrl: './course-add.component.html',
+  styleUrls: ['./course-add.component.scss'],
 })
-export class CourseFormComponent implements OnInit {
+export class CourseAddComponent implements OnInit {
   course: any = {
     subject_id: null,
     instrument_id: '',
@@ -33,13 +33,16 @@ export class CourseFormComponent implements OnInit {
     private courseService: CourseService,
     private route: ActivatedRoute,
     private router: Router,
-    private teacherService: TeacherService,
+    private authService: AuthService,
     private instrumentService: InstrumentService,
     private subjectService: SubjectService
   ) {}
 
   ngOnInit(): void {
-    this.loadTeachers();
+    this.authService.getUserData().subscribe((userData) => {
+      this.course.user_id = userData.id;
+    });
+
     this.loadInstruments();
     this.loadSubjects();
 
@@ -51,8 +54,6 @@ export class CourseFormComponent implements OnInit {
         this.isLoading = false;
       }
     });
-
-
   }
 
   loadCourse(courseId: number): void {
@@ -68,18 +69,6 @@ export class CourseFormComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar el curso:', error);
-        this.isLoading = false;
-      }
-    );
-  }
-  loadTeachers(): void {
-    this.teacherService.getTeachers().subscribe(
-      (response) => {
-        this.teachers = response.Teachers;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error al cargar los profesores:', error);
         this.isLoading = false;
       }
     );
@@ -100,24 +89,23 @@ export class CourseFormComponent implements OnInit {
     });
   }
 
-
   saveCourse(): void {
     if (this.isEditMode) {
       this.courseService.updateCourse(this.course).subscribe(() => {
-        this.router.navigate(['/admin/course-admin']);
+        this.router.navigate(['/courses']);
       });
     } else {
       this.courseService.createCourse(this.course).subscribe(() => {
         console.log('Curso creado:', this.course);
+        console.log('User id:', this.course.user_id);
 
-        this.router.navigate(['/admin/course-admin']);
+        this.router.navigate(['/courses']);
       });
     }
   }
 
-
   disableInstrumentOnSubject() {
-    if (this.course.subject ) {
+    if (this.course.subject) {
       this.course.instrument = '';
     }
   }
@@ -128,6 +116,6 @@ export class CourseFormComponent implements OnInit {
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/course-admin']);
+    this.router.navigate(['/courses']);
   }
 }

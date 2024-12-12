@@ -13,31 +13,31 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <li class="nav-item ">
+        <li class="nav-item" *ngIf="role != 'admin'">
           <a class="nav-link" [routerLink]="['/concerts']">Conciertos</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'musician' || userType === 'teacher' || userType === 'member'">
+        <li class="nav-item" *ngIf="userType === 'musician' || userType === 'teacher' || (userType === 'member' && role != 'admin')">
           <a class="nav-link" [routerLink]="['/rehearsals']">Ensayos</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) || role === 'admin'">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
           <a class="nav-link" [routerLink]="['/courses']">Clases</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) ||role === 'admin'">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) ">
           <a class="nav-link" [routerLink]="['/exams']">Examenes</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents) ||role === 'admin'">
+        <li class="nav-item" *ngIf="userType === 'teacher' || (userType === 'member' && hasStudents)">
           <a class="nav-link" [routerLink]="['/notes']">Ver Apuntes</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'teacher' || role === 'admin'">
+        <li class="nav-item" *ngIf="userType === 'teacher'">
           <a class="nav-link" [routerLink]="['/note-form']">Crear Apuntes</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'member' && !hasStudents">
+        <li class="nav-item" *ngIf="userType === 'member' && !hasStudents && role !='admin'">
           <a class="nav-link" [routerLink]="['/tuitions']">Matrícula</a>
         </li>
 

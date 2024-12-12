@@ -8,36 +8,35 @@
     <h3>{{ isEditMode ? 'Editar Curso' : 'Agregar Curso' }}</h3>
     <form (ngSubmit)="saveCourse()">
 
-      <!-- Condicional para mostrar subject o instrument en modo editar -->
-      <div class="mb-3" *ngIf="isEditMode && !course.instrument">
-        <label for="subject" class="form-label">Asignatura</label>
-        <input id="subject" type="text" class="form-control" [(ngModel)]="course.subject" name="subject" required />
-      </div>
+    <!-- Asignatura -->
+    <div class="mb-3" *ngIf="asignaturas.length > 0">
+      <label for="subject_id" class="form-label">Asignatura</label>
 
-      <div class="mb-3" *ngIf="isEditMode && course.instrument">
-        <label for="instrument" class="form-label">Instrumento</label>
-        <input id="instrument" type="text" class="form-control" [(ngModel)]="course.instrument" name="instrument"
-          required />
-      </div>
+      <select id="subject_id" class="form-select" [(ngModel)]="course.subject_id" name="subject_id"
+        (change)="disableInstrumentOnSubject()" *ngIf="asignaturas.length > 0" [required]="!course.instrument_id"
+        #subject="ngModel">
 
-      <!-- Para el modo de agregar, los dos campos se muestran pero se desactivan dependiendo de cuál se llena -->
-      <!--      <div class="mb-3" *ngIf="!isEditMode">
-        <label for="subject" class="form-label">Asignatura</label>
-        <input id="subject" type="text" class="form-control" [(ngModel)]="course.subject" name="subject"
-          [disabled]="course.instrument" (input)="disableInstrumentOnSubject()" required />
-      </div>
- -->
+        <option value="" disabled>Seleccionar asignatura</option>
+        <option *ngFor="let subject of asignaturas" [value]="subject.id">
+          {{ subject.name }}
+        </option>
+      </select>
+    </div>
 
-      <!--  <div class="mb-3" *ngIf="isEditMode && course.instrument">
-        <label for="instrument" class="form-label">Instrumento</label>
-        <input id="instrument" type="text" class="form-control" [(ngModel)]="course.instrument" name="instrument"
-          [disabled]="course.subject" (input)="disableSubjectOnInstrument()" required />
-      </div> -->
+    <!-- Instrumento -->
+     <div class="mb-3" *ngIf="instrumentos.length > 0">
+      <label for="instrument_id" class="form-label">Instrumento</label>
+      <select id="instrument_id" class="form-select" [(ngModel)]="course.instrument_id" name="instrument_id"
+        (change)="disableSubjectOnInstrument()" *ngIf="instrumentos.length > 0" [required]="!course.subject_id"
+        #instrument="ngModel">
+        <option value="" disabled>Seleccionar instrumento</option>
+        <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
+          {{ instrument.name }}
+        </option>
+      </select>
+    </div>
 
-      <!--    <div class="mb-3">
-        <label for="user" class="form-label">Profesor</label>
-        <input id="user" type="text" class="form-control" [(ngModel)]="course.user_id" name="user" required />
-      </div> -->
+
 
       <div class="mb-3">
         <label for="user" class="form-label">Profesor</label>

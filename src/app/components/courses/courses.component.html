@@ -6,6 +6,13 @@
 
 
 <div *ngIf="!isLoading">
+
+<div class="flex justify-content-center">
+  <button>
+    <a [routerLink]="['/course-add']" class="btn btn-primary">Añadir curso</a>
+  </button>
+</div>
+
 <app-calendar [events]="coursesList" title="Horario de clases"></app-calendar>
 </div>
 

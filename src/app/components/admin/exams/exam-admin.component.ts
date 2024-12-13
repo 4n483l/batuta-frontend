@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExamService } from 'src/app/services/exams/exam.service';
+import { DatePipe } from '@angular/common';
+
 import Swal from 'sweetalert2';
 
 
@@ -7,12 +9,13 @@ import Swal from 'sweetalert2';
   selector: 'app-exam-admin',
   templateUrl: './exam-admin.component.html',
   styleUrls: ['./exam-admin.component.scss'],
+  providers: [DatePipe],
 })
 export class ExamAdminComponent implements OnInit {
   currentList: any[] = [];
   isLoading: boolean = true;
 
-  constructor(private examService: ExamService) {}
+  constructor(private examService: ExamService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     this.loadExams();
@@ -23,7 +26,11 @@ export class ExamAdminComponent implements OnInit {
 
     this.examService.getExams().subscribe(
       (data: any) => {
-        this.currentList = data.Exams || [];
+        this.currentList =
+          data.Exams.map((exam: any) => {
+            exam.date = this.datePipe.transform(exam.date, 'dd-MM-yyyy'); 
+            return exam;
+          }) || [];
         this.isLoading = false;
       },
       (error) => {

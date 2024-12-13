@@ -34,9 +34,6 @@ export class CalendarComponent implements OnInit {
       this.generateCalendar();
     }
   }
-/*   editDay(day: number) {
-    if(this.events instanceof Course)
-  } */
 
   generateCalendar() {
     const firstDay = new Date(this.currentYear, this.currentMonth, 1);

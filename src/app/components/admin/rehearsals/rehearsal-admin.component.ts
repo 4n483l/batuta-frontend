@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Rehearsal } from 'src/app/models/rehearsal.model';
 import { RehearsalService } from 'src/app/services/rehearsals/rehearsal.service';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rehearsal-admin',
   templateUrl: './rehearsal-admin.component.html',
   styleUrls: ['./rehearsal-admin.component.scss'],
+  providers: [DatePipe],
 })
 export class RehearsalAdminComponent implements OnInit {
   currentList: Rehearsal[] = [];
   isLoading: boolean = true;
 
-  constructor(private rehearsalService: RehearsalService) {}
+  constructor(private rehearsalService: RehearsalService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.loadRehearsals();
@@ -21,9 +25,11 @@ export class RehearsalAdminComponent implements OnInit {
   loadRehearsals(): void {
     this.rehearsalService.getRehearsals().subscribe(
       (data: any) => {
-        this.currentList = Array.isArray(data.Rehearsals)
-          ? data.Rehearsals
-          : [];
+        this.currentList =
+          data.Rehearsals.map((rehearsal: any) => {
+            rehearsal.date = this.datePipe.transform(rehearsal.date, 'dd-MM-yyyy');
+            return rehearsal;
+          }) || [];
         this.isLoading = false;
       },
       (error) => {

@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Concert } from 'src/app/models/concert.model';
 import { ConcertService } from 'src/app/services/concerts/concert.service';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-concert-admin',
   templateUrl: './concert-admin.component.html',
   styleUrls: ['./concert-admin.component.scss'],
+  providers: [DatePipe],
 })
 export class ConcertAdminComponent implements OnInit {
   currentList: Concert[] = [];
   isLoading: boolean = true;
 
-  constructor(private concertService: ConcertService) {}
+  constructor(
+    private concertService: ConcertService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.loadConcerts();
@@ -21,7 +26,17 @@ export class ConcertAdminComponent implements OnInit {
   loadConcerts(): void {
     this.concertService.getConcerts().subscribe(
       (data: any) => {
-        this.currentList = Array.isArray(data.Concerts) ? data.Concerts : [];
+        this.currentList = Array.isArray(data.Concerts)
+          ? data.Concerts.map((concert: any) => {
+            
+              concert.date = this.datePipe.transform(
+                concert.date,
+                'dd-MM-yyyy'
+              );
+              return concert;
+            })
+          : [];
+
         this.isLoading = false;
       },
       (error) => {

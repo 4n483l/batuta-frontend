@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from 'src/app/services/courses/course.service';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-admin',
   templateUrl: './course-admin.component.html',
   styleUrls: ['./course-admin.component.scss'],
+  providers: [DatePipe],
 })
 export class CourseAdminComponent implements OnInit {
   currentList: any[] = [];
   isLoading: boolean = false;
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
     this.loadCourses();
@@ -21,7 +25,11 @@ export class CourseAdminComponent implements OnInit {
 
     this.courseService.getCourses().subscribe(
       (data: any) => {
-        this.currentList = data.Courses || [];
+        this.currentList =
+          data.Courses.map((course: any) => {
+            course.date = this.datePipe.transform(course.date, 'dd-MM-yyyy');
+            return course;
+          }) || [];
         this.isLoading = false;
       },
       (error) => {

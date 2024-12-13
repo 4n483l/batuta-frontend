@@ -55,12 +55,12 @@ export class RehearsalsFormComponent implements OnInit {
 
   saveRehearsal(): void {
     if (
-      this.rehearsal.place !== 'auditorium' &&
-      this.rehearsal.place !== 'rehearsal room'
+      this.rehearsal.place !== 'Auditorio' &&
+      this.rehearsal.place !== 'Sala de ensayo'
     ) {
       Swal.fire({
         title: 'Error',
-        text: 'El lugar no es válido. Debe ser "auditorium" o "rehearsal room".',
+        text: 'El lugar no es válido. Debe ser "Auditorio" o "Sala de ensayo".',
         icon: 'error',
       });
       return;

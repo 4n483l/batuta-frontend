@@ -19,26 +19,51 @@ export class SubjectAdminComponent implements OnInit {
   }
 
   loadSubjects(): void {
-    this.subjectService.getSubjects().subscribe((data: any) => {
-      this.subjectsList = Array.isArray(data.subjects) ? data.subjects : [];
-      this.isLoading = false;
-    });
+    this.subjectService.getSubjects().subscribe(
+      (data: any) => {
+        this.subjectsList = Array.isArray(data.subjects) ? data.subjects : [];
+        this.isLoading = false;
+      },
+      (error) => {
+        Swal.fire({
+          title: 'Error al cargar las asignaturas',
+          text: 'Ocurrió un problema al cargar los datos. Intenta nuevamente.',
+          icon: 'error',
+        });
+        this.isLoading = false;
+      }
+    );
   }
 
   deleteSubject(id: number, name: string): void {
-    const confirmMessage = `¿Estás seguro de que deseas eliminar esta asignatura: "${name}"?`;
-
-    if (confirm(confirmMessage)) {
-      this.subjectService.deleteSubject(id).subscribe(() => {
-    
-
-          Swal.fire({
-            title: 'Asignatura eliminada correctamente',
-            icon: 'success',
-          });
-
-        this.loadSubjects();
-      });
-    }
+    Swal.fire({
+      title: `¿Estás seguro de que deseas eliminar esta asignatura: "${name}"?`,
+      text: '¡Esta acción no se puede deshacer!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.subjectService.deleteSubject(id).subscribe(
+          () => {
+            Swal.fire({
+              title: '¡Eliminado!',
+              text: `La asignatura "${name}" ha sido eliminada correctamente.`,
+              icon: 'success',
+            });
+            this.loadSubjects();
+          },
+          (error) => {
+            Swal.fire({
+              title: 'Error al eliminar la asignatura',
+              text: 'Hubo un problema al intentar eliminar la asignatura. Intenta nuevamente.',
+              icon: 'error',
+            });
+          }
+        );
+      }
+    });
   }
 }

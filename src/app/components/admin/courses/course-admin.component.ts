@@ -9,20 +9,31 @@ import Swal from 'sweetalert2';
 })
 export class CourseAdminComponent implements OnInit {
   currentList: any[] = [];
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
     this.loadCourses();
   }
-
   loadCourses(): void {
-    this.courseService.getCourses().subscribe((data: any) => {
-      this.currentList = data.Courses;
-      this.isLoading = false;
-      console.log('Cursos cargados:', data);
-    });
+    this.isLoading = true;
+
+    this.courseService.getCourses().subscribe(
+      (data: any) => {
+        this.currentList = data.Courses || [];
+        this.isLoading = false;
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error al cargar cursos:', error);
+        Swal.fire({
+          title: 'Error al cargar cursos',
+          text: 'Hubo un problema al cargar los cursos. Intenta nuevamente.',
+          icon: 'error',
+        });
+      }
+    );
   }
 
   deleteCourse(id: number): void {

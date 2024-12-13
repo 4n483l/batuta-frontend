@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { tr } from 'date-fns/locale';
 import { ExamService } from 'src/app/services/exams/exam.service';
 import Swal from 'sweetalert2';
 
@@ -11,7 +9,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./exam-admin.component.scss'],
 })
 export class ExamAdminComponent implements OnInit {
-  // examList: any[] = [];
   currentList: any[] = [];
   isLoading: boolean = true;
 
@@ -22,15 +19,19 @@ export class ExamAdminComponent implements OnInit {
   }
 
   loadExams(): void {
+    this.isLoading = true;
+
     this.examService.getExams().subscribe(
       (data: any) => {
-        // this.examList = data.Exams || [];
-        this.currentList = data.Exams;
+        this.currentList = data.Exams || [];
         this.isLoading = false;
-        console.log('Exámenes cargados:', data);
       },
       (error) => {
-        console.error('Error al cargar exámenes:', error);
+        Swal.fire({
+          title: 'Error al cargar exámenes',
+          text: 'Hubo un problema al cargar los exámenes. Intenta nuevamente.',
+          icon: 'error',
+        });
         this.isLoading = false;
       }
     );

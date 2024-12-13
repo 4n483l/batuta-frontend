@@ -28,8 +28,8 @@ import { StudentAdminComponent } from './components/admin/students/student-admin
 import { StudentFormComponent } from './components/admin/students/student-form.component';
 import { ExamAdminComponent } from './components/admin/exams/exam-admin.component';
 import { ExamFormComponent } from './components/admin/exams/exam-form.component';
-import { CourseAddComponent } from './components/courses/course-add/course-add.component';
-import { ExamAddComponent } from './components/exams/exam-add/exam-add.component';
+import { CourseAddComponent } from './components/courses/course-add.component';
+import { ExamAddComponent } from './components/exams/exam-add.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },

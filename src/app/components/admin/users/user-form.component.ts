@@ -31,31 +31,37 @@ export class UserFormComponent implements OnInit {
     this.isLoading = true;
     this.authService.getAuthenticatedData(`users/${userId}`).subscribe(
       (response: any) => {
-        console.log('Usuario cargado:', response.User);
         this.user = response.User;
         this.isLoading = false;
-        console.log('respuesta completa:', response);
       },
       (error) => {
-        console.error('Error al cargar usuario:', error);
         this.isLoading = false;
+        Swal.fire({
+          title: 'Error al cargar el usuario',
+          text: 'Hubo un problema al obtener los datos del usuario.',
+          icon: 'error',
+        });
       }
     );
   }
 
   saveUser(): void {
-
     this.authService.updateUser(this.user.id, this.user).subscribe(
       (response) => {
+        Swal.close();
+
         Swal.fire({
           title: 'Usuario actualizado con éxito',
           icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
         });
         this.router.navigate(['/admin/user-admin']);
       },
       (error) => {
         Swal.fire({
           title: 'Error al actualizar usuario',
+          text: 'No se pudieron guardar los cambios.',
           icon: 'error',
         });
       }
@@ -63,7 +69,20 @@ export class UserFormComponent implements OnInit {
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/user-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cierras el formulario, se perderán los cambios no guardados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, cerrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/user-admin']);
+      }
+    });
   }
 }
 

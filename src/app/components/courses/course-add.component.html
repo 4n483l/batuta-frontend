@@ -2,7 +2,6 @@
   <img src="assets/pics/loading.gif" alt="Cargando..." />
   <p>Cargando datos...</p>
 </div>
-
 <div *ngIf="!isTeacherLoading && !isInstrumentLoading && !isSubjectLoading" class="card mt-4 mx-auto">
   <div class="card-body">
     <h3>{{ isEditMode ? 'Editar Curso' : 'Agregar Curso' }}</h3>
@@ -24,7 +23,7 @@
     </div>
 
     <!-- Instrumento -->
-     <div class="mb-3" *ngIf="instrumentos.length > 0">
+    <div class="mb-3" *ngIf="instrumentos.length > 0">
       <label for="instrument_id" class="form-label">Instrumento</label>
       <select id="instrument_id" class="form-select" [(ngModel)]="course.instrument_id" name="instrument_id"
         (change)="disableSubjectSelect()" *ngIf="instrumentos.length > 0" [required]="!course.subject_id"
@@ -36,17 +35,6 @@
       </select>
     </div>
 
-
-
-      <div class="mb-3">
-        <label for="user" class="form-label">Profesor</label>
-        <select id="user" class="form-control" [(ngModel)]="course.user_id" name="user" required>
-          <option value="" disabled selected>Seleccione un profesor</option>
-          <option *ngFor="let teacher of teachers" [value]="teacher.id">
-            {{ teacher.name }} ({{ teacher.email }})
-          </option>
-        </select>
-      </div>
 
       <div class="mb-3">
         <label for="classroom" class="form-label">Aula</label>

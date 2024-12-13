@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-form',
@@ -22,7 +23,7 @@ export class StudentFormComponent implements OnInit {
 
   ngOnInit(): void {
     const studentId = this.route.snapshot.paramMap.get('id');
-    
+
     if (studentId) {
       this.isEditMode = true;
       this.loadStudent(studentId);
@@ -41,8 +42,13 @@ export class StudentFormComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        console.error('Error al cargar estudiante:', error);
-        this.isLoading = false;
+
+        Swal.fire({
+          title: 'Error al cargar estudiante',
+          text: 'Hubo un problema al obtener los datos del estudiante.',
+          icon: 'error',
+        });
+             this.isLoading = false;
       }
     );
   }
@@ -53,7 +59,11 @@ export class StudentFormComponent implements OnInit {
         this.users = response.Users;
       },
       (error) => {
-        console.error('Error al cargar usuarios:', error);
+        Swal.fire({
+          title: 'Error al cargar usuarios',
+          text: 'Hubo un problema al obtener los datos de los usuarios.',
+          icon: 'error',
+        });
       }
     );
   }
@@ -62,29 +72,58 @@ export class StudentFormComponent implements OnInit {
     if (this.isEditMode) {
       this.authService.updateStudent(this.student.id, this.student).subscribe(
         (response) => {
-          alert('Estudiante actualizado');
+          Swal.fire({
+            title: 'Estudiante actualizado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.router.navigate(['/admin/student-admin']);
         },
         (error) => {
-          console.error('Error al actualizar estudiante:', error);
+          Swal.fire({
+            title: 'Error al actualizar estudiante',
+            text: 'No se pudieron guardar los cambios.',
+            icon: 'error',
+          });
         }
       );
     } else {
-      console.log(this.student);
-
       this.authService.createStudent(this.student).subscribe(
         (response) => {
-          alert('Estudiante creado');
+          Swal.fire({
+            title: 'Estudiante creado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.router.navigate(['/admin/student-admin']);
         },
         (error) => {
-          console.error('Error al crear estudiante:', error);
+          Swal.fire({
+            title: 'Error al crear estudiante',
+            text: 'Hubo un problema al guardar los datos del estudiante.',
+            icon: 'error',
+          });
         }
       );
     }
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/student-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cierras el formulario, se perderán los cambios no guardados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, cerrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/student-admin']);
+      }
+    });
   }
 }

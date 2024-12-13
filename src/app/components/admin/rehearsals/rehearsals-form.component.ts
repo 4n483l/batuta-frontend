@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RehearsalService } from 'src/app/services/rehearsals/rehearsal.service';
 import { Rehearsal } from 'src/app/models/rehearsal.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rehearsals-form',
@@ -23,7 +24,7 @@ export class RehearsalsFormComponent implements OnInit {
   constructor(
     private rehearsalService: RehearsalService,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class RehearsalsFormComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const rehearsalId = params['id'];
       if (rehearsalId) {
-      this.isLoading = true;
+        this.isLoading = true;
         this.rehearsalService
           .getRehearsalById(rehearsalId)
           .subscribe((data: Rehearsal) => {
@@ -57,7 +58,11 @@ export class RehearsalsFormComponent implements OnInit {
       this.rehearsal.place !== 'auditorium' &&
       this.rehearsal.place !== 'rehearsal room'
     ) {
-      console.error('El lugar no es válido');
+      Swal.fire({
+        title: 'Error',
+        text: 'El lugar no es válido. Debe ser "auditorium" o "rehearsal room".',
+        icon: 'error',
+      });
       return;
     }
 
@@ -65,12 +70,21 @@ export class RehearsalsFormComponent implements OnInit {
       // Crear nuevo ensayo
       this.rehearsalService.createRehearsal(this.rehearsal).subscribe(
         (newRehearsal) => {
-          console.log('Ensayo creado:', newRehearsal);
-          this.router.navigate(['/admin/rehearsal-admin']);
+          Swal.fire({
+            title: 'Ensayo creado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.isLoading = false;
+          this.router.navigate(['/admin/rehearsal-admin']);
         },
         (error) => {
-          console.error('Error al crear ensayo:', error);
+          Swal.fire({
+            title: 'Error al crear ensayo',
+            text: 'Hubo un problema al crear el ensayo.',
+            icon: 'error',
+          });
           this.isLoading = false;
         }
       );
@@ -78,12 +92,21 @@ export class RehearsalsFormComponent implements OnInit {
       // Actualizar ensayo existente
       this.rehearsalService.updateRehearsal(this.rehearsal).subscribe(
         (updatedRehearsal) => {
-          console.log('Ensayo actualizado:', updatedRehearsal);
-          this.router.navigate(['/admin/rehearsal-admin']);
+          Swal.fire({
+            title: 'Ensayo actualizado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.isLoading = false;
+          this.router.navigate(['/admin/rehearsal-admin']);
         },
         (error) => {
-          console.error('Error al actualizar ensayo:', error);
+          Swal.fire({
+            title: 'Error al actualizar ensayo',
+            text: 'Hubo un problema al actualizar el ensayo.',
+            icon: 'error',
+          });
           this.isLoading = false;
         }
       );
@@ -91,7 +114,19 @@ export class RehearsalsFormComponent implements OnInit {
   }
 
   closeForm(): void {
-    console.log('Redirigiendo a /admin/rehearsal-admin');
-    this.router.navigate(['/admin/rehearsal-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cierras el formulario, se perderán los cambios no guardados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, cerrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/rehearsal-admin']);
+      }
+    });
   }
 }

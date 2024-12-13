@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExamService } from 'src/app/services/exams/exam.service';
-
+import { TeacherService } from 'src/app/services/teachers/teacher.service';
+import { InstrumentService } from 'src/app/services/instruments/instrument.service';
+import { SubjectService } from 'src/app/services/subjects/subject.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-exam-form',
@@ -9,68 +12,178 @@ import { ExamService } from 'src/app/services/exams/exam.service';
   styleUrls: ['./exam-admin.component.scss'],
 })
 export class ExamFormComponent implements OnInit {
-  exam: any = {}; // Datos del examen
-  isEditMode: boolean = false; // Modo edición
-  isLoading: boolean = false; // Estado de carga
+  exam: any = {
+    subject_id: null,
+    instrument_id: '',
+    user_id: '',
+    classroom: '',
+    date: '',
+    hour: '',
+  };
+  teachers: any[] = [];
+  asignaturas: any[] = [];
+  instrumentos: any[] = [];
+
+  isEditMode: boolean = false;
+
+  isTeacherLoading: boolean = true;
+  isInstrumentLoading: boolean = true;
+  isSubjectLoading: boolean = true;
 
   constructor(
     private examService: ExamService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private teacherService: TeacherService,
+    private instrumentService: InstrumentService,
+    private subjectService: SubjectService
   ) {}
 
   ngOnInit(): void {
     const examId = this.route.snapshot.paramMap.get('id');
     if (examId) {
-    //  this.isEditMode = true;
-     // this.loadExam(examId);
+      this.isEditMode = true;
+      this.loadExam(Number(examId));
     } else {
       this.isEditMode = false;
     }
+
+    this.loadTeachers();
+    this.loadInstruments();
+    this.loadSubjects();
   }
 
-  // Método para cargar un examen específico
-/*   loadExam(examId: string): void {
-    this.isLoading = true;
+  loadExam(examId: number): void {
     this.examService.getExamById(examId).subscribe(
       (response: any) => {
         this.exam = response.Exam;
-        this.isLoading = false;
       },
       (error) => {
-        console.error('Error al cargar el examen:', error);
-        this.isLoading = false;
+ 
       }
     );
-  } */
+  }
+
+  loadTeachers(): void {
+    this.teacherService.getTeachers().subscribe(
+      (response) => {
+        this.teachers = response.Teachers;
+        this.isTeacherLoading = false;
+      },
+      (error) => {
+
+        this.isTeacherLoading = false;
+      }
+    );
+  }
+
+  loadInstruments(): void {
+    this.instrumentService.getInstruments().subscribe((data: any) => {
+      if (Array.isArray(data.instruments)) {
+        this.instrumentos = data.instruments;
+        this.isInstrumentLoading = false;
+      } else {
+
+        this.isInstrumentLoading = false;
+      }
+    });
+  }
+  loadSubjects(): void {
+    this.subjectService.getSubjects().subscribe((data: any) => {
+      if (Array.isArray(data.subjects)) {
+        this.asignaturas = data.subjects;
+        this.isSubjectLoading = false;
+      } else {
+
+        this.isSubjectLoading = false;
+      }
+    });
+  }
 
   // Método para guardar el examen
-/*   saveExam(): void {
+  saveExam(): void {
     if (this.isEditMode) {
-      this.examService.updateExam(this.exam.id, this.exam).subscribe(
+      this.examService.updateExam(this.exam).subscribe(
         (response) => {
-          alert('Examen actualizado correctamente');
-          this.router.navigate(['/admin/exam-admin']);
+          Swal.fire({
+            title: 'Examen actualizado correctamente',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            this.router.navigate(['/admin/exam-admin']);
+            this.isTeacherLoading = false;
+            this.isInstrumentLoading = false;
+            this.isSubjectLoading = false;
+          });
         },
         (error) => {
           console.error('Error al actualizar el examen:', error);
+          Swal.fire({
+            title: 'Error al actualizar el examen',
+            text: 'Hubo un problema al actualizar el examen.',
+            icon: 'error',
+          }).then(() => {
+            this.isTeacherLoading = false;
+            this.isInstrumentLoading = false;
+            this.isSubjectLoading = false;
+          });
         }
       );
     } else {
       this.examService.createExam(this.exam).subscribe(
-        (response) => {
-          alert('Examen creado correctamente');
-          this.router.navigate(['/admin/exam-admin']);
+        () => {
+          Swal.fire({
+            title: 'Examen creado correctamente',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            this.router.navigate(['/admin/exam-admin']);
+            this.isTeacherLoading = false;
+            this.isInstrumentLoading = false;
+            this.isSubjectLoading = false;
+          });
         },
         (error) => {
           console.error('Error al crear el examen:', error);
+          Swal.fire({
+            title: 'Error al crear el examen',
+            text: 'Hubo un problema al crear el examen.',
+            icon: 'error',
+          }).then(() => {
+            this.isTeacherLoading = false;
+            this.isInstrumentLoading = false;
+            this.isSubjectLoading = false;
+          });
         }
       );
     }
-  } */
+  }
 
-  // Método para cancelar y volver al listado
+  disableInstrumentSelect() {
+    if (this.exam.subject_id) {
+      this.exam.instrument_id = '';
+    }
+  }
+  disableSubjectSelect() {
+    if (this.exam.instrument_id) {
+      this.exam.subject_id = '';
+    }
+  }
+
   closeForm(): void {
-    this.router.navigate(['/admin/exam-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cancelas los cambios, se perderán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, volver',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/exam-admin']);
+      }
+    });
   }
 }

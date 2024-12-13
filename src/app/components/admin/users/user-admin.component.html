@@ -21,8 +21,12 @@
         <th>#</th>
         <th>Nombre</th>
         <th>Apellido</th>
-        <th>Email</th>
         <th>Tipo de usuario</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Población</th>
+        <th>Código postal</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -31,12 +35,18 @@
         <td>{{ i + 1 }}</td>
         <td class="text-start">{{ user.name }}</td>
         <td class="text-start">{{ user.lastname }}</td>
-        <td>{{ user.email }}</td>
         <td>{{ user.user_type }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.city }}</td>
+        <td>{{ user.postal_code }}</td>
+
         <td>
           <div class="d-flex gap-1">
             <button class="btn btn-primary btn-sm" [routerLink]="['/admin/user-form', user.id]">Editar</button>
-            <button *ngIf="user.role != 'admin'" class="btn btn-danger btn-sm" (click)="deleteUser(user.id, user.name, user.lastname)">Eliminar</button>
+            <button *ngIf="user.role != 'admin'" class="btn btn-danger btn-sm"
+              (click)="deleteUser(user.id, user.name, user.lastname)">Eliminar</button>
           </div>
         </td>
       </tr>

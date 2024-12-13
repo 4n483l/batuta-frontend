@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
-import { CourseService } from 'src/app/services/courses/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TeacherService } from 'src/app/services/teachers/teacher.service';
 import { InstrumentService } from 'src/app/services/instruments/instrument.service';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ExamService } from 'src/app/services/exams/exam.service';
 
 @Component({
-  selector: 'app-course-add',
-  templateUrl: './course-add.component.html',
-  styleUrls: ['./course-add.component.scss'],
+  selector: 'app-exam-add',
+  templateUrl: './exam-add.component.html',
+  styleUrls: ['./exams.component.scss'],
 })
-export class CourseAddComponent implements OnInit {
-  course: any = {
+export class ExamAddComponent implements OnInit {
+  exam: any = {
     subject_id: null,
     instrument_id: '',
     user_id: '',
@@ -30,7 +28,7 @@ export class CourseAddComponent implements OnInit {
   isLoadingTeachers: boolean = true;
 
   constructor(
-    private courseService: CourseService,
+    private examService: ExamService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -40,23 +38,23 @@ export class CourseAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUserData().subscribe((userData) => {
-      this.course.user_id = userData.id;
+      this.exam.user_id = userData.id;
     });
 
     this.loadInstruments();
     this.loadSubjects();
 
-    this.route.params.subscribe((params) => {
+    /*     this.route.params.subscribe((params) => {
       const courseId = params['id'];
       if (courseId) {
         this.loadCourse(courseId);
       } else {
         this.isLoading = false;
       }
-    });
+    }); */
   }
 
-  loadCourse(courseId: number): void {
+  /*   loadExam(courseId: number): void {
     this.isLoading = true;
     this.courseService.getCourseById(courseId).subscribe(
       (data: any) => {
@@ -72,11 +70,11 @@ export class CourseAddComponent implements OnInit {
         this.isLoading = false;
       }
     );
-  }
+  } */
 
   loadInstruments(): void {
     this.instrumentService.getInstruments().subscribe((data: any) => {
-      if (Array.isArray(data.instruments)) {
+      if (data.instruments) {
         this.instrumentos = data.instruments;
       } else {
         console.error('La respuesta no es un array', data.instruments);
@@ -86,36 +84,31 @@ export class CourseAddComponent implements OnInit {
   loadSubjects(): void {
     this.subjectService.getSubjects().subscribe((data: any) => {
       this.asignaturas = data.subjects;
+      this.isLoading = false;
     });
   }
 
-  saveCourse(): void {
-    if (this.isEditMode) {
-      this.courseService.updateCourse(this.course).subscribe(() => {
-        this.router.navigate(['/courses']);
-      });
-    } else {
-      this.courseService.createCourse(this.course).subscribe(() => {
-        console.log('Curso creado:', this.course);
-        console.log('User id:', this.course.user_id);
+  saveExam(): void {
+    this.examService.createExam(this.exam).subscribe(() => {
+      console.log('Curso creado:', this.exam);
+      console.log('User id:', this.exam.user_id);
 
-        this.router.navigate(['/courses']);
-      });
-    }
+      this.router.navigate(['/exams']);
+    });
   }
 
   disableInstrumentOnSubject() {
-    if (this.course.subject) {
-      this.course.instrument = '';
+    if (this.exam.subject) {
+      this.exam.instrument = '';
     }
   }
   disableSubjectOnInstrument() {
-    if (this.course.instrument) {
-      this.course.subject = '';
+    if (this.exam.instrument) {
+      this.exam.subject = '';
     }
   }
 
   closeForm(): void {
-    this.router.navigate(['/courses']);
+    this.router.navigate(['/exams']);
   }
 }

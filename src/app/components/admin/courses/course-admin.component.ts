@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/courses/course.service';
 import Swal from 'sweetalert2';
 

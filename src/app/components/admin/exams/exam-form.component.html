@@ -1,32 +1,66 @@
-<div *ngIf="isLoading" class="loading-container text-center">
+
+
+<div *ngIf="isTeacherLoading || isInstrumentLoading || isSubjectLoading" class="loading-container text-center">
   <img src="assets/pics/loading.gif" alt="Cargando..." />
   <p>Cargando datos...</p>
 </div>
 
-<div *ngIf="!isLoading" class="card mt-4 mx-auto">
+<div *ngIf="!isTeacherLoading && !isInstrumentLoading && !isSubjectLoading" class="card mt-4 mx-auto">
   <div class="card-body">
-    <h3>{{ isEditMode ? 'Editar Examen' : 'Agregar Examen' }}</h3>
-    <form > <!-- (ngSubmit)="saveExam()" -->
-      <div class="mb-3">
-        <label for="name" class="form-label">Nombre del Examen</label>
-        <input id="name" type="text" class="form-control" [(ngModel)]="exam.name" name="name" required />
+    <h3>{{ isEditMode ? 'Editar Curso' : 'Agregar Curso' }}</h3>
+    <form (ngSubmit)="saveExam()">
+
+      <!-- Asignatura -->
+      <div class="mb-3" *ngIf="asignaturas.length > 0">
+        <label for="subject_id" class="form-label">Asignatura</label>
+
+        <select id="subject_id" class="form-select" [(ngModel)]="exam.subject_id" name="subject_id"
+          (change)="disableInstrumentSelect()" *ngIf="asignaturas.length > 0" [required]="!exam.instrument_id"
+          #subject="ngModel">
+
+          <option value="" disabled>Seleccionar asignatura</option>
+          <option *ngFor="let subject of asignaturas" [value]="subject.id">
+            {{ subject.name }}
+          </option>
+        </select>
       </div>
+
+      <!-- Instrumento -->
+      <div class="mb-3" *ngIf="instrumentos.length > 0">
+        <label for="instrument_id" class="form-label">Instrumento</label>
+        <select id="instrument_id" class="form-select" [(ngModel)]="exam.instrument_id" name="instrument_id"
+          (change)="disableSubjectSelect()" *ngIf="instrumentos.length > 0" [required]="!exam.subject_id"
+          #instrument="ngModel">
+          <option value="" disabled>Seleccionar instrumento</option>
+          <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
+            {{ instrument.name }}
+          </option>
+        </select>
+      </div>
+
+
       <div class="mb-3">
-        <label for="subject" class="form-label">Asignatura</label>
-        <input id="subject" type="text" class="form-control" [(ngModel)]="exam.subject" name="subject" required />
+        <label for="user" class="form-label">Profesor</label>
+        <select id="user" class="form-control" [(ngModel)]="exam.user_id" name="user" required>
+          <option value="" disabled selected>Seleccione un profesor</option>
+          <option *ngFor="let teacher of teachers" [value]="teacher.id">
+            {{ teacher.name }} ({{ teacher.email }})
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="classroom" class="form-label">Aula</label>
+        <input id="classroom" type="text" class="form-control" [(ngModel)]="exam.classroom" name="classroom"
+          required />
       </div>
       <div class="mb-3">
         <label for="date" class="form-label">Fecha</label>
         <input id="date" type="date" class="form-control" [(ngModel)]="exam.date" name="date" required />
       </div>
       <div class="mb-3">
-        <label for="duration" class="form-label">Duración (en minutos)</label>
-        <input id="duration" type="number" class="form-control" [(ngModel)]="exam.duration" name="duration" required />
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Descripción</label>
-        <textarea id="description" class="form-control" [(ngModel)]="exam.description" name="description"
-          rows="3"></textarea>
+        <label for="hour" class="form-label">Hora</label>
+        <input id="hour" type="time" class="form-control" [(ngModel)]="exam.hour" name="hour" required />
       </div>
       <button class="btn btn-success" type="submit">Guardar</button>
       <button class="btn btn-secondary ms-2" type="button" (click)="closeForm()">Cancelar</button>

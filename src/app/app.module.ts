@@ -36,10 +36,8 @@ import { StudentAdminComponent } from './components/admin/students/student-admin
 import { StudentFormComponent } from './components/admin/students/student-form.component';
 import { ExamFormComponent } from './components/admin/exams/exam-form.component';
 import { ExamAdminComponent } from './components/admin/exams/exam-admin.component';
-import { CourseAddComponent } from './components/courses/course-add/course-add.component';
-import { ExamAddComponent } from './components/exams/exam-add/exam-add.component';
-
-
+import { CourseAddComponent } from './components/courses/course-add.component';
+import { ExamAddComponent } from './components/exams/exam-add.component';
 
 @NgModule({
   declarations: [
@@ -76,8 +74,6 @@ import { ExamAddComponent } from './components/exams/exam-add/exam-add.component
     ExamAdminComponent,
     CourseAddComponent,
     ExamAddComponent,
-
-
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
 

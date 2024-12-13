@@ -13,20 +13,22 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Nombre</th>
         <th>Asignatura</th>
+        <th>Profesor</th>
+        <th>Aula</th>
         <th>Fecha</th>
-        <th>Duración</th>
+        <th>Hora</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let exam of currentList; let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ exam.name }}</td>
-        <td>{{ exam.subject }}</td>
+        <td>{{ exam.instrument ? exam.instrument.name : exam.subject.name }}</td>
+        <td>{{ exam.user.name }}</td>
+        <td>{{ exam.classroom }}</td>
         <td>{{ exam.date }}</td>
-        <td>{{ exam.duration }}</td>
+        <td>{{ exam.hour }}</td>
         <td>
           <div class="d-flex gap-1">
             <button class="btn btn-primary btn-sm" [routerLink]="['/admin/exam-form', exam.id]">Editar</button>

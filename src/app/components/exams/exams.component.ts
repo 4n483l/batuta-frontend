@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Exam } from 'src/app/models/exam.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ExamService } from 'src/app/services/exams/exam.service';
-import { CalendarComponent } from 'src/app/shared/calendar/calendar.component';
+
 
 @Component({
   selector: 'app-exams',

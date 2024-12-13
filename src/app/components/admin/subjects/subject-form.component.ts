@@ -29,9 +29,9 @@ export class SubjectFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.selectedSubject) {
       this.subject = { ...this.selectedSubject };
-       this.isEditMode = true;
-       this.isLoading = false;
-    }else{
+      this.isEditMode = true;
+      this.isLoading = false;
+    } else {
       this.isLoading = false;
     }
 
@@ -39,14 +39,20 @@ export class SubjectFormComponent implements OnInit {
       const subjectId = params['id'];
       if (subjectId) {
         this.isLoading = true;
+
         this.subjectService
           .getSubjectById(subjectId)
           .subscribe((data: Subject) => {
             this.subject = data;
-             this.isEditMode = true;
-             this.isLoading = false;
+            this.isEditMode = true;
+            this.isLoading = false;
           });
       } else {
+        Swal.fire({
+          title: 'Error al cargar la asignatura',
+          text: 'Hubo un problema al obtener los datos de la asignatura.',
+          icon: 'error',
+        });
         this.isLoading = false;
       }
     });
@@ -57,21 +63,19 @@ export class SubjectFormComponent implements OnInit {
       // Crear nueva asignatura
       this.subjectService.createSubject(this.subject).subscribe(
         (newSubject) => {
-          console.log('Asignatura creada:', newSubject);
-
           Swal.fire({
             title: 'Asignatura creada con éxito',
             icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
           });
-
-
-          this.router.navigate(['/admin/subject-admin']);
           this.isLoading = false;
+          this.router.navigate(['/admin/subject-admin']);
         },
         (error) => {
-
           Swal.fire({
             title: 'Error al crear la asignatura',
+            text: 'No se pudo guardar la asignatura. Por favor, inténtelo de nuevo.',
             icon: 'error',
           });
           this.isLoading = false;
@@ -80,23 +84,22 @@ export class SubjectFormComponent implements OnInit {
     } else {
       // Editar asignatura existente
       this.subjectService.updateSubject(this.subject).subscribe(
-        (updatedSubject) => {
-          console.log('Asignatura actualizada:', updatedSubject);
-
-            Swal.fire({
-              title: 'Asignatura actualizado con éxito',
-              icon: 'success',
-            });
-          this.router.navigate(['/admin/subject-admin']);
+        () => {
+          Swal.fire({
+            title: 'Asignatura actualizada con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.isLoading = false;
+          this.router.navigate(['/admin/subject-admin']);
         },
         (error) => {
-
           Swal.fire({
             title: 'Error al actualizar la asignatura',
+            text: 'No se pudieron guardar los cambios. Por favor, inténtelo de nuevo.',
             icon: 'error',
           });
-          console.error('Error al actualizar la asignatura', error);
           this.isLoading = false;
         }
       );
@@ -104,6 +107,19 @@ export class SubjectFormComponent implements OnInit {
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/subject-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cierras el formulario, se perderán los cambios no guardados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, cerrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/subject-admin']);
+      }
+    });
   }
 }

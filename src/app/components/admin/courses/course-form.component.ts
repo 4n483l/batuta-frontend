@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherService } from 'src/app/services/teachers/teacher.service';
 import { InstrumentService } from 'src/app/services/instruments/instrument.service';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courses-form',
@@ -26,8 +26,10 @@ export class CourseFormComponent implements OnInit {
   instrumentos: any[] = [];
 
   isEditMode: boolean = false;
-  isLoading: boolean = true;
-  isLoadingTeachers: boolean = true;
+
+  isTeacherLoading: boolean = true;
+  isInstrumentLoading: boolean = true;
+  isSubjectLoading: boolean = true;
 
   constructor(
     private courseService: CourseService,
@@ -39,48 +41,43 @@ export class CourseFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const courseId = this.route.snapshot.paramMap.get('id');
+    if (courseId) {
+      this.isEditMode = true;
+      this.loadCourse(Number(courseId));
+    } else {
+      this.isEditMode = false;
+    }
+
     this.loadTeachers();
     this.loadInstruments();
     this.loadSubjects();
-
-    this.route.params.subscribe((params) => {
-      const courseId = params['id'];
-      if (courseId) {
-        this.loadCourse(courseId);
-      } else {
-        this.isLoading = false;
-      }
-    });
-
-
   }
 
   loadCourse(courseId: number): void {
-    this.isLoading = true;
     this.courseService.getCourseById(courseId).subscribe(
-      (data: any) => {
-        const course: Course = data.course;
-        this.course = course;
-
-        console.log('Curso cargado:', this.course);
-        this.isEditMode = true;
-        this.isLoading = false;
+      (response: any) => {
+        this.course = response.course;
       },
       (error) => {
         console.error('Error al cargar el curso:', error);
-        this.isLoading = false;
       }
     );
   }
+
   loadTeachers(): void {
     this.teacherService.getTeachers().subscribe(
       (response) => {
         this.teachers = response.Teachers;
-        this.isLoading = false;
+        this.isTeacherLoading = false;
       },
       (error) => {
-        console.error('Error al cargar los profesores:', error);
-        this.isLoading = false;
+        Swal.fire({
+          title: 'Error al cargar el curso',
+          text: 'Hubo un problema al obtener los datos del curso.',
+          icon: 'error',
+        });
+        this.isTeacherLoading = false;
       }
     );
   }
@@ -89,45 +86,91 @@ export class CourseFormComponent implements OnInit {
     this.instrumentService.getInstruments().subscribe((data: any) => {
       if (Array.isArray(data.instruments)) {
         this.instrumentos = data.instruments;
+        this.isInstrumentLoading = false;
       } else {
-        console.error('La respuesta no es un array', data.instruments);
+        this.isInstrumentLoading = false;
       }
     });
   }
   loadSubjects(): void {
     this.subjectService.getSubjects().subscribe((data: any) => {
-      this.asignaturas = data.subjects;
+      if (Array.isArray(data.subjects)) {
+        this.asignaturas = data.subjects;
+        this.isSubjectLoading = false;
+      } else {
+        this.isSubjectLoading = false;
+      }
     });
   }
 
-
   saveCourse(): void {
     if (this.isEditMode) {
-      this.courseService.updateCourse(this.course).subscribe(() => {
-        this.router.navigate(['/admin/course-admin']);
-      });
+      this.courseService.updateCourse(this.course).subscribe(
+        () => {
+          Swal.fire({
+            title: 'Curso actualizado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          this.router.navigate(['/admin/course-admin']);
+        },
+        (error) => {
+          Swal.fire({
+            title: 'Error al actualizar el curso',
+            text: 'Hubo un problema al actualizar el curso.',
+            icon: 'error',
+          });
+          this.router.navigate(['/admin/course-admin']);
+        }
+      );
     } else {
-      this.courseService.createCourse(this.course).subscribe(() => {
-        console.log('Curso creado:', this.course);
-
-        this.router.navigate(['/admin/course-admin']);
-      });
+      this.courseService.createCourse(this.course).subscribe(
+        () => {
+          Swal.fire({
+            title: 'Curso creado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          this.router.navigate(['/admin/course-admin']);
+        },
+        (error) => {
+          Swal.fire({
+            title: 'Error al crear el curso',
+            text: 'Hubo un problema al crear el curso.',
+            icon: 'error',
+          });
+        }
+      );
     }
   }
 
-
-  disableInstrumentOnSubject() {
-    if (this.course.subject ) {
-      this.course.instrument = '';
+  disableInstrumentSelect() {
+    if (this.course.subject_id) {
+      this.course.instrument_id = '';
     }
   }
-  disableSubjectOnInstrument() {
-    if (this.course.instrument) {
-      this.course.subject = '';
+  disableSubjectSelect() {
+    if (this.course.instrument_id) {
+      this.course.subject_id = '';
     }
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/course-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cierras el formulario, se perderán los cambios no guardados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, cerrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/course-admin']);
+      }
+    });
   }
 }

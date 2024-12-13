@@ -4,6 +4,7 @@ import { InstrumentService } from 'src/app/services/instruments/instrument.servi
 import { Instrument } from 'src/app/models/instrument.model';
 import { tr } from 'date-fns/locale';
 import { LoadingService } from 'src/app/services/loading/loading.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-instrument-form',
@@ -46,11 +47,11 @@ export class InstrumentFormComponent implements OnInit {
             this.instrument = data;
             this.isEditMode = true;
             this.isLoading = false;
-            console.log('Instrumento asignado:', this.instrument); // Confirma que los datos se asignaron correctamente
-          }, (error) => {
-            console.error('Error obteniendo instrumento:', error);
+          },
+          (error) => {
             this.isLoading = false;
-          });
+          }
+        );
       } else {
         this.isLoading = false;
       }
@@ -59,28 +60,44 @@ export class InstrumentFormComponent implements OnInit {
 
   saveInstrument(): void {
     if (this.instrument.id === 0) {
-      // Crear nuevo instrumento
       this.instrumentService.createInstrument(this.instrument).subscribe(
         (newInstrument) => {
-          console.log('Instrumento creado:', newInstrument);
-          this.router.navigate(['/admin/instrument-admin']);
+          Swal.fire({
+            title: 'Instrumento creado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.isLoading = false;
+          this.router.navigate(['/admin/instrument-admin']);
         },
         (error) => {
-          console.error('Error creando instrumento:', error);
+          Swal.fire({
+            title: 'Error al crear instrumento',
+            text: 'Hubo un problema al crear el instrumento.',
+            icon: 'error',
+          });
           this.isLoading = false;
         }
       );
     } else {
-      // Actualizar instrumento existente
       this.instrumentService.updateInstrument(this.instrument).subscribe(
-        () => {
-          console.log('Instrumento actualizado:');
-          this.router.navigate(['/admin/instrument-admin']);
+        (): void => {
+          Swal.fire({
+            title: 'Instrumento actualizado con éxito',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          });
           this.isLoading = false;
+          this.router.navigate(['/admin/instrument-admin']);
         },
         (error) => {
-          console.error('Error actualizando instrumento:', error);
+          Swal.fire({
+            title: 'Error al actualizar instrumento',
+            text: 'Hubo un problema al actualizar el instrumento.',
+            icon: 'error',
+          });
           this.isLoading = false;
         }
       );
@@ -88,6 +105,19 @@ export class InstrumentFormComponent implements OnInit {
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/instrument-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cierras el formulario, se perderán los cambios no guardados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, cerrar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/instrument-admin']);
+      }
+    });
   }
 }

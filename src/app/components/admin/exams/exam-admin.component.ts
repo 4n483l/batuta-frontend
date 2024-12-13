@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tr } from 'date-fns/locale';
 import { ExamService } from 'src/app/services/exams/exam.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -9,23 +11,23 @@ import { ExamService } from 'src/app/services/exams/exam.service';
   styleUrls: ['./exam-admin.component.scss'],
 })
 export class ExamAdminComponent implements OnInit {
-  exams: any[] = []; // Lista completa de exámenes
-  currentList: any[] = []; // Lista actual visible
-  isLoading: boolean = false;
+  // examList: any[] = [];
+  currentList: any[] = [];
+  isLoading: boolean = true;
 
-  constructor(private examService: ExamService, private router: Router) {}
+  constructor(private examService: ExamService) {}
 
   ngOnInit(): void {
     this.loadExams();
   }
 
   loadExams(): void {
-    this.isLoading = true;
     this.examService.getExams().subscribe(
-      (response: any) => {
-        this.exams = response.Exams || [];
-        this.currentList = this.exams; // Puedes implementar paginación o filtros aquí
+      (data: any) => {
+        // this.examList = data.Exams || [];
+        this.currentList = data.Exams;
         this.isLoading = false;
+        console.log('Exámenes cargados:', data);
       },
       (error) => {
         console.error('Error al cargar exámenes:', error);
@@ -34,18 +36,37 @@ export class ExamAdminComponent implements OnInit {
     );
   }
 
-  // Método para eliminar un examen
   deleteExam(examId: number): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este examen?')) {
-      this.examService.deleteExam(examId).subscribe(
-        () => {
-          alert('Examen eliminado correctamente');
-          this.loadExams(); // Recargar la lista después de eliminar
-        },
-        (error) => {
-          console.error('Error al eliminar el examen:', error);
-        }
-      );
-    }
+    Swal.fire({
+      title: `¿Estás seguro de que quieres eliminar este examen?`,
+      text: '¡Esta acción no se puede deshacer!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.examService.deleteExam(examId).subscribe({
+          next: () => {
+            // Recargar la lista de exámenes después de eliminar
+            this.loadExams();
+            Swal.fire({
+              title: '¡Eliminado!',
+              text: `El examen ha sido eliminado.`,
+              icon: 'success',
+            });
+          },
+          error: (error) => {
+            console.error('Error al eliminar el examen:', error);
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un problema al eliminar el examen. Inténtalo de nuevo más tarde.',
+              icon: 'error',
+            });
+          },
+        });
+      }
+    });
   }
 }

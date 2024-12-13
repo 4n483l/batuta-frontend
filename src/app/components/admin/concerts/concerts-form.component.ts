@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ConcertService } from 'src/app/services/concerts/concert.service';
 import { Concert } from 'src/app/models/concert.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-concerts-form',
@@ -33,7 +34,7 @@ export class ConcertsFormComponent implements OnInit {
       this.concert = { ...this.selectedConcert };
       this.isEditMode = true;
       this.isLoading = false;
-    }else{
+    } else {
       this.isLoading = false;
     }
 
@@ -58,32 +59,69 @@ export class ConcertsFormComponent implements OnInit {
       // Crear nuevo concierto
       this.concertService.createConcert(this.concert).subscribe(
         (newConcert) => {
-          console.log('Concierto creado:', newConcert);
-          this.router.navigate(['/admin/concert-admin']);
-          this.isLoading = false;
+          Swal.fire({
+            title: 'Concierto creado',
+            text: 'El concierto ha sido creado correctamente.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            this.router.navigate(['/admin/concert-admin']);
+            this.isLoading = false;
+          });
         },
         (error) => {
           console.error('Error creando concierto:', error);
-          this.isLoading = false;
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al crear el concierto.',
+            icon: 'error',
+          }).then(() => {
+            this.isLoading = false;
+          });
         }
       );
     } else {
       // Actualizar concierto existente
       this.concertService.updateConcert(this.concert).subscribe(
         (updatedConcert) => {
-          console.log('Concierto actualizado:', updatedConcert);
-          this.router.navigate(['/admin/concert-admin']);
-          this.isLoading = false;
+          Swal.fire({
+            title: 'Concierto actualizado',
+            text: 'El concierto ha sido actualizado correctamente.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            this.router.navigate(['/admin/concert-admin']);
+            this.isLoading = false;
+          });
         },
         (error) => {
           console.error('Error actualizando concierto:', error);
-          this.isLoading = false;
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al actualizar el concierto.',
+            icon: 'error',
+          }).then(() => {
+            this.isLoading = false;
+          });
         }
       );
     }
   }
 
   closeForm(): void {
-    this.router.navigate(['/admin/concert-admin']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si cancelas, perderás los cambios realizados.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, volver',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/admin/concert-admin']);
+      }
+    });
   }
 }

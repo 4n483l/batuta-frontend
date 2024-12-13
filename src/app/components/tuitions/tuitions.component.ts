@@ -64,31 +64,36 @@ export class TuitionsComponent implements OnInit {
         selectedSubjects.push(instrumentSubject.id); // TODO: agregar instrumento desde el backend
       }
 
-      // console.log('Asignaturas seleccionadas:', selectedSubjects);
-
       const tuitionData: Tuition = {
         // operador de propagacion. Copia todos los valores de form.value
         ...form.value,
         subjects: selectedSubjects,
       };
-      console.log('Datos de matrícula:', tuitionData);
 
-      this.tuitionService.postTuition(tuitionData).subscribe((data: any) => {
-        console.log('Matrícula realizada:', data);
-        this.router.navigate(['/dashboard']);
-
-
-        Swal.fire({
-          title: 'Matrícula realizada con éxito',
-          icon: 'success',
-        });
-      });
+      this.tuitionService.postTuition(tuitionData).subscribe(
+        (data: any) => {
+          this.router.navigate(['/dashboard']);
+          Swal.fire({
+            title: 'Matrícula realizada con éxito',
+            icon: 'success',
+            confirmButtonColor: '#4b6584',
+          });
+        },
+        (error) => {
+          //  console.error('Error al realizar la matrícula:', error);
+          Swal.fire({
+            title: 'Error al realizar la matrícula',
+            text: 'Hubo un problema al procesar tu matrícula. Intenta de nuevo más tarde.',
+            icon: 'error',
+            confirmButtonColor: '#c85a42',
+          });
+        }
+      );
     } else {
-
-
       Swal.fire({
         title: 'Por favor, completa correctamente el formulario',
         icon: 'error',
+        confirmButtonColor: '#c85a42',
       });
     }
   }
@@ -101,31 +106,24 @@ export class TuitionsComponent implements OnInit {
   }
   loadSubjects() {
     this.subjectService.getSubjects().subscribe((dataSubject: any) => {
-     // console.log('Datos de asignaturas: ', dataSubject);
       this.asignaturas = dataSubject.subjects;
       this.isSubjectLoading = false;
     });
   }
   loadLoggedUser() {
-    // trae los datos del usuario logueado
+    // trae los datos del usuario logueado al formulario para facilitar la matricula
     this.tuitionService.getTuitions().subscribe((data: any) => {
-      
-      console.log('Datos recibidos de la API:', data);
-
-      // traemos los datos del usuario logueado
       this.phone = data.usuario.phone;
       this.address = data.usuario.address;
       this.city = data.usuario.city;
       this.postal_code = data.usuario.postal_code;
       this.email = data.usuario.email;
 
-      console.log('Componente tuitions:', data.usuario);
       this.isUserLoading = false;
     });
   }
 
   initCheckbox() {
-    // inicializar los checkbox
     this.asignaturas.forEach((subject) => {
       if (subject.name !== 'Instrumento') {
         this.checkedSubjects[subject.id] = false;
@@ -138,6 +136,5 @@ export class TuitionsComponent implements OnInit {
   }
   onInstrumentChange(instrumentId: number | null) {
     this.selectedInstrumentId = instrumentId;
-    console.log('Instrumento seleccionado:', this.selectedInstrumentId);
   }
 }

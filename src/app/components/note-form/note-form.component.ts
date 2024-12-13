@@ -4,6 +4,7 @@ import jsPDF from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Note } from 'src/app/models/note.model';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-note-form',
@@ -40,7 +41,7 @@ export class NoteFormComponent implements OnInit {
     this.loadInstruments();
 
     this.noteId = this.route.snapshot.paramMap.get('id');
-    console.log('noteId:', Number(this.noteId));
+
     if (this.noteId) {
       this.isEditMode = true;
       this.loadNote(Number(this.noteId));
@@ -50,8 +51,6 @@ export class NoteFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Esto es nota onSubmit:', this.note);
-
     this.saveNotePdf();
   }
 
@@ -71,7 +70,12 @@ export class NoteFormComponent implements OnInit {
         this.setLoadingState(false);
       },
       (error) => {
-        console.error('Error al cargar instrumentos:', error);
+        Swal.fire({
+          title: 'Error al cargar instrumentos',
+          text: 'Hubo un problema al cargar los instrumentos. Intenta de nuevo más tarde.',
+          icon: 'error',
+          confirmButtonColor: '#4b6584',
+        });
         this.setLoadingState(false);
       }
     );
@@ -84,7 +88,12 @@ export class NoteFormComponent implements OnInit {
         this.setLoadingState(false);
       },
       (error) => {
-        console.error('Error al cargar asignaturas:', error);
+        Swal.fire({
+          title: 'Error al cargar asignaturas',
+          text: 'Hubo un problema al cargar las asignaturas. Intenta de nuevo más tarde.',
+          icon: 'error',
+          confirmButtonColor: '#4b6584',
+        });
         this.setLoadingState(false);
       }
     );
@@ -94,15 +103,18 @@ export class NoteFormComponent implements OnInit {
     this.noteService.getNoteById(id).subscribe(
       (response: any) => {
         this.note = response.note;
-         console.log('Nota cargada para edición:', this.note);
       },
       (error) => {
-        console.error('Error al cargar apunte:', error);
+        Swal.fire({
+          title: 'Error al cargar la nota',
+          text: 'Hubo un problema al cargar la nota. Intenta de nuevo más tarde.',
+          icon: 'error',
+          confirmButtonColor: '#4b6584',
+        });
       }
     );
   }
 
-  // comprueba si se ha seleccionado un instrumento o una asignatura
   disableInstrumentSelect() {
     if (this.note.subject_id) {
       this.note.instrument_id = '';
@@ -156,17 +168,38 @@ export class NoteFormComponent implements OnInit {
 
     this.noteService.updateNote(noteId, notePdf).subscribe(
       (response) => {
+        Swal.fire({
+          title: 'Nota actualizada',
+          text: 'La nota se actualizó correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#4b6584',
+        });
         this.router.navigate(['/notes']);
-        console.log('dentro updateNote:', response);
       },
       (error) => {
-        console.error(error);
+        // console.error(error);
+        Swal.fire({
+          title: 'Error al actualizar nota',
+          text: 'Hubo un problema al actualizar la nota. Intenta de nuevo más tarde.',
+          icon: 'error',
+          confirmButtonColor: '#4b6584',
+        });
       }
     );
   }
 
   saveNotePdf() {
- console.log('Nota antes de enviar:', this.note);
+    //  console.log('Nota antes de enviar:', this.note);
+
+    if (!this.note.title || !this.note.topic || !this.note.content) {
+      Swal.fire({
+        title: 'Campos incompletos',
+        text: 'Por favor, completa todos los campos antes de guardar.',
+        icon: 'warning',
+        confirmButtonColor: '#4b6584',
+      });
+      return;
+    }
 
     this.generatePdf();
 
@@ -190,86 +223,60 @@ export class NoteFormComponent implements OnInit {
     if (this.isEditMode) {
       this.noteService.updateNote(Number(this.noteId), notePdf).subscribe(
         (response) => {
-            console.log('Nota actualizada exitosamente:', response);
+          Swal.fire({
+            title: 'Nota actualizada',
+            text: 'La nota se actualizó correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#4b6584',
+          });
           this.router.navigate(['/notes']);
-
         },
         (error) => {
-          console.error(error);
+          // console.error(error);
+          Swal.fire({
+            title: 'Error al actualizar nota',
+            text: 'Hubo un problema al actualizar la nota. Intenta de nuevo más tarde.',
+            icon: 'error',
+            confirmButtonColor: '#4b6584',
+          });
         }
       );
     } else {
       this.noteService.saveNote(notePdf).subscribe(
         (response) => {
+          Swal.fire({
+            title: 'Nota guardada',
+            text: 'La nota se guardó correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#4b6584',
+          });
           this.router.navigate(['/notes']);
-          
 
           console.log('dentro saveNote:', response);
         },
         (error) => {
-          console.error(error);
+          //console.error(error);
+          Swal.fire({
+            title: 'Error al guardar nota',
+            text: 'Hubo un problema al guardar la nota. Intenta de nuevo más tarde.',
+            icon: 'error',
+            confirmButtonColor: '#4b6584',
+          });
         }
       );
     }
   }
 
-  /*  saveNotePdf2() {
-    this.generatePdf();
-
-    const notePdf = new FormData();
-    notePdf.append('title', this.note.title);
-    notePdf.append('topic', this.note.topic);
-    notePdf.append('content', this.note.content);
-
-    if (this.note.subject_id) {
-      notePdf.append('subject_id', this.note.subject_id);
-    }
-
-    if (this.note.instrument_id) {
-      notePdf.append('instrument_id', this.note.instrument_id);
-    }
-
-    // Convertir el PDF generado a un archivo Blob y añadirlo al formulario
-    const pdfBlob = this.pdf.output('blob');
-    notePdf.append('pdf', pdfBlob, 'note.pdf');
-
-    if (this.isEditMode) {
-     // console.log('dentro updateNote:', Number(this.noteId));
-      console.log('parte updateNote:', notePdf.getAll('title'));
-      console.log('parte updateNote:', notePdf.getAll('topic'));
-      console.log('parte updateNote:', notePdf.getAll('content'));
-      console.log('parte updateNote:', notePdf.getAll('subject_id'));
-      console.log('parte updateNote:', notePdf.getAll('instrument_id'));
-      console.log('parte updateNote:', notePdf.getAll('pdf'));
-
-      this.noteService.updateNote(Number(this.noteId), notePdf).subscribe(
-        (response) => {
-          this.router.navigate(['/notes']);
-          console.log('dentro updateNote:', response);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    } else {
-      this.noteService.saveNote(notePdf).subscribe(
-        (response) => {
-          this.router.navigate(['/notes']);
-          console.log('dentro saveNote:', response);
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
-  } */
-
   generatePdf() {
- if (!this.note.title || !this.note.topic || !this.note.content) {
-   console.error('Error: No se puede generar el PDF, faltan datos');
-   return;
- }
-
+    if (!this.note.title || !this.note.topic || !this.note.content) {
+      Swal.fire({
+        title: 'Error al generar PDF',
+        text: 'Faltan datos para generar el PDF. Asegúrate de completar todos los campos.',
+        icon: 'error',
+        confirmButtonColor: '#4b6584',
+      });
+      return;
+    }
 
     let yPosition = 10;
     // Obtener el tamaño de la página

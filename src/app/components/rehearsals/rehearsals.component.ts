@@ -16,7 +16,7 @@ export class RehearsalsComponent implements OnInit {
   ngOnInit(): void {
     this.rehearsalService.getRehearsals().subscribe((data: any) => {
       this.rehearsals = Array.isArray(data.Rehearsals) ? data.Rehearsals : [];
-      console.log('Componente rehearsals:', this.rehearsals);
+      
       this.isLoading = false;
     },
     (error) => {

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NoteService } from 'src/app/services/notes/note.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-notes',
@@ -34,27 +35,41 @@ export class NotesComponent implements OnInit {
       this.isLoggedIn = loggedIn;
 
       if (this.isLoggedIn) {
-        this.authService.getUserData().subscribe((userData) => {
-          this.userType = userData.user_type;
-          this.getNotesData();
+        this.authService.getUserData().subscribe(
+          (userData) => {
+            this.userType = userData.user_type;
+            this.getNotesData();
+          },
+          (error) => {
+            // console.error('Error al obtener los datos del usuario:', error);
+            Swal.fire({
+              title: 'Error de autenticación',
+              text: 'Hubo un problema al obtener los datos del usuario. Intenta de nuevo más tarde.',
+              icon: 'error',
+              confirmButtonColor: '#4b6584',
+            });
+          }
+        );
+      } else {
+        Swal.fire({
+          title: 'No estás logueado',
+          text: 'Por favor, inicia sesión para ver tus apuntes.',
+          icon: 'warning',
+          confirmButtonColor: '#4b6584',
         });
       }
     });
   }
 
- // obtiene los apuntes de teacher y de student
+  // obtiene los apuntes de teacher y de student
   getNotesData(): void {
     this.noteService.getNotes().subscribe((data: any) => {
 
-      console.log('Data todos apuntes:', data);
 
       if (this.userType === 'teacher') {
-
-
         this.notesList = data.NotesTeacher;
-
       } else {
-        console.log('Data asignaturas:', data);
+
 
         this.notesList = [];
 
@@ -65,18 +80,28 @@ export class NotesComponent implements OnInit {
             this.notesList.push(apunte);
           });
         }
-
       }
       this.isLoading = false;
-    //  console.log('Data notes:', data);
-    });
+
+    }, (error) => {
+       // console.error('Error al cargar los apuntes:', error);
+       Swal.fire({
+         title: 'Error al cargar apuntes',
+         text: 'Hubo un problema al cargar los apuntes. Intenta de nuevo más tarde.',
+         icon: 'error',
+         confirmButtonColor: '#4b6584',
+       });
+       this.isLoading = false;
+    }
+  );
   }
-// crea un apunte nuevo
+
   addNote(): void {
     this.router.navigate(['/note-form']);
   }
 
   seePdf(link: string): void {
+
     window.open(`${this.pdfUrl}/${link}`, '_blank');
     console.log('Link:', link);
   }

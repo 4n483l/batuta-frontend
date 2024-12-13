@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/courses/course.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InstrumentService } from 'src/app/services/instruments/instrument.service';
 import { SubjectService } from 'src/app/services/subjects/subject.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-add',
@@ -55,15 +55,6 @@ export class CourseAddComponent implements OnInit {
 
     this.loadInstruments();
     this.loadSubjects();
-
-    /*     this.route.params.subscribe((params) => {
-      const courseId = params['id'];
-      if (courseId) {
-        this.loadCourse(courseId);
-      } else {
-        this.isLoading = false;
-      }
-    }); */
   }
 
   loadCourse(courseId: number): void {
@@ -83,7 +74,6 @@ export class CourseAddComponent implements OnInit {
         this.instrumentos = data.instruments;
         this.isInstrumentLoading = false;
       } else {
-        console.error('La respuesta no es un array', data.instruments);
         this.isInstrumentLoading = false;
       }
     });
@@ -94,7 +84,6 @@ export class CourseAddComponent implements OnInit {
         this.asignaturas = data.subjects;
         this.isSubjectLoading = false;
       } else {
-        console.error('La respuesta no es un array', data.subjects);
         this.isSubjectLoading = false;
       }
     });
@@ -103,12 +92,22 @@ export class CourseAddComponent implements OnInit {
   saveCourse(): void {
     if (this.isEditMode) {
       this.courseService.updateCourse(this.course).subscribe(() => {
-        alert('Curso actualizado con éxito');
+        Swal.fire({
+          title: '¡Curso actualizado!',
+          text: 'El curso se ha actualizado correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#4b6584',
+        });
         this.router.navigate(['/courses']);
       });
     } else {
       this.courseService.createCourse(this.course).subscribe(() => {
-        alert('Curso creado con éxito');
+        Swal.fire({
+          title: '¡Curso creado!',
+          text: 'El curso se ha creado correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#4b6584',
+        });
 
         this.router.navigate(['/courses']);
       });
@@ -126,6 +125,18 @@ export class CourseAddComponent implements OnInit {
     }
   }
   closeForm(): void {
-    this.router.navigate(['/courses']);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Los cambios no guardados se perderán.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
+      confirmButtonText: 'Sí, salir',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/courses']);
+      }
+    });
   }
 }

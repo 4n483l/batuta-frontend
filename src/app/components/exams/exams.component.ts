@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Exam } from 'src/app/models/exam.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ExamService } from 'src/app/services/exams/exam.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-exams',
@@ -42,8 +42,6 @@ export class ExamsComponent implements OnInit {
   loadExams() {
     this.examService.getExams().subscribe(
       (data: any) => {
-        console.log('Info todos exámenes:', data);
-
         if (this.userType === 'teacher') {
           this.examsList = data.ExamsTeacher;
         } else {
@@ -59,11 +57,23 @@ export class ExamsComponent implements OnInit {
         }
         this.isLoading = false;
 
-        console.log('Examenes obtenidos:', this.examsList);
+        if (this.examsList.length === 0) {
+          Swal.fire({
+            title: 'No hay exámenes disponibles',
+            text: 'Parece que no tienes exámenes asignados.',
+            icon: 'info',
+            confirmButtonColor: '#4b6584',
+          });
+        }
       },
       (error) => {
-        console.error('Error al cargar exámenes', error);
         this.isLoading = false;
+        Swal.fire({
+          title: 'Error al cargar exámenes',
+          text: 'Hubo un problema al obtener los exámenes. Intenta de nuevo más tarde.',
+          icon: 'error',
+          confirmButtonColor: '#4b6584',
+        });
       }
     );
   }

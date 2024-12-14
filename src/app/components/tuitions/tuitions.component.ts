@@ -68,6 +68,7 @@ export class TuitionsComponent implements OnInit {
         // operador de propagacion. Copia todos los valores de form.value
         ...form.value,
         subjects: selectedSubjects,
+        
       };
 
       this.tuitionService.postTuition(tuitionData).subscribe(

@@ -56,7 +56,7 @@ export class TuitionsComponent implements OnInit {
         .map((key) => +key); // Convierte los strings a números
 
       // Cuando se selecciona un instrumento, se agrega a la lista de asignaturas
-      const instrumentSubject = this.asignaturas.find(
+         const instrumentSubject = this.asignaturas.find(
         (subject) => subject.name === 'Instrumento'
       );
 
@@ -64,11 +64,11 @@ export class TuitionsComponent implements OnInit {
         selectedSubjects.push(instrumentSubject.id); // TODO: agregar instrumento desde el backend
       }
 
+
       const tuitionData: Tuition = {
         // operador de propagacion. Copia todos los valores de form.value
         ...form.value,
         subjects: selectedSubjects,
-        
       };
 
       this.tuitionService.postTuition(tuitionData).subscribe(
@@ -98,6 +98,8 @@ export class TuitionsComponent implements OnInit {
       });
     }
   }
+
+
 
   loadInstruments() {
     this.instrumentService.getInstruments().subscribe((dataInstrument: any) => {
@@ -135,6 +137,8 @@ export class TuitionsComponent implements OnInit {
   onClickCheckbox(subjectId: number) {
     this.checkedSubjects[subjectId] = !this.checkedSubjects[subjectId];
   }
+
+
   onInstrumentChange(instrumentId: number | null) {
     this.selectedInstrumentId = instrumentId;
   }

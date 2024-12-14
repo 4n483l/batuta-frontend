@@ -26,8 +26,8 @@ export class CourseAddComponent implements OnInit {
 
   isEditMode: boolean = false;
 
-  isLoading: boolean = true;
-  isTeacherLoading: boolean = true;
+  isLoading: boolean = false;
+  isTeacherLoading: boolean = false;
   isInstrumentLoading: boolean = true;
   isSubjectLoading: boolean = true;
 

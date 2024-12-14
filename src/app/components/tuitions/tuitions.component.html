@@ -104,12 +104,16 @@
   <!-- Instrumento select-->
   <div class="form-group">
     <label for="instrument">Instrumento</label>
+
     <select class="form-control form-select" id="instrument" name="instrument" [(ngModel)]="selectedInstrumentId"
       #instrumentInput="ngModel" required (change)="onInstrumentChange(selectedInstrumentId)">
+
       <option value="null" disabled >Selecciona un instrumento</option>
+
       <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
         {{ instrument.name }}
       </option>
+      
     </select>
     <div *ngIf="instrumentInput.invalid && instrumentInput.touched" class="text-danger">
       <div *ngIf="instrumentInput.errors?.['required']">El instrumento es obligatorio.</div>

@@ -44,7 +44,7 @@ export class AuthService {
 
   register(data: {
     name: string;
-    surname: string;
+    lastname: string;
     dni: string;
     phone: string;
     address: string;
@@ -53,7 +53,7 @@ export class AuthService {
     birthdate: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    password_confirmation: string;
   }): Observable<any> {
     const url = `${this.authUrl}/register`;
 

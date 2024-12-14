@@ -22,7 +22,7 @@ export class UserAdminComponent implements OnInit {
       (response: any) => {
         this.users = response.Users;
         this.isLoading = false;
-        console.log('Usuarios cargados:', this.users);
+       
       },
       (error) => {
         console.error('Error al cargar usuarios:', error);

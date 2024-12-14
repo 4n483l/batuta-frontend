@@ -28,17 +28,13 @@ export class ExamAdminComponent implements OnInit {
       (data: any) => {
         this.currentList =
           data.Exams.map((exam: any) => {
-            exam.date = this.datePipe.transform(exam.date, 'dd-MM-yyyy'); 
+            exam.date = this.datePipe.transform(exam.date, 'dd-MM-yyyy');
             return exam;
           }) || [];
         this.isLoading = false;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar exámenes',
-          text: 'Hubo un problema al cargar los exámenes. Intenta nuevamente.',
-          icon: 'error',
-        });
+     console.error('Error al cargar los exámenes:', error);
         this.isLoading = false;
       }
     );

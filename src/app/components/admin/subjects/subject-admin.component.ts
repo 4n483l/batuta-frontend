@@ -25,11 +25,7 @@ export class SubjectAdminComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar las asignaturas',
-          text: 'Ocurrió un problema al cargar los datos. Intenta nuevamente.',
-          icon: 'error',
-        });
+     console.error('Error al cargar las asignaturas:', error);
         this.isLoading = false;
       }
     );

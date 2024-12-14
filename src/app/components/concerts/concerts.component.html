@@ -5,5 +5,14 @@
   <p>Cargando datos...</p>
 </div>
 <div *ngIf="!isLoading">
+
+ <!--  <div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterConcerts()" placeholder="Buscar conciertos..." />
+  </div>
+ -->
   <app-calendar [events]="concerts" title="Calendario de conciertos"></app-calendar>
+
+  <!--   <app-calendar [events]="filteredConcerts" title="Calendario de conciertos" >
+    </app-calendar> -->
+
 </div>

@@ -35,11 +35,7 @@ export class CourseAdminComponent implements OnInit {
       (error) => {
         this.isLoading = false;
         console.error('Error al cargar cursos:', error);
-        Swal.fire({
-          title: 'Error al cargar cursos',
-          text: 'Hubo un problema al cargar los cursos. Intenta nuevamente.',
-          icon: 'error',
-        });
+      
       }
     );
   }

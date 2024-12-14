@@ -30,11 +30,7 @@ export class InstrumentAdminComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar instrumentos',
-          text: 'Hubo un problema al cargar los instrumentos. Intenta nuevamente.',
-          icon: 'error',
-        });
+    console.error('Error al cargar los instrumentos:', error);
         this.isLoading = false;
       }
     );

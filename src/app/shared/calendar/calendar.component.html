@@ -1,6 +1,9 @@
 <main>
   <h1>{{ title }}</h1>
 
+<!-- <div class="search-container">
+  <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterEvents()" placeholder="Buscar eventos..." />
+</div> -->
 
   <div class="calendar-container">
     <div class="calendar-header">
@@ -39,9 +42,12 @@
 
     </div>
 
-    <div *ngIf="events == undefined " class="text-center">
+ <!--   <div *ngIf="events == undefined " class="text-center">
       <p>No hay eventos para este mes</p>
-    </div>
+    </div> -->
+      <div *ngIf="filteredEvents?.length == 0" class="text-center">
+        <p>No hay eventos para este mes</p>
+      </div>
 
   </div>
 </main>

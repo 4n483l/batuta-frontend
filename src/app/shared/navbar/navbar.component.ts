@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { th, tr } from 'date-fns/locale';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -12,9 +13,9 @@ export class NavbarComponent {
   userType: string = '';
   hasStudents: boolean = false;
   role: string = '';
- // isLoading: boolean = false;
+  // isLoading: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadUserType();
@@ -25,12 +26,15 @@ export class NavbarComponent {
       this.isLoggedIn = loggedIn;
 
       if (this.isLoggedIn) {
-
         this.authService.getUserData().subscribe((userData) => {
           this.userType = userData.user_type;
           this.role = userData.role;
           this.loadUserStudentData();
         });
+      } else {
+        this.userType = '';
+        this.role = '';
+        this.hasStudents = false;
       }
     });
   }
@@ -46,5 +50,9 @@ export class NavbarComponent {
   logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
+    this.userType = '';
+    this.role = '';
+    this.hasStudents = false;
+    this.router.navigate(['/login']);
   }
 }

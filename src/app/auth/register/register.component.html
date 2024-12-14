@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="form-group two-thirds-width">
-        <label for="surname">Apellidos:</label>
-        <input type="text" id="surname" name="surname" class="form-control" [(ngModel)]="surname"
+        <label for="lastname">Apellidos:</label>
+        <input type="text" id="lastname" name="lastname" class="form-control" [(ngModel)]="lastname"
           #surnameInput="ngModel" required placeholder="Introduce tus apellidos" />
         <div *ngIf="surnameInput.invalid && surnameInput.touched" class="text-danger">
           <div *ngIf="surnameInput.errors?.['required']">Los apellidos son obligatorios.</div>
@@ -105,10 +105,11 @@
           <div *ngIf="passwordInput.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</div>
         </div>
       </div>
+
       <div class="form-group half-width">
-        <label for="confirmPassword">Confirmar Contraseña:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-          [(ngModel)]="confirmPassword" #confirmPasswordInput="ngModel" required [pattern]="password"
+        <label for="password_confirmation">Confirmar Contraseña:</label>
+        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
+          [(ngModel)]="password_confirmation" #confirmPasswordInput="ngModel" required [pattern]="password"
           placeholder="Repite tu contraseña" />
         <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="text-danger">
           <div *ngIf="confirmPasswordInput.errors?.['required']">La confirmación de la contraseña es obligatoria.</div>

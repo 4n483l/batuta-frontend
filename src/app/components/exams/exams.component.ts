@@ -68,12 +68,13 @@ export class ExamsComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
-        Swal.fire({
+        console.error('Error al obtener los exámenes:', error);
+        /* Swal.fire({
           title: 'Error al cargar exámenes',
           text: 'Hubo un problema al obtener los exámenes. Intenta de nuevo más tarde.',
           icon: 'error',
           confirmButtonColor: '#4b6584',
-        });
+        }); */
       }
     );
   }

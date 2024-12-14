@@ -1,10 +1,10 @@
 // URL del backend Laravel
- const API_URL = 'http://127.0.0.1:8000/api';
-const API_URL_PDF = 'http://127.0.0.1:8000/storage'; 
+  const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL_PDF = 'http://127.0.0.1:8000/storage';
 
-
-/* const API_URL = 'http://panel.batuta.lo/api';
-const API_URL_PDF = 'http://panel.batuta.lo/storage'; */
+/*
+ const API_URL = 'http://panel.batuta.lo/api';
+const API_URL_PDF = 'http://panel.batuta.lo/batuta-backend/storage'; */
 
 export const API_ROUTES = {
   auth: API_URL,

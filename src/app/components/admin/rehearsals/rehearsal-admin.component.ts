@@ -33,11 +33,7 @@ export class RehearsalAdminComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar ensayos',
-          text: 'Hubo un problema al cargar los ensayos. Intenta nuevamente.',
-          icon: 'error',
-        });
+      console.error('Error al cargar los ensayos:', error);
         this.isLoading = false;
       }
     );

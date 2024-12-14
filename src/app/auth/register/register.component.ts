@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class RegisterComponent {
   // Nuevas propiedades para los campos adicionales
   name: string = '';
-  surname: string = '';
+  lastname: string = '';
   dni: string = '';
   phone: string = '';
   address: string = '';
@@ -20,7 +21,7 @@ export class RegisterComponent {
   birthdate: string = '';
   email: string = '';
   password: string = '';
-  confirmPassword: string = '';
+  password_confirmation: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -28,7 +29,7 @@ export class RegisterComponent {
     if (form.valid) {
       const {
         name,
-        surname,
+        lastname,
         dni,
         phone,
         address,
@@ -37,14 +38,14 @@ export class RegisterComponent {
         birthdate,
         email,
         password,
-        confirmPassword,
+        password_confirmation,
       } = form.value;
 
       // Llamada al servicio de registro con todos los datos
       this.authService
         .register({
           name,
-          surname,
+          lastname,
           dni,
           phone,
           address,
@@ -53,11 +54,15 @@ export class RegisterComponent {
           birthdate,
           email,
           password,
-          confirmPassword,
+          password_confirmation,
         })
         .subscribe(
           (response) => {
-            alert('Registro exitoso');
+            Swal.fire(
+              'Registro exitoso',
+              'Usuario registrado correctamente',
+              'success'
+            );
             console.log('Respuesta del backend:', response);
             this.router.navigate(['/login']);
           },

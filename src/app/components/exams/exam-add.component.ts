@@ -43,34 +43,7 @@ export class ExamAddComponent implements OnInit {
 
     this.loadInstruments();
     this.loadSubjects();
-
-    /*     this.route.params.subscribe((params) => {
-      const courseId = params['id'];
-      if (courseId) {
-        this.loadCourse(courseId);
-      } else {
-        this.isLoading = false;
-      }
-    }); */
   }
-
-  /*   loadExam(courseId: number): void {
-    this.isLoading = true;
-    this.courseService.getCourseById(courseId).subscribe(
-      (data: any) => {
-        const course: Course = data.course;
-        this.course = course;
-
-        console.log('Curso cargado:', this.course);
-        this.isEditMode = true;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error al cargar el curso:', error);
-        this.isLoading = false;
-      }
-    );
-  } */
 
   loadInstruments(): void {
     this.instrumentService.getInstruments().subscribe((data: any) => {
@@ -90,9 +63,6 @@ export class ExamAddComponent implements OnInit {
 
   saveExam(): void {
     this.examService.createExam(this.exam).subscribe(() => {
-      console.log('Curso creado:', this.exam);
-      console.log('User id:', this.exam.user_id);
-
       this.router.navigate(['/exams']);
     });
   }

@@ -43,11 +43,7 @@ export class StudentFormComponent implements OnInit {
       },
       (error) => {
 
-        Swal.fire({
-          title: 'Error al cargar estudiante',
-          text: 'Hubo un problema al obtener los datos del estudiante.',
-          icon: 'error',
-        });
+     console.error('Error al cargar el estudiante:', error);
              this.isLoading = false;
       }
     );
@@ -59,11 +55,7 @@ export class StudentFormComponent implements OnInit {
         this.users = response.Users;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar usuarios',
-          text: 'Hubo un problema al obtener los datos de los usuarios.',
-          icon: 'error',
-        });
+        console.error('Error al cargar los usuarios:', error);
       }
     );
   }

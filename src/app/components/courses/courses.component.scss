@@ -1,0 +1,11 @@
+@import 'src/styles.scss';
+
+
+
+/* Estilos para el contenedor del botón */
+.button-container {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 50px;
+}

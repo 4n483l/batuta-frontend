@@ -70,12 +70,12 @@ export class NoteFormComponent implements OnInit {
         this.setLoadingState(false);
       },
       (error) => {
-        Swal.fire({
+        /*      Swal.fire({
           title: 'Error al cargar instrumentos',
           text: 'Hubo un problema al cargar los instrumentos. Intenta de nuevo más tarde.',
           icon: 'error',
           confirmButtonColor: '#4b6584',
-        });
+        }); */
         this.setLoadingState(false);
       }
     );
@@ -88,12 +88,12 @@ export class NoteFormComponent implements OnInit {
         this.setLoadingState(false);
       },
       (error) => {
-        Swal.fire({
+        /*       Swal.fire({
           title: 'Error al cargar asignaturas',
           text: 'Hubo un problema al cargar las asignaturas. Intenta de nuevo más tarde.',
           icon: 'error',
           confirmButtonColor: '#4b6584',
-        });
+        }); */
         this.setLoadingState(false);
       }
     );
@@ -232,13 +232,13 @@ export class NoteFormComponent implements OnInit {
           this.router.navigate(['/notes']);
         },
         (error) => {
-          // console.error(error);
-          Swal.fire({
+          console.error(error);
+          /*     Swal.fire({
             title: 'Error al actualizar nota',
             text: 'Hubo un problema al actualizar la nota. Intenta de nuevo más tarde.',
             icon: 'error',
             confirmButtonColor: '#4b6584',
-          });
+          }); */
         }
       );
     } else {
@@ -251,17 +251,9 @@ export class NoteFormComponent implements OnInit {
             confirmButtonColor: '#4b6584',
           });
           this.router.navigate(['/notes']);
-
-          console.log('dentro saveNote:', response);
         },
         (error) => {
-          //console.error(error);
-          Swal.fire({
-            title: 'Error al guardar nota',
-            text: 'Hubo un problema al guardar la nota. Intenta de nuevo más tarde.',
-            icon: 'error',
-            confirmButtonColor: '#4b6584',
-          });
+          console.error(error);
         }
       );
     }

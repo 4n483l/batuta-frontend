@@ -41,7 +41,7 @@ export class NotesComponent implements OnInit {
             this.getNotesData();
           },
           (error) => {
-            // console.error('Error al obtener los datos del usuario:', error);
+             console.error('Error al obtener los datos del usuario:', error);
             Swal.fire({
               title: 'Error de autenticación',
               text: 'Hubo un problema al obtener los datos del usuario. Intenta de nuevo más tarde.',
@@ -50,13 +50,6 @@ export class NotesComponent implements OnInit {
             });
           }
         );
-      } else {
-        Swal.fire({
-          title: 'No estás logueado',
-          text: 'Por favor, inicia sesión para ver tus apuntes.',
-          icon: 'warning',
-          confirmButtonColor: '#4b6584',
-        });
       }
     });
   }
@@ -103,7 +96,7 @@ export class NotesComponent implements OnInit {
   seePdf(link: string): void {
 
     window.open(`${this.pdfUrl}/${link}`, '_blank');
-    console.log('Link:', link);
+   // console.log('Link:', link);
   }
 
   formatDate(dateString: string): string {

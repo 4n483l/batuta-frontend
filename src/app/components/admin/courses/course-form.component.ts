@@ -72,11 +72,7 @@ export class CourseFormComponent implements OnInit {
         this.isTeacherLoading = false;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar el curso',
-          text: 'Hubo un problema al obtener los datos del curso.',
-          icon: 'error',
-        });
+     console.error('Error al cargar los profesores:', error);
         this.isTeacherLoading = false;
       }
     );

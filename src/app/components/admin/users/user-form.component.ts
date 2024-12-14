@@ -35,12 +35,13 @@ export class UserFormComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
+        console.error('Error al cargar el usuario:', error);
         this.isLoading = false;
-        Swal.fire({
+      /*   Swal.fire({
           title: 'Error al cargar el usuario',
           text: 'Hubo un problema al obtener los datos del usuario.',
           icon: 'error',
-        });
+        }); */
       }
     );
   }
@@ -48,7 +49,7 @@ export class UserFormComponent implements OnInit {
   saveUser(): void {
     this.authService.updateUser(this.user.id, this.user).subscribe(
       (response) => {
-        Swal.close();
+        //Swal.close();
 
         Swal.fire({
           title: 'Usuario actualizado con éxito',
@@ -59,11 +60,12 @@ export class UserFormComponent implements OnInit {
         this.router.navigate(['/admin/user-admin']);
       },
       (error) => {
-        Swal.fire({
+        console.error('Error al actualizar usuario:', error);
+      /*   Swal.fire({
           title: 'Error al actualizar usuario',
           text: 'No se pudieron guardar los cambios.',
           icon: 'error',
-        });
+        }); */
       }
     );
   }

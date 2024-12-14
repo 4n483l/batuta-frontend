@@ -43,7 +43,7 @@ export class CoursesComponent implements OnInit {
   loadCourses(): void {
     this.courseService.getCourses().subscribe(
       (data: any) => {
-        console.log('Datos de los cursos:', data);
+       
 
         if (this.userType === 'teacher') {
           this.coursesList = data.CoursesTeacher;
@@ -69,14 +69,14 @@ export class CoursesComponent implements OnInit {
              }
       },
       (error) => {
-
+console.error('Error al obtener los cursos:', error);
         this.isLoading = false;
-           Swal.fire({
+        /*    Swal.fire({
              title: 'Error al cargar cursos',
              text: 'Hubo un problema al obtener los cursos. Intenta de nuevo más tarde.',
              icon: 'error',
              confirmButtonColor: '#4b6584',
-           });
+           }); */
       }
     );
   }

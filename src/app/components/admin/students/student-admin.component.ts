@@ -26,11 +26,7 @@ export class StudentAdminComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        Swal.fire({
-          title: 'Error al cargar estudiantes',
-          text: 'Hubo un problema al cargar los estudiantes. Intenta nuevamente.',
-          icon: 'error',
-        });
+     console.error('Error al cargar los estudiantes:', error);
         this.isLoading = false;
       }
     );

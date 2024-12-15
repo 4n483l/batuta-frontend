@@ -24,7 +24,7 @@
           <button class="btn btn-primary" [routerLink]="['/admin/instrument-admin']">Instrumentos</button>
         </div>
     <div class="nav-item">
-      <button class="btn btn-primary" [routerLink]="['/admin/course-admin']">Cursos</button>
+      <button class="btn btn-primary" [routerLink]="['/admin/course-admin']">Clases</button>
     </div>
     <div class="nav-item">
       <button class="btn btn-primary" [routerLink]="['/admin/exam-admin']">Exámenes</button>
@@ -32,13 +32,13 @@
   </nav>
 
     <!-- Contenedor central -->
- <!--  <div class="main-content d-flex justify-content-center align-items-center flex-column">
-    <div class="logo-container text-center">
+  <div class="main-content d-flex justify-content-center align-items-center flex-column">
+    <div *ngIf="showLogo" class="logo-container text-center">
 
-        <h1 class="panel-title">Panel de Administrador</h1>
+       <!--  <h1 class="panel-title">Panel de Administrador</h1> -->
         <img src="assets/logo/logo.png" alt="Logo" class="logo-img mb-3">
       </div>
-    </div> -->
+    </div>
 
   <router-outlet></router-outlet>
 

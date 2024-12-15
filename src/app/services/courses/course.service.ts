@@ -13,7 +13,6 @@ export class CourseService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Método para obtener los encabezados de las peticiones
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken() || '';
     return new HttpHeaders({

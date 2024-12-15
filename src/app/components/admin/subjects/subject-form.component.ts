@@ -27,40 +27,37 @@ export class SubjectFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.selectedSubject) {
-      this.subject = { ...this.selectedSubject };
-      this.isEditMode = true;
-      this.isLoading = false;
-    } else {
-      this.isLoading = false;
-    }
-
     this.route.params.subscribe((params) => {
       const subjectId = params['id'];
-      if (subjectId) {
-        this.isLoading = true;
 
-        this.subjectService
-          .getSubjectById(subjectId)
-          .subscribe((data: Subject) => {
-            this.subject = data;
-            this.isEditMode = true;
-            this.isLoading = false;
-          });
-      } else {
-        Swal.fire({
-          title: 'Error al cargar la asignatura',
-          text: 'Hubo un problema al obtener los datos de la asignatura.',
-          icon: 'error',
-        });
+      if (!subjectId) {
+        this.isEditMode = false;
         this.isLoading = false;
+        return;
       }
+
+      this.isLoading = true;
+      this.subjectService.getSubjectById(Number(subjectId)).subscribe(
+        (data: Subject) => {
+          this.subject = data;
+          this.isEditMode = true;
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error al cargar la asignatura', error);
+          Swal.fire({
+            title: 'Error al cargar la asignatura',
+            text: 'Hubo un problema al obtener los datos de la asignatura.',
+            icon: 'error',
+          });
+          this.isLoading = false;
+        }
+      );
     });
   }
 
   saveSubject(): void {
     if (this.subject.id === 0) {
-      // Crear nueva asignatura
       this.subjectService.createSubject(this.subject).subscribe(
         (newSubject) => {
           Swal.fire({
@@ -69,7 +66,7 @@ export class SubjectFormComponent implements OnInit {
             timer: 1500,
             showConfirmButton: false,
           });
-          this.isLoading = false;
+
           this.router.navigate(['/admin/subject-admin']);
         },
         (error) => {
@@ -78,11 +75,9 @@ export class SubjectFormComponent implements OnInit {
             text: 'No se pudo guardar la asignatura. Por favor, inténtelo de nuevo.',
             icon: 'error',
           });
-          this.isLoading = false;
         }
       );
     } else {
-      // Editar asignatura existente
       this.subjectService.updateSubject(this.subject).subscribe(
         () => {
           Swal.fire({
@@ -91,7 +86,7 @@ export class SubjectFormComponent implements OnInit {
             timer: 1500,
             showConfirmButton: false,
           });
-          this.isLoading = false;
+
           this.router.navigate(['/admin/subject-admin']);
         },
         (error) => {
@@ -100,7 +95,6 @@ export class SubjectFormComponent implements OnInit {
             text: 'No se pudieron guardar los cambios. Por favor, inténtelo de nuevo.',
             icon: 'error',
           });
-          this.isLoading = false;
         }
       );
     }

@@ -9,7 +9,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./student-admin.component.scss'],
 })
 export class StudentFormComponent implements OnInit {
-  student: any = {};
+  // student: any = {};
+  student: any = {
+    user_id: '', // Asegúrate de inicializar esta propiedad con un valor vacío
+    name: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    postal_code: '',
+    birth_date: '',
+  };
+
   users: any[] = [];
 
   isEditMode: boolean = false;
@@ -42,9 +54,8 @@ export class StudentFormComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-
-     console.error('Error al cargar el estudiante:', error);
-             this.isLoading = false;
+        console.error('Error al cargar el estudiante:', error);
+        this.isLoading = false;
       }
     );
   }

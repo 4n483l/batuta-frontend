@@ -13,6 +13,7 @@
       <div class="mb-3">
         <label for="place" class="form-label">Lugar</label>
         <select id="place" class="form-control" [(ngModel)]="rehearsal.place" name="place" required>
+          <option value="" disabled selected>Selecciona un sitio</option>
           <option value="Auditorio">Auditorio</option>
           <option value="Sala de ensayo">Sala de Ensayos</option>
         </select>

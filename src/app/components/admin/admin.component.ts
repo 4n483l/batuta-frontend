@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -9,12 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
   currentList: any[] = [];
 
-  constructor(
+  showLogo: boolean = true;
 
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-
+    this.router.events.subscribe((event: Event)=>{
+      if(event instanceof NavigationEnd){
+        this.showLogo = event.url === '/admin';
+      }
+    })
   }
-
 }

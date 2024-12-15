@@ -43,7 +43,7 @@
         <select id="user" class="form-control" [(ngModel)]="course.user_id" name="user" required>
           <option value="" disabled selected>Seleccione un profesor</option>
           <option *ngFor="let teacher of teachers" [value]="teacher.id">
-            {{ teacher.name }} ({{ teacher.email }})
+            {{ teacher.name }} {{ teacher.lastname }}
           </option>
         </select>
       </div>

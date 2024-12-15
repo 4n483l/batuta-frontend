@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class CourseFormComponent implements OnInit {
   course: any = {
-    subject_id: null,
+    subject_id: '',
     instrument_id: '',
     user_id: '',
     classroom: '',
@@ -60,7 +60,7 @@ export class CourseFormComponent implements OnInit {
         this.course = response.course;
       },
       (error) => {
-        console.error('Error al cargar el curso:', error);
+        console.error('Error al cargar la clase:', error);
       }
     );
   }
@@ -113,8 +113,8 @@ export class CourseFormComponent implements OnInit {
         },
         (error) => {
           Swal.fire({
-            title: 'Error al actualizar el curso',
-            text: 'Hubo un problema al actualizar el curso.',
+            title: 'Error al actualizar la clase',
+            text: 'Hubo un problema al actualizar la clase.',
             icon: 'error',
           });
           this.router.navigate(['/admin/course-admin']);
@@ -133,8 +133,8 @@ export class CourseFormComponent implements OnInit {
         },
         (error) => {
           Swal.fire({
-            title: 'Error al crear el curso',
-            text: 'Hubo un problema al crear el curso.',
+            title: 'Error al crear la clase',
+            text: 'Hubo un problema al crear la clase.',
             icon: 'error',
           });
         }

@@ -12,11 +12,13 @@
 
 <div class="mb-3">
   <label for="user" class="form-label">Usuario</label>
-  <select id="user" class="form-control" [(ngModel)]="student.user_id" name="user">
-  <!--   <option value="" disabled selected>Asociar usuario</option> -->
-    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+  <select id="user" class="form-control" [(ngModel)]="student.user_id" name="user" required>
+    <option value="" disabled selected>Asociar usuario</option>
+    <option *ngFor="let user of users" [value]="user.id">{{ user.name }} {{ user.lastname }}</option>
   </select>
 </div>
+
+
 
       <!-- Campo de Nombre -->
       <div class="mb-3"><!--  -->

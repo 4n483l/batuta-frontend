@@ -18,17 +18,16 @@ h2{
   width: 230px;
   background-color: $color-darkPrimary;
   padding: 20px;
-  //color: $color-contrast;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Alinea los elementos al inicio */
+  justify-content: flex-start;
   height: 100vh;
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar .logo h3 {
   color: $color-contrast;
-  margin-bottom: 30px; /* Separa el logo de los botones */
+  margin-bottom: 30px;
 }
 
 
@@ -40,11 +39,46 @@ h2{
 
 /* Contenido principal */
 .main-content {
-  // flex-grow: 1;
+ // flex-grow: 1;
   padding: 20px;
   background-color: $color-secondary;
+}
+
+
+/* Logo centrado */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  //height: 100%;
+  text-align: center;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  text-align: center;
+  margin-left:250px;
 
 }
+
+.logo-img {
+
+ // margin-left:250px;
+   width: 100%; /* Hace que el logo ocupe todo el ancho disponible */
+  height: auto; /* Mantiene las proporciones del logo */
+  max-height: 100vh; /* Evita que el logo se estire demasiado alto */
+  object-fit: contain;
+   opacity: 0.6;
+}
+
+.panel-title {
+  color: $color-primary;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
+
 
 .content-header {
   margin-bottom: 30px;

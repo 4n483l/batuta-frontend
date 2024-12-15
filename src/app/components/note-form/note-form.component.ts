@@ -106,8 +106,8 @@ export class NoteFormComponent implements OnInit {
       },
       (error) => {
         Swal.fire({
-          title: 'Error al cargar la nota',
-          text: 'Hubo un problema al cargar la nota. Intenta de nuevo más tarde.',
+          title: 'Error al cargar el apunte',
+          text: 'Al parecer no existe el apunte.',
           icon: 'error',
           confirmButtonColor: '#4b6584',
         });
@@ -145,7 +145,7 @@ export class NoteFormComponent implements OnInit {
     this.pdf.save('note.pdf');
   }
 
-  editNotePdf(noteId: number) {
+ /*  editNotePdf(noteId: number) {
     this.generatePdf();
     this.isEditMode = true;
 
@@ -172,12 +172,14 @@ export class NoteFormComponent implements OnInit {
           title: 'Nota actualizada',
           text: 'La nota se actualizó correctamente.',
           icon: 'success',
+          timer: 1500,
           confirmButtonColor: '#4b6584',
+          showConfirmButton: false,
         });
         this.router.navigate(['/notes']);
       },
       (error) => {
-        // console.error(error);
+         console.error(error);
         Swal.fire({
           title: 'Error al actualizar nota',
           text: 'Hubo un problema al actualizar la nota. Intenta de nuevo más tarde.',
@@ -186,20 +188,10 @@ export class NoteFormComponent implements OnInit {
         });
       }
     );
-  }
+  } */
 
   saveNotePdf() {
     //  console.log('Nota antes de enviar:', this.note);
-
-    if (!this.note.title || !this.note.topic || !this.note.content) {
-      Swal.fire({
-        title: 'Campos incompletos',
-        text: 'Por favor, completa todos los campos antes de guardar.',
-        icon: 'warning',
-        confirmButtonColor: '#4b6584',
-      });
-      return;
-    }
 
     this.generatePdf();
 
@@ -227,7 +219,9 @@ export class NoteFormComponent implements OnInit {
             title: 'Nota actualizada',
             text: 'La nota se actualizó correctamente.',
             icon: 'success',
+            timer: 1500,
             confirmButtonColor: '#4b6584',
+            showConfirmButton: false,
           });
           this.router.navigate(['/notes']);
         },
@@ -248,7 +242,9 @@ export class NoteFormComponent implements OnInit {
             title: 'Nota guardada',
             text: 'La nota se guardó correctamente.',
             icon: 'success',
+            timer: 1500,
             confirmButtonColor: '#4b6584',
+            showConfirmButton: false,
           });
           this.router.navigate(['/notes']);
         },
@@ -260,15 +256,6 @@ export class NoteFormComponent implements OnInit {
   }
 
   generatePdf() {
-    if (!this.note.title || !this.note.topic || !this.note.content) {
-      Swal.fire({
-        title: 'Error al generar PDF',
-        text: 'Faltan datos para generar el PDF. Asegúrate de completar todos los campos.',
-        icon: 'error',
-        confirmButtonColor: '#4b6584',
-      });
-      return;
-    }
 
     let yPosition = 10;
     // Obtener el tamaño de la página

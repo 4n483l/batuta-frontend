@@ -34,15 +34,15 @@ export class CourseAdminComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
-        console.error('Error al cargar cursos:', error);
-      
+        console.error('Error al cargar clases:', error);
+
       }
     );
   }
 
   deleteCourse(id: number): void {
     Swal.fire({
-      title: `¿Estás seguro de que quieres eliminar el curso?`,
+      title: `¿Estás seguro de que quieres eliminar la clase?`,
       text: '¡Esta acción no se puede deshacer!',
       icon: 'warning',
       showCancelButton: true,
@@ -53,21 +53,21 @@ export class CourseAdminComponent implements OnInit {
       if (result.isConfirmed) {
         this.courseService.deleteCourse(id).subscribe({
           next: () => {
-            // Filtra la lista actual para eliminar el curso
+            // Filtra la lista actual para eliminar la clase
             this.currentList = this.currentList.filter(
               (course) => course.id !== id
             );
             Swal.fire({
               title: '¡Eliminado!',
-              text: `El curso ha sido eliminado.`,
+              text: `La clase ha sido eliminada.`,
               icon: 'success',
             });
           },
           error: (error) => {
-            console.error('Error eliminando el curso:', error);
+            console.error('Error eliminando la clase:', error);
             Swal.fire({
               title: 'Error',
-              text: 'Hubo un problema al eliminar el curso. Inténtalo de nuevo más tarde.',
+              text: 'Hubo un problema al eliminar la clase. Inténtalo de nuevo más tarde.',
               icon: 'error',
             });
           },

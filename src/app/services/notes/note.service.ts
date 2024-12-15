@@ -29,6 +29,7 @@ export class NoteService {
 
   getNotes(): Observable<any> {
     return this.http.get(this.notesUrl, {
+
       headers: this.getHeaders(),
     });
   }

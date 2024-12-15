@@ -7,7 +7,7 @@
 
 <div *ngIf="!isTeacherLoading && !isInstrumentLoading && !isSubjectLoading" class="card mt-4 mx-auto">
   <div class="card-body">
-    <h3>{{ isEditMode ? 'Editar Curso' : 'Agregar Curso' }}</h3>
+    <h3>{{ isEditMode ? 'Editar Examen' : 'Agregar Examen' }}</h3>
     <form (ngSubmit)="saveExam()">
 
       <!-- Asignatura -->
@@ -44,7 +44,7 @@
         <select id="user" class="form-control" [(ngModel)]="exam.user_id" name="user" required>
           <option value="" disabled selected>Seleccione un profesor</option>
           <option *ngFor="let teacher of teachers" [value]="teacher.id">
-            {{ teacher.name }} ({{ teacher.email }})
+            {{ teacher.name }} {{ teacher.lastname }}
           </option>
         </select>
       </div>

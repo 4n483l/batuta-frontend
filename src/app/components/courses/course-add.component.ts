@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class CourseAddComponent implements OnInit {
   course: any = {
-    subject_id: null,
+    subject_id: '',
     instrument_id: '',
     user_id: '',
     classroom: '',
@@ -21,6 +21,7 @@ export class CourseAddComponent implements OnInit {
     hour: '',
   };
   teachers: any[] = [];
+
   asignaturas: any[] = [];
   instrumentos: any[] = [];
 

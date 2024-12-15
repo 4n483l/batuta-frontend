@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class ExamFormComponent implements OnInit {
   exam: any = {
-    subject_id: null,
+    subject_id: '',
     instrument_id: '',
     user_id: '',
     classroom: '',
@@ -59,7 +59,7 @@ export class ExamFormComponent implements OnInit {
         this.exam = response.Exam;
       },
       (error) => {
- 
+
       }
     );
   }

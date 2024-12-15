@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+
   // Nuevas propiedades para los campos adicionales
   name: string = '';
   lastname: string = '';
@@ -17,8 +18,9 @@ export class RegisterComponent {
   phone: string = '';
   address: string = '';
   city: string = '';
-  postalCode: string = '';
-  birthdate: string = '';
+  postal_code: string = '';
+  // birth_date: string = '';
+  birth_date: Date = new Date();
   email: string = '';
   password: string = '';
   password_confirmation: string = '';
@@ -27,6 +29,7 @@ export class RegisterComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      //console.log('Datos del form: ', form.value);
       const {
         name,
         lastname,
@@ -34,8 +37,8 @@ export class RegisterComponent {
         phone,
         address,
         city,
-        postalCode,
-        birthdate,
+        postal_code,
+        birth_date,
         email,
         password,
         password_confirmation,
@@ -49,8 +52,8 @@ export class RegisterComponent {
           phone,
           address,
           city,
-          postalCode,
-          birthdate,
+          postal_code,
+          birth_date,
           email,
           password,
           password_confirmation,

@@ -30,7 +30,7 @@
         <td class="text-start">{{ student.name }}</td>
           <td class="text-start">{{ student.lastname }}</td>
         <td>{{ student.email }}</td>
-        <td>{{ student.user.name }}</td>
+        <td>{{ student.user.name }} {{ student.user.lastname }}</td>
         <td>
           <div class="d-flex gap-1">
             <button class="btn btn-primary btn-sm" [routerLink]="['/admin/student-form', student.id]">Editar</button>

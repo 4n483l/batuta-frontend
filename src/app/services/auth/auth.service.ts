@@ -49,8 +49,9 @@ export class AuthService {
     phone: string;
     address: string;
     city: string;
-    postalCode: string;
-    birthdate: string;
+    postal_code: string;
+    //birth_date: string;
+    birth_date: Date;
     email: string;
     password: string;
     password_confirmation: string;

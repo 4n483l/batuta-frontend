@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CourseService } from 'src/app/services/courses/course.service';
@@ -16,10 +17,12 @@ export class CoursesComponent implements OnInit {
   userType: string = '';
   isLoggedIn: boolean = false;
   isLoading: boolean = true;
+  viewNotes: boolean = false;
 
   constructor(
     private courseService: CourseService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,13 +36,21 @@ export class CoursesComponent implements OnInit {
       if (this.isLoggedIn) {
         this.authService.getUserData().subscribe((userData) => {
           this.userType = userData.user_type;
-          this.loadCourses();
         });
       }
     });
   }
 
+  ngAfterViewInit(): void {
+    if (this.router.url.includes('courses')) {
+      this.loadCourses();
+    }
+  }
+
   loadCourses(): void {
+    this.viewNotes = true;
+    this.isLoading = true;
+
     this.courseService.getCourses().subscribe(
       (data: any) => {
         if (this.userType === 'teacher') {
@@ -56,8 +67,8 @@ export class CoursesComponent implements OnInit {
           }
         }
         this.isLoading = false;
-        
-        if (this.coursesList.length === 0) {
+
+        if (this.viewNotes && this.coursesList.length === 0) {
           Swal.fire({
             title: 'No hay cursos disponibles',
             text: 'Parece que no tienes cursos asignados.',
@@ -69,7 +80,7 @@ export class CoursesComponent implements OnInit {
         }
       },
       (error) => {
-       // console.error('Error al obtener los cursos:', error);
+        // console.error('Error al obtener los cursos:', error);
         this.isLoading = false;
       }
     );

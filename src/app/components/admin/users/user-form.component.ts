@@ -61,11 +61,11 @@ export class UserFormComponent implements OnInit {
       },
       (error) => {
         console.error('Error al actualizar usuario:', error);
-      /*   Swal.fire({
+        Swal.fire({
           title: 'Error al actualizar usuario',
           text: 'No se pudieron guardar los cambios.',
           icon: 'error',
-        }); */
+        });
       }
     );
   }

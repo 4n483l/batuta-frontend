@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Exam } from 'src/app/models/exam.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ExamService } from 'src/app/services/exams/exam.service';
@@ -16,10 +17,12 @@ export class ExamsComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   isLoading: boolean = true;
+  viewNotes: boolean = false;
 
   constructor(
     private examService: ExamService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,12 @@ export class ExamsComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.router.url.includes('exams')) {
+      this.loadExams();
+    }
   }
 
   loadExams() {
@@ -57,7 +66,7 @@ export class ExamsComponent implements OnInit {
         }
         this.isLoading = false;
 
-        if (this.examsList.length === 0) {
+        if (this.viewNotes && this.examsList.length === 0) {
           Swal.fire({
             title: 'No hay exámenes disponibles',
             text: 'Parece que no tienes exámenes asignados.',
@@ -70,7 +79,7 @@ export class ExamsComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
-        console.error('Error al obtener los exámenes:', error);
+        //console.error('Error al obtener los exámenes:', error);
       }
     );
   }

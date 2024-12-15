@@ -60,8 +60,6 @@ export class TuitionsComponent implements OnInit {
         instrument: +this.selectedInstrumentId!,
       };
 
-      console.log('Datos de la matrícula:', tuitionData);
-
       this.tuitionService.postTuition(tuitionData).subscribe(
         (data: any) => {
           this.router.navigate(['/dashboard']);
@@ -109,7 +107,7 @@ export class TuitionsComponent implements OnInit {
   loadLoggedUser() {
 
     this.tuitionService.getTuitions().subscribe((data: any) => {
-      console.log('Datos del usuario:', data); 
+
       this.phone = data.usuario.phone;
       this.address = data.usuario.address;
       this.city = data.usuario.city;

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { API_ROUTES } from 'src/app/config/api-routes';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NoteService } from 'src/app/services/notes/note.service';
@@ -18,12 +18,14 @@ export class NotesComponent implements OnInit {
   userType: string = '';
   isLoggedIn: boolean = false;
   isLoading: boolean = true;
+  viewNotes: boolean = false;
 
   constructor(
     private http: HttpClient,
     private noteService: NoteService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -35,18 +37,23 @@ export class NotesComponent implements OnInit {
       this.isLoggedIn = loggedIn;
 
       if (this.isLoggedIn) {
-        this.authService.getUserData().subscribe(
-          (userData) => {
-            this.userType = userData.user_type;
-            this.loadNotes();
-          }
-        );
+        this.authService.getUserData().subscribe((userData) => {
+          this.userType = userData.user_type;
+        });
       }
     });
   }
-
+  ngAfterViewInit(): void {
+    // Verifica si la ruta es '/notes', solo entonces carga las notas
+    if (this.router.url.includes('notes')) {
+      this.loadNotes();
+    }
+  }
 
   loadNotes(): void {
+this.viewNotes = true; 
+this.isLoading = true;
+
     this.noteService.getNotes().subscribe(
       (data: any) => {
         if (this.userType === 'teacher') {
@@ -64,7 +71,7 @@ export class NotesComponent implements OnInit {
         }
         this.isLoading = false;
 
-        if (this.notesList.length === 0) {
+        if (this.viewNotes && this.notesList.length === 0) {
           Swal.fire({
             title: 'No hay apuntes disponibles',
             text: 'No hay apuntes disponibles para mostrar.',

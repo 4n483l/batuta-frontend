@@ -20,6 +20,7 @@ export class CourseAdminComponent implements OnInit {
   ngOnInit(): void {
     this.loadCourses();
   }
+  
   loadCourses(): void {
     this.isLoading = true;
 

@@ -15,7 +15,6 @@ export class CoursesComponent implements OnInit {
   // coursesByStudent: { [studentId: number]: Course[] } = {};
   userType: string = '';
   isLoggedIn: boolean = false;
-
   isLoading: boolean = true;
 
   constructor(
@@ -43,8 +42,6 @@ export class CoursesComponent implements OnInit {
   loadCourses(): void {
     this.courseService.getCourses().subscribe(
       (data: any) => {
-       
-
         if (this.userType === 'teacher') {
           this.coursesList = data.CoursesTeacher;
         } else {
@@ -59,24 +56,21 @@ export class CoursesComponent implements OnInit {
           }
         }
         this.isLoading = false;
-             if (this.coursesList.length === 0) {
-               Swal.fire({
-                 title: 'No hay cursos disponibles',
-                 text: 'Parece que no tienes cursos asignados.',
-                 icon: 'info',
-                 confirmButtonColor: '#4b6584',
-               });
-             }
+        
+        if (this.coursesList.length === 0) {
+          Swal.fire({
+            title: 'No hay cursos disponibles',
+            text: 'Parece que no tienes cursos asignados.',
+            icon: 'info',
+            timer: 1500,
+            confirmButtonColor: '#4b6584',
+            showConfirmButton: false,
+          });
+        }
       },
       (error) => {
-console.error('Error al obtener los cursos:', error);
+       // console.error('Error al obtener los cursos:', error);
         this.isLoading = false;
-        /*    Swal.fire({
-             title: 'Error al cargar cursos',
-             text: 'Hubo un problema al obtener los cursos. Intenta de nuevo más tarde.',
-             icon: 'error',
-             confirmButtonColor: '#4b6584',
-           }); */
       }
     );
   }

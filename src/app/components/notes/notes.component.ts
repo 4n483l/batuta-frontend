@@ -38,55 +38,56 @@ export class NotesComponent implements OnInit {
         this.authService.getUserData().subscribe(
           (userData) => {
             this.userType = userData.user_type;
-            this.getNotesData();
-          },
-          (error) => {
-             console.error('Error al obtener los datos del usuario:', error);
-            Swal.fire({
-              title: 'Error de autenticación',
-              text: 'Hubo un problema al obtener los datos del usuario. Intenta de nuevo más tarde.',
-              icon: 'error',
-              confirmButtonColor: '#4b6584',
-            });
+            this.loadNotes();
           }
         );
       }
     });
   }
 
-  // obtiene los apuntes de teacher y de student
-  getNotesData(): void {
-    this.noteService.getNotes().subscribe((data: any) => {
 
+  loadNotes(): void {
+    this.noteService.getNotes().subscribe(
+      (data: any) => {
+        if (this.userType === 'teacher') {
+          this.notesList = data.NotesTeacher;
+        } else {
+          this.notesList = [];
 
-      if (this.userType === 'teacher') {
-        this.notesList = data.NotesTeacher;
-      } else {
+          for (let studentId in data.notesStudent) {
+            const apuntesAlumno = data.notesStudent[studentId];
 
+            apuntesAlumno.forEach((apunte: any) => {
+              this.notesList.push(apunte);
+            });
+          }
+        }
+        this.isLoading = false;
 
-        this.notesList = [];
-
-        for (let studentId in data.notesStudent) {
-          const apuntesAlumno = data.notesStudent[studentId];
-
-          apuntesAlumno.forEach((apunte: any) => {
-            this.notesList.push(apunte);
+        if (this.notesList.length === 0) {
+          Swal.fire({
+            title: 'No hay apuntes disponibles',
+            text: 'No hay apuntes disponibles para mostrar.',
+            icon: 'info',
+            timer: 1500,
+            confirmButtonColor: '#4b6584',
+            showConfirmButton: false,
           });
         }
+      },
+      (error) => {
+        // console.error('Error al cargar los apuntes:', error);
+        Swal.fire({
+          title: 'Error al cargar apuntes',
+          text: 'Hubo un problema al cargar los apuntes. Intenta de nuevo más tarde.',
+          icon: 'error',
+          timer: 1500,
+          confirmButtonColor: '#4b6584',
+          showConfirmButton: false,
+        });
+        this.isLoading = false;
       }
-      this.isLoading = false;
-
-    }, (error) => {
-       // console.error('Error al cargar los apuntes:', error);
-       Swal.fire({
-         title: 'Error al cargar apuntes',
-         text: 'Hubo un problema al cargar los apuntes. Intenta de nuevo más tarde.',
-         icon: 'error',
-         confirmButtonColor: '#4b6584',
-       });
-       this.isLoading = false;
-    }
-  );
+    );
   }
 
   addNote(): void {
@@ -94,9 +95,8 @@ export class NotesComponent implements OnInit {
   }
 
   seePdf(link: string): void {
-
     window.open(`${this.pdfUrl}/${link}`, '_blank');
-   // console.log('Link:', link);
+    // console.log('Link:', link);
   }
 
   formatDate(dateString: string): string {

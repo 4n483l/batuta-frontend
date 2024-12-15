@@ -72,8 +72,8 @@
     <!-- Localidad y Código Postal -->
     <div class="form-row">
       <div class="form-group third-width">
-        <label for="postalCode">Código Postal</label>
-        <input type="text" class="form-control" id="postalCode" name="postal_code" [(ngModel)]="postal_code"
+        <label for="postal_code">Código Postal</label>
+        <input type="text" class="form-control" id="postal_code" name="postal_code" [(ngModel)]="postal_code"
           #postalCodeInput="ngModel" required placeholder="C.P." />
         <div *ngIf="postalCodeInput.invalid && postalCodeInput.touched" class="text-danger">
           <div *ngIf="postalCodeInput.errors?.['required']">El código postal es obligatorio.</div>
@@ -113,7 +113,7 @@
       <option *ngFor="let instrument of instrumentos" [value]="instrument.id">
         {{ instrument.name }}
       </option>
-      
+
     </select>
     <div *ngIf="instrumentInput.invalid && instrumentInput.touched" class="text-danger">
       <div *ngIf="instrumentInput.errors?.['required']">El instrumento es obligatorio.</div>

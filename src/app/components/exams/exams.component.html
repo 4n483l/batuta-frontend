@@ -5,7 +5,7 @@
 
 <div *ngIf="!isLoading">
 
-<div class="button-container">
+<div class="button-container" *ngIf="userType === 'teacher'">
   <button class="btn btn-agregar" [routerLink]="['/exam-add']" class="btn btn-primary">Añadir examen
 
   </button>

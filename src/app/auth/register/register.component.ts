@@ -41,7 +41,6 @@ export class RegisterComponent {
         password_confirmation,
       } = form.value;
 
-      // Llamada al servicio de registro con todos los datos
       this.authService
         .register({
           name,
@@ -58,21 +57,27 @@ export class RegisterComponent {
         })
         .subscribe(
           (response) => {
-            Swal.fire(
-              'Registro exitoso',
-              'Usuario registrado correctamente',
-              'success'
-            );
-            console.log('Respuesta del backend:', response);
-            this.router.navigate(['/login']);
+            Swal.fire({
+              title: 'Registro exitoso',
+              text: 'Usuario registrado correctamente.',
+              icon: 'success',
+              timer: 1500,
+              confirmButtonColor: '#4b6584',
+              showConfirmButton: false,
+            }).then(() => {
+              this.router.navigate(['/login']);
+            });
           },
           (error) => {
             console.error('Error durante el registro:', error);
-            alert('Hubo un error en el registro. Inténtalo de nuevo.');
+            Swal.fire({
+              title: 'Formulario incompleto',
+              text: 'Por favor, completa correctamente el formulario.',
+              icon: 'error',
+              confirmButtonColor: '#c85a42',
+            });
           }
         );
-    } else {
-      alert('Por favor, completa correctamente el formulario.');
     }
   }
 }

@@ -37,7 +37,7 @@
           <a class="nav-link" [routerLink]="['/note-form']">Crear Apuntes</a>
         </li>
 
-        <li class="nav-item" *ngIf="userType === 'member' && !hasStudents && role !='admin'">
+        <li class="nav-item" *ngIf="userType === 'member' && !hasStudents "><!-- && role !='admin' -->
           <a class="nav-link" [routerLink]="['/tuitions']">Matrícula</a>
         </li>
 

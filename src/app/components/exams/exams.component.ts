@@ -62,19 +62,15 @@ export class ExamsComponent implements OnInit {
             title: 'No hay exámenes disponibles',
             text: 'Parece que no tienes exámenes asignados.',
             icon: 'info',
+            timer: 1500,
             confirmButtonColor: '#4b6584',
+            showConfirmButton: false,
           });
         }
       },
       (error) => {
         this.isLoading = false;
         console.error('Error al obtener los exámenes:', error);
-        /* Swal.fire({
-          title: 'Error al cargar exámenes',
-          text: 'Hubo un problema al obtener los exámenes. Intenta de nuevo más tarde.',
-          icon: 'error',
-          confirmButtonColor: '#4b6584',
-        }); */
       }
     );
   }

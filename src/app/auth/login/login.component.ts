@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms'; // Importar NgForm para formularios basados en plantillas
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -17,23 +18,40 @@ export class LoginComponent {
   // Método para manejar el envío del formulario
   onSubmit(form: NgForm) {
     if (form.valid) {
-      // Verificar que el formulario sea válido
       const { email, password } = form.value;
 
       this.authService.login(email, password).subscribe(
         (response) => {
-          console.log('Inicio de sesión correcto:', response);
-          console.log('Token JWT:', this.authService.getToken());
-
-          this.router.navigate(['/dashboard']);
+          Swal.fire({
+            title: 'Inicio de sesión exitoso',
+            text: '¡Bienvenid@!',
+            icon: 'success',
+            timer: 1500,
+            confirmButtonColor: '#4b6584',
+            showConfirmButton: false,
+          }).then(() => {
+            this.router.navigate(['/dashboard']);
+          });
         },
         (error) => {
-          alert('Error en el inicio de sesión');
           console.error(error);
+          Swal.fire({
+            title: 'Error en el inicio de sesión',
+            text: 'Inténtalo de nuevo.',
+            icon: 'error',
+            confirmButtonColor: '#c85a42',
+          });
         }
       );
     } else {
-      alert('Por favor, completa el formulario correctamente');
+      Swal.fire({
+        title: 'Formulario incompleto',
+        text: 'Por favor, completa todos los campos correctamente.',
+        icon: 'error',
+        timer: 1500,
+        confirmButtonColor: '#4b6584',
+        showConfirmButton: false,
+      });
     }
   }
 }

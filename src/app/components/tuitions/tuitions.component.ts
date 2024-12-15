@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tuitions.component.scss'],
 })
 export class TuitionsComponent implements OnInit {
-  // Inicializar datos
+
   name: string = '';
   lastname: string = '';
   dni: string = '';
@@ -45,7 +45,6 @@ export class TuitionsComponent implements OnInit {
   ngOnInit(): void {
     this.loadInstruments();
     this.loadSubjects();
-    this.initCheckbox();
     this.loadLoggedUser();
   }
 
@@ -55,29 +54,20 @@ export class TuitionsComponent implements OnInit {
         .filter((key) => this.checkedSubjects[+key])
         .map((key) => +key); // Convierte los strings a números
 
-      // Cuando se selecciona un instrumento, se agrega a la lista de asignaturas
-         const instrumentSubject = this.asignaturas.find(
-        (subject) => subject.name === 'Instrumento'
-      );
-
-      if (instrumentSubject && this.selectedInstrumentId) {
-        selectedSubjects.push(instrumentSubject.id); // TODO: agregar instrumento desde el backend
-      }
-
-
       const tuitionData: Tuition = {
-        // operador de propagacion. Copia todos los valores de form.value
         ...form.value,
         subjects: selectedSubjects,
+        instrument: +this.selectedInstrumentId!,
       };
+
+      console.log('Datos de la matrícula:', tuitionData);
 
       this.tuitionService.postTuition(tuitionData).subscribe(
         (data: any) => {
           this.router.navigate(['/dashboard']);
           Swal.fire({
             title: 'Matrícula realizada con éxito',
-            icon: 'success',
-            confirmButtonColor: '#4b6584',
+            icon: 'success'
           });
         },
         (error) => {
@@ -85,16 +75,14 @@ export class TuitionsComponent implements OnInit {
           Swal.fire({
             title: 'Error al realizar la matrícula',
             text: 'Hubo un problema al procesar tu matrícula. Intenta de nuevo más tarde.',
-            icon: 'error',
-            confirmButtonColor: '#c85a42',
+            icon: 'error'
           });
         }
       );
     } else {
       Swal.fire({
         title: 'Por favor, completa correctamente el formulario',
-        icon: 'error',
-        confirmButtonColor: '#c85a42',
+        icon: 'error'
       });
     }
   }
@@ -110,12 +98,18 @@ export class TuitionsComponent implements OnInit {
   loadSubjects() {
     this.subjectService.getSubjects().subscribe((dataSubject: any) => {
       this.asignaturas = dataSubject.subjects;
+
+      this.asignaturas.forEach((subject) => {
+        this.checkedSubjects[subject.id] = false;
+      });
+
       this.isSubjectLoading = false;
     });
   }
   loadLoggedUser() {
-    // trae los datos del usuario logueado al formulario para facilitar la matricula
+
     this.tuitionService.getTuitions().subscribe((data: any) => {
+      console.log('Datos del usuario:', data); 
       this.phone = data.usuario.phone;
       this.address = data.usuario.address;
       this.city = data.usuario.city;
@@ -123,14 +117,6 @@ export class TuitionsComponent implements OnInit {
       this.email = data.usuario.email;
 
       this.isUserLoading = false;
-    });
-  }
-
-  initCheckbox() {
-    this.asignaturas.forEach((subject) => {
-      if (subject.name !== 'Instrumento') {
-        this.checkedSubjects[subject.id] = false;
-      }
     });
   }
 

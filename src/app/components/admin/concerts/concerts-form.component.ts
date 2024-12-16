@@ -116,6 +116,8 @@ export class ConcertsFormComponent implements OnInit {
       text: 'Si cancelas, perderás los cambios realizados.',
       icon: 'warning',
       showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
       confirmButtonText: 'Sí, cancelar',
       cancelButtonText: 'No, volver',
     }).then((result) => {

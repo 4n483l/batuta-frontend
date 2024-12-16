@@ -28,17 +28,13 @@
     </div>
     <div class="nav-item">
       <button class="btn btn-primary" [routerLink]="['/admin/exam-admin']">Exámenes</button>
-    </div>
+    </div>:
+
   </nav>
 
     <!-- Contenedor central -->
-<!--   <div class="main-content d-flex justify-content-center align-items-center flex-column">
-    <div *ngIf="showLogo" class="logo-container text-center"> -->
 
-       <!--  <h1 class="panel-title">Panel de Administrador</h1> -->
-  <!--       <img src="assets/logo/logo.png" alt="Logo" class="logo-img mb-3">
-      </div>
-    </div> -->
+    <app-logo *ngIf="showLogo"></app-logo>
 
   <router-outlet></router-outlet>
 

@@ -46,28 +46,7 @@ h2{
 
 
 /* Logo centrado */
-.logo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  //height: 100%;
-  text-align: center;
-    height: 100vh;
-  width: 100%;
-  text-align: center;
-  margin-left:250px;
 
-}
-
-.logo-img {
-
-   width: 100%;
-  height: auto;
-  max-height: 100vh;
-  object-fit: contain;
-   opacity: 0.2;
-}
 
 .panel-title {
   color: $color-primary;

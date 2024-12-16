@@ -178,6 +178,8 @@ export class ExamFormComponent implements OnInit {
       text: 'Si cancelas los cambios, se perderán.',
       icon: 'warning',
       showCancelButton: true,
+      confirmButtonColor: '#4b6584',
+      cancelButtonColor: '#c85a42',
       confirmButtonText: 'Sí, cancelar',
       cancelButtonText: 'No, volver',
     }).then((result) => {

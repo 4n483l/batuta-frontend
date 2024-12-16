@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe((event: Event)=>{
       if(event instanceof NavigationEnd){
-        this.showLogo = event.url === '/admin';
+        this.showLogo = event.urlAfterRedirects === '/admin';
       }
     })
   }

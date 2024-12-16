@@ -5,8 +5,8 @@
 
 <div *ngIf="!isLoading" class="card mt-4 mx-auto">
   <div class="card-body">
- <!--    <h3>{{ isEditMode ? 'Editar Usuario' : 'Agregar Usuario' }}</h3> -->
-     <h3>Editar usuario</h3>
+    <h3>{{ isEditMode ? 'Editar Usuario' : 'Agregar Usuario' }}</h3>
+   <!--   <h3>Editar usuario</h3> -->
 
     <form (ngSubmit)="saveUser()">
       <!-- Campo de Nombre -->
@@ -22,17 +22,6 @@
           [required]="!isEditMode" />
       </div>
 
-        <!-- Campo DNI -->
-    <!--     <div class="mb-3" *ngIf="!isEditMode">
-          <label for="dni" class="form-label">DNI</label>
-          <input id="dni" type="text" class="form-control" [(ngModel)]="user.dni" name="dni" [required]="!isEditMode"  />
-        </div> -->
-
-        <!-- Campo de Email -->
-        <!-- <div class="mb-3" >
-          <label for="email" class="form-label">Email</label>
-          <input id="email" type="email" class="form-control" [(ngModel)]="user.email" name="email"/>
-        </div> -->
 
           <!-- Campo Teléfono -->
           <div class="mb-3">
@@ -42,8 +31,8 @@
 
         <!-- Campo Tipo de Usuario -->
         <div class="mb-3">
-          <label for="userType" class="form-label">Tipo usuario</label>
-          <select id="userType" class="form-control" [(ngModel)]="user.user_type" name="userType" required>
+          <label for="user_type" class="form-label">Tipo usuario</label>
+          <select id="user_type" class="form-control" [(ngModel)]="user.user_type" name="user_type" required>
             <option value="musician">Músico</option>
             <option value="member">Socio</option>
             <option value="teacher">Profesor</option>

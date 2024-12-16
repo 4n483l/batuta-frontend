@@ -35,7 +35,9 @@
         <td>{{ i + 1 }}</td>
         <td class="text-start">{{ user.name }}</td>
         <td class="text-start">{{ user.lastname }}</td>
-        <td>{{ user.user_type }}</td>
+        <!-- <td>{{ user.user_type }}</td> -->
+        <td>{{ getUserTypeLabel(user.user_type) }}</td>
+
         <td>{{ user.email }}</td>
         <td>{{ user.phone }}</td>
         <td>{{ user.address }}</td>

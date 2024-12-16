@@ -64,10 +64,8 @@ export class UserAdminComponent implements OnInit {
  */
 
   deleteUser(userId: number, userName: string, userLastname: string): void {
-
     this.authService.getStudents().subscribe(
       (response: any) => {
-
         const students = response.Students;
 
         if (Array.isArray(students)) {
@@ -83,7 +81,6 @@ export class UserAdminComponent implements OnInit {
           } else {
             confirmationMessage += '\n¡Los cambios no se pueden modificar!';
           }
-
 
           Swal.fire({
             title: confirmationMessage,
@@ -112,17 +109,6 @@ export class UserAdminComponent implements OnInit {
               );
             }
           });
-        } else {
-          // Si no es un array, mostrar un error
-          console.error(
-            'La respuesta de estudiantes no es un array:',
-            students
-          );
-       /*    Swal.fire({
-            title: 'Error al verificar estudiantes',
-            text: 'La respuesta de estudiantes no es válida.',
-            icon: 'error',
-          }); */
         }
       },
       (error) => {
@@ -133,5 +119,17 @@ export class UserAdminComponent implements OnInit {
         });
       }
     );
+  }
+
+  getUserTypeLabel(userType: string): string {
+    const userTypeMap: { [key: string]: string } = {
+      member: 'Socio',
+      student: 'Estudiante',
+      teacher: 'Profesor',
+      musician: 'Músico',
+      admin: 'Administrador',
+    };
+
+    return userTypeMap[userType] || 'Desconocido';
   }
 }

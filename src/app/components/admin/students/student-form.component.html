@@ -10,69 +10,99 @@
 
     <form (ngSubmit)="saveStudent()">
 
-<div class="mb-3">
-  <label for="user" class="form-label">Usuario</label>
-  <select id="user" class="form-control" [(ngModel)]="student.user_id" name="user" required>
-    <option value="" disabled selected>Asociar usuario</option>
-    <option *ngFor="let user of users" [value]="user.id">{{ user.name }} {{ user.lastname }}</option>
-  </select>
-</div>
+      <div class="mb-3">
+        <label for="user" class="form-label">Usuario</label>
+        <select id="user" class="form-control" [(ngModel)]="student.user_id" name="user" (change)="updateEmail()"
+          required>
+          <option value="" disabled selected>Asociar usuario</option>
+          <option *ngFor="let user of users" [value]="user.id">{{ user.name }} {{ user.lastname }}</option>
+        </select>
+      </div>
 
 
 
       <!-- Campo de Nombre -->
       <div class="mb-3"><!--  -->
         <label for="name" class="form-label">Nombre</label>
-        <input id="name" type="text" class="form-control" [(ngModel)]="student.name" name="name" required />
+        <input type="text" id="name" name="name" class="form-control" [(ngModel)]="student.name" #nameInput="ngModel"
+          required minlength="3" placeholder="Introduce el nombre" />
+        <div *ngIf="nameInput.invalid && nameInput.touched" class="text-danger">
+          <div *ngIf="nameInput.errors?.['required']">El nombre es obligatorio.</div>
+          <div *ngIf="nameInput.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</div>
+        </div>
       </div>
 
       <!-- Campo Apellidos -->
       <div class="mb-3">
-        <label for="lastname" class="form-label">Apellidos</label>
-        <input id="lastname" type="text" class="form-control" [(ngModel)]="student.lastname" name="lastname"
-          [required]="!isEditMode" />
+        <label for="lastname" class="form-label">Apellido</label>
+        <input type="text" id="lastname" name="lastname" class="form-control" [(ngModel)]="student.lastname"
+          #lastnameInput="ngModel" required minlength="3" placeholder="Introduce el apellido" />
+        <div *ngIf="lastnameInput.invalid && lastnameInput.touched" class="text-danger">
+          <div *ngIf="lastnameInput.errors?.['required']">El apellido es obligatorio.</div>
+          <div *ngIf="lastnameInput.errors?.['minlength']">El apellido debe tener al menos 3 caracteres.</div>
+        </div>
       </div>
 
       <!-- Campo de Email -->
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input id="email" type="email" class="form-control" [(ngModel)]="student.email" name="email" />
+        <input id="email" type="email" class="form-control" [(ngModel)]="student.email" name="email" readonly />
       </div>
 
       <!-- Campo Teléfono -->
       <div class="mb-3">
         <label for="phone" class="form-label">Teléfono</label>
-        <input id="phone" type="text" class="form-control" [(ngModel)]="student.phone" name="phone"
-          [required]="!isEditMode" />
+        <input type="text" id="phone" name="phone" class="form-control" [(ngModel)]="student.phone"
+          #phoneInput="ngModel" required pattern="^\d{9}$" placeholder="Introduce el teléfono" />
+        <div *ngIf="phoneInput.invalid && phoneInput.touched" class="text-danger">
+          <div *ngIf="phoneInput.errors?.['required']">El teléfono es obligatorio.</div>
+          <div *ngIf="phoneInput.errors?.['pattern']">El teléfono debe tener 9 números.</div>
+        </div>
       </div>
 
       <!-- Campo Dirección -->
       <div class="mb-3">
         <label for="address" class="form-label">Dirección</label>
-        <input id="address" type="text" class="form-control" [(ngModel)]="student.address" name="address"
-          [required]="!isEditMode" />
+        <input type="text" id="address" name="address" class="form-control" [(ngModel)]="student.address"
+          #addressInput="ngModel" required placeholder="Introduce la dirección" />
+        <div *ngIf="addressInput.invalid && addressInput.touched" class="text-danger">
+          <div *ngIf="addressInput.errors?.['required']">La dirección es obligatoria.</div>
+        </div>
       </div>
 
       <!-- Campo Población -->
       <div class="mb-3">
         <label for="city" class="form-label">Población</label>
-        <input id="city" type="text" class="form-control" [(ngModel)]="student.city" name="city"
-          [required]="!isEditMode" />
+        <input type="text" id="city" name="city" class="form-control" [(ngModel)]="student.city" #cityInput="ngModel"
+          required minlength="2" placeholder="Introduce la ciudad" />
+        <div *ngIf="cityInput.invalid && cityInput.touched" class="text-danger">
+          <div *ngIf="cityInput.errors?.['required']">La ciudad es obligatoria.</div>
+          <div *ngIf="cityInput.errors?.['minlength']">La ciudad debe tener al menos 2 caracteres.</div>
+        </div>
       </div>
 
       <!-- Campo Código Postal -->
       <div class="mb-3">
         <label for="postal_code" class="form-label">Código Postal</label>
-        <input id="postal_code" type="text" class="form-control" [(ngModel)]="student.postal_code" name="postal_code"
-          [required]="!isEditMode" />
+        <input type="text" id="postal_code" name="postal_code" class="form-control" [(ngModel)]="student.postal_code"
+          #postalCodeInput="ngModel" required pattern="^\d{5}$"
+          placeholder="Introduce el código postal" />
+        <div *ngIf="postalCodeInput.invalid && postalCodeInput.touched" class="text-danger">
+          <div *ngIf="postalCodeInput.errors?.['required']">El código postal es obligatorio.</div>
+          <div *ngIf="postalCodeInput.errors?.['pattern']">El código postal consta de 5 números.</div>
+        </div>
+
       </div>
 
       <!-- Campo de Cumpleaños -->
       <div class="mb-3">
         <label for="birth_date" class="form-label">Fecha de Nacimiento</label>
-        <input id="birth_date" type="date" class="form-control" [(ngModel)]="student.birth_date" name="birth_date" />
+        <input type="date" id="birth_date" name="birth_date" class="form-control" [(ngModel)]="student.birth_date"
+          #birthDateInput="ngModel" required placeholder="Introduce la fecha de nacimiento" />
+        <div *ngIf="birthDateInput.invalid && birthDateInput.touched" class="text-danger">
+          <div *ngIf="birthDateInput.errors?.['required']">La fecha de nacimiento es obligatoria.</div>
+        </div>
       </div>
-
 
 
       <!-- Botones de acción -->

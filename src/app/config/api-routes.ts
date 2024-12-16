@@ -1,5 +1,5 @@
 // URL del backend Laravel
-/*     const API_URL = 'http://localhost:8000/api';
+/* const API_URL = 'http://localhost:8000/api';
 const API_URL_PDF = 'http://localhost:8000/storage'; */
 
 const API_URL = 'http://panel.batuta.lo/api';

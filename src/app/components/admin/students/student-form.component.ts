@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class StudentFormComponent implements OnInit {
   // student: any = {};
   student: any = {
-    user_id: '', // Asegúrate de inicializar esta propiedad con un valor vacío
+    user_id: '',
     name: '',
     lastname: '',
     email: '',
@@ -21,7 +21,6 @@ export class StudentFormComponent implements OnInit {
     postal_code: '',
     birth_date: '',
   };
-
   users: any[] = [];
 
   isEditMode: boolean = false;
@@ -63,15 +62,28 @@ export class StudentFormComponent implements OnInit {
   loadUsers(): void {
     this.authService.getUsers().subscribe(
       (response: any) => {
-        this.users = response.Users;
+
+        this.users = response.Users.filter(
+          (user: any) => user.user_type === 'member'
+        );
       },
       (error) => {
         console.error('Error al cargar los usuarios:', error);
       }
     );
   }
+  updateEmail() {
+    const selectedUser = this.users.find(
+      (user) => user.id === +this.student.user_id
+    );
+    if (selectedUser) {
+      this.student.email = selectedUser.email;
+    }
+  }
 
   saveStudent(): void {
+    console.log('Datos enviados:', this.student);
+
     if (this.isEditMode) {
       this.authService.updateStudent(this.student.id, this.student).subscribe(
         (response) => {

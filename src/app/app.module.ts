@@ -38,6 +38,7 @@ import { ExamFormComponent } from './components/admin/exams/exam-form.component'
 import { ExamAdminComponent } from './components/admin/exams/exam-admin.component';
 import { CourseAddComponent } from './components/courses/course-add.component';
 import { ExamAddComponent } from './components/exams/exam-add.component';
+import { LogoComponent } from './components/admin/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ExamAddComponent } from './components/exams/exam-add.component';
     ExamAdminComponent,
     CourseAddComponent,
     ExamAddComponent,
+    LogoComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
 

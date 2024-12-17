@@ -51,8 +51,8 @@ export class NotesComponent implements OnInit {
   }
 
   loadNotes(): void {
-this.viewNotes = true; 
-this.isLoading = true;
+    this.viewNotes = true;
+    this.isLoading = true;
 
     this.noteService.getNotes().subscribe(
       (data: any) => {
@@ -102,8 +102,8 @@ this.isLoading = true;
   }
 
   seePdf(link: string): void {
-    window.open(`${this.pdfUrl}/${link}`, '_blank');
-    // console.log('Link:', link);
+    const cleanUrl = `${this.pdfUrl}/${link}`.replace(/([^:]\/)\/+/g, '$1');
+    window.open(cleanUrl, '_blank');
   }
 
   formatDate(dateString: string): string {
